@@ -1,0 +1,184 @@
+/*
+ * Copyright (c) 2026 ROKCT INTELLIGENCE (PTY) LTD
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import { BaseService, ServiceOptions } from "@/app/services/all/lending/base";
+
+export class LoanService {
+  static async getList(
+    page = 1,
+    limit = 20,
+    filters: any = {},
+    options?: ServiceOptions,
+  ) {
+    const start = (page - 1) * limit;
+    const response = await BaseService.call(
+      "frappe.client.get_list",
+      {
+        doctype: "Loan",
+        fields: [
+          "name",
+          "applicant",
+          "loan_amount",
+          "status",
+          "loan_product",
+          "posting_date",
+          "total_payment",
+          "total_amount_paid",
+          "branch",
+        ],
+        filters: filters,
+        limit_start: start,
+        limit_page_length: limit,
+        order_by: "creation desc",
+      },
+      options,
+    );
+
+    const countRes = await BaseService.call(
+      "frappe.client.get_value",
+      {
+        doctype: "Loan",
+        filters: {},
+        fieldname: "count(name) as total",
+      },
+      options,
+    );
+
+    return {
+      data: response?.message || [],
+      total: countRes?.message?.total || 0,
+      page,
+      limit,
+    };
+  }
+
+  static async get(id: string, options?: ServiceOptions) {
+    const response = await BaseService.call(
+      "frappe.client.get",
+      {
+        doctype: "Loan",
+        name: id,
+      },
+      options,
+    );
+    return response?.message;
+  }
+
+  static async getRepaymentSchedule(loanId: string, options?: ServiceOptions) {
+    // Pre-existing bug, unrelated to this fork: `Loan.repayment_schedule` has
+    // never existed as a field - not on the real upstream Loan doctype, not
+    // on this fork's. Real repayment schedules live in a separate
+    // `Repayment Schedule` child table under `Loan Repayment Schedule`, which
+    // this fork never built (nothing reads generated schedule rows anywhere
+    // in this codebase - see Phase 2's notes). This has likely always
+    // returned an empty array.
+    const response = await BaseService.call(
+      "frappe.client.get",
+      {
+        doctype: "Loan",
+        name: loanId,
+      },
+      options,
+    );
+    return response?.message?.repayment_schedule || [];
+  }
+
+  // getAssetAccounts() removed: queried ERPNext's "Account" doctype to
+  // populate an asset-account picker feeding realisePawnAsset()'s
+  // asset_account param. Per the ERPNext/HRMS dependency audit
+  // (erpnext-hrms-dependency-audit-brief.md) and the Phase 0 GL decision,
+  // Loan Write Off.write_off_account is a plain free-text field on the
+  // forked backend, not a Link to Account, and "Account" is an ERPNext
+  // doctype this fork deliberately doesn't depend on - the picker never
+  // matched what the field actually stores. The Loan Detail page now uses a
+  // plain text input instead.
+
+  static async realisePawnAsset(
+    loan: string,
+    asset_account: string,
+    options?: ServiceOptions,
+  ) {
+    const response = await BaseService.call(
+      "api.lending.realise_pawn_asset",
+      {
+        loan_name: loan,
+        asset_account: asset_account,
+      },
+      options,
+    );
+    return response?.message;
+  }
+
+  static async disburse(
+    loanId: string,
+    postingDate?: string,
+    options?: ServiceOptions,
+  ) {
+    // Fetch loan first to get details needed for args
+    // Using custom wrapper which handles Mobile App logic if needed
+    const response = await BaseService.call(
+      "api.lending.disburse_loan",
+      {
+        loan_application: loanId,
+      },
+      options,
+    );
+
+    return typeof response?.message === "string"
+      ? response.message
+      : "Loan Disbursed Successfully";
+  }
+
+  static async releaseSecurity(loanId: string, options?: ServiceOptions) {
+    // Repointed (secured-lending-brief.md): now calls polaris's own
+    // release_security(), which releases this loan's single Pledged Asset
+    // (Polaris's actual single-asset repossession model) once the loan is
+    // confirmed fully paid off server-side - not the external `lending`
+    // app's multi-asset Loan.unpledge_security, which this fork never
+    // built a target for.
+    const response = await BaseService.call(
+      "api.lending.release_security",
+      { loan: loanId },
+      options,
+    );
+    return response?.message || "Security Released Successfully";
+  }
+
+  static async getTimeline(loanId: string, options?: ServiceOptions) {
+    const response = await BaseService.call(
+      "frappe.client.get_list",
+      {
+        doctype: "Comment",
+        filters: {
+          reference_doctype: "Loan",
+          reference_name: loanId,
+        },
+        fields: [
+          "name",
+          "content",
+          "owner",
+          "creation",
+          "comment_type",
+          "subject",
+        ],
+        order_by: "creation desc",
+        limit_page_length: 50,
+      },
+      options,
+    );
+    return response?.message || [];
+  }
+}

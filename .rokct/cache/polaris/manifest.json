@@ -1,0 +1,163 @@
+{
+  "name": "polaris_sdk",
+  "version": "1.6.0",
+  "installs": [
+    {
+      "from": "templates/app/handson/all/lending",
+      "to": "app/handson/all/lending"
+    },
+    {
+      "from": "templates/app/actions/handson/all/lending",
+      "to": "app/actions/handson/all/lending"
+    },
+    {
+      "from": "templates/app/services/all/lending",
+      "to": "app/services/all/lending"
+    },
+    {
+      "from": "templates/app/templates/lending",
+      "to": "app/templates/lending"
+    },
+    {
+      "from": "templates/app/portal/loan-quote",
+      "to": "app/portal/loan-quote"
+    },
+    {
+      "from": "templates/app/actions/public/lending",
+      "to": "app/actions/public/lending"
+    },
+    {
+      "from": "templates/app/services/public/lending",
+      "to": "app/services/public/lending"
+    },
+    {
+      "from": "templates/app/lib/lending",
+      "to": "app/lib/lending"
+    },
+    {
+      "from": "templates/app/loans",
+      "to": "app/loans"
+    },
+    {
+      "from": "templates/app/actions/lending",
+      "to": "app/actions/lending"
+    },
+    {
+      "from": "templates/app/api/lending",
+      "to": "app/api/lending"
+    },
+    {
+      "from": "templates/components/custom/lending",
+      "to": "components/custom/lending"
+    }
+  ],
+  "dependencies": {
+    "date-fns": "^4.1.0",
+    "@remixicon/react": "^4.6.0",
+    "sonner": "^2.0.7",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {},
+  "integrations": [
+    {
+      "target": "app/handson/sidebar-client.tsx",
+      "placeholder": "// @rokct-sdk-nav-start",
+      "replacement": "  { href: \"/handson/all/lending\", label: \"Lending\" },"
+    }
+  ],
+  "requires": [
+    "app/config/platform.ts",
+    "app/lib/i18n/index.ts",
+    "app/services/base/platform-gateway.ts",
+    "app/services/base/session.ts",
+    "components/custom/branding.tsx",
+    "components/ui/badge.tsx",
+    "components/ui/button.tsx",
+    "components/ui/input.tsx",
+    "components/ui/label.tsx",
+    "lib/utils.ts"
+  ],
+  "app_type": {
+    "polaris": {
+      "installs": [
+        {
+          "from": "templates/app/page.tsx",
+          "to": "app/page.tsx"
+        },
+        {
+          "from": "templates/components/custom/landing/polaris-hero-copy.ts",
+          "to": "components/custom/landing/polaris-hero-copy.ts"
+        },
+        {
+          "from": "templates/components/custom/landing/polaris-hero-form.tsx",
+          "to": "components/custom/landing/polaris-hero-form.tsx"
+        },
+        {
+          "from": "templates/components/custom/landing/polaris-header-menu.ts",
+          "to": "components/custom/landing/polaris-header-menu.ts"
+        },
+        {
+          "from": "templates/components/custom/landing/polaris-site-metadata.ts",
+          "to": "components/custom/landing/polaris-site-metadata.ts"
+        },
+        {
+          "from": "templates/components/custom/landing/polaris-plans-query.ts",
+          "to": "components/custom/landing/polaris-plans-query.ts"
+        },
+        {
+          "from": "templates/components/custom/polaris-how-it-works-section.tsx",
+          "to": "components/custom/polaris-how-it-works-section.tsx"
+        }
+      ],
+      "dependencies": {},
+      "devDependencies": {},
+      "integrations": [
+        {
+          "target": "components/custom/landing/hero-copy.ts",
+          "placeholder": "// @rokct-sdk-hero-copy-start",
+          "replacement": "  { id: \"polaris-hero-copy\", load: () => import(\"@/components/custom/landing/polaris-hero-copy\") },"
+        },
+        {
+          "target": "components/custom/landing/hero-form.ts",
+          "placeholder": "// @rokct-sdk-hero-form-start",
+          "replacement": "  { id: \"polaris-hero-form\", load: () => import(\"@/components/custom/landing/polaris-hero-form\") },"
+        },
+        {
+          "target": "components/custom/landing/header-menu.ts",
+          "placeholder": "// @rokct-sdk-header-menu-start",
+          "replacement": "  { id: \"polaris-header-menu\", load: () => import(\"@/components/custom/landing/polaris-header-menu\") },"
+        },
+        {
+          "target": "components/custom/landing/site-metadata.ts",
+          "placeholder": "// @rokct-sdk-site-metadata-start",
+          "replacement": "  { id: \"polaris-site-metadata\", load: () => import(\"@/components/custom/landing/polaris-site-metadata\") },"
+        },
+        {
+          "target": "components/custom/landing/plans-query.ts",
+          "placeholder": "// @rokct-sdk-plans-query-start",
+          "replacement": "  { id: \"polaris-plans\", load: () => import(\"@/components/custom/landing/polaris-plans-query\") },"
+        },
+        {
+          "target": "components/custom/landing/page-sections.ts",
+          "placeholder": "// @rokct-sdk-page-sections-start",
+          "replacement": "  { id: \"polaris-how-it-works-section\", load: () => import(\"@/components/custom/polaris-how-it-works-section\") },"
+        }
+      ],
+      "requires": [
+        "app/landing/page.tsx",
+        "components/custom/landing/header-menu.ts",
+        "components/custom/landing/hero-copy.ts",
+        "components/custom/landing/hero-form.ts",
+        "components/custom/landing/landing-config.ts",
+        "components/custom/landing/page-sections.ts",
+        "components/custom/landing/plans-query.ts",
+        "components/custom/landing/site-metadata.ts"
+      ]
+    }
+  },
+  "_comment": {
+    "about": "The Next.js half of the Polaris lending SDK. Top-level installs go to every host that composes it: the staff back office (app/handson/all/lending), the public quote page (app/portal/loan-quote) and, since 1.6.0, the borrower area (app/loans, app/actions/lending, app/api/lending, components/custom/lending), with the lending-owned plumbing that used to be borrowed from the RokctAI_frontend host (app/services/all/lending/base.ts over base_sdk's platformCall, app/actions/handson/all/lending/access.ts over api.lending.get_my_lending_access, currency.ts, lookups.ts, app/lib/lending/ncr_calculator.ts and reports_config.ts). The app_type.polaris block is the Polaris web app (Ray, 2026-10-17: a Next.js frontend that gets its landing from the SDK as the home SDK, staff do their thing when signed in as such, customers do what they do in the Dart app): it owns app/page.tsx (signed out to /landing; signed in to /handson/all/lending for staff, /loans for everyone else) and fills base_sdk's landing registries with one module each. The contract is polaris/docs/web-app.md. The shell is the protocol template core/utils/nextjs/composer/polaris.json (telemetry_sdk, base_sdk, auth_sdk, corporate_sdk, polaris_sdk as home_sdk).",
+    "integrations": "The top-level line targets the RokctAI_frontend host's app/handson/sidebar-client.tsx; a host without that file skips it. The back office's own layout.tsx carries its navigation.",
+    "app_type": "polaris: the home SDK's files and its one line at each of base_sdk's landing registries (hero-copy, hero-form, header-menu, site-metadata, plans-query, page-sections). polaris-plans-query.ts answers null: the Subscription Plan catalog is what a lender buys, so a borrower's landing lists none."
+  }
+}
