@@ -11,12 +11,10 @@ brief lives in [docs/spec.md](docs/spec.md); the build instructions for the
 agent live in [AGENTS.md](AGENTS.md).
 
 The shell is the host layer a Rokct Next.js composition needs and nothing
-more: the shadcn primitives (`components/ui/*`), `lib/utils.ts`,
-`app/config/*`, `app/lib/*`, the neutral `branding` / `brand-logo` /
-`theme-toggle` seams, the neutral `app/lib/session.ts` and
-`components/custom/session-provider.tsx` (no auth surface composed yet), the
-theme tokens in `app/globals.css`, and `app/site.ts`, the single source of
-the public origin and name (`NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SITE_NAME`;
+more: the shadcn primitives no SDK installs (`components/ui/*`),
+`lib/utils.ts`, `app/config/*`, `app/lib/*`, the neutral `branding` /
+`brand-logo` / `theme-toggle` seams, the theme tokens in `app/globals.css`,
+and `app/site.ts`, the single source of the public origin and name (`NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SITE_NAME`;
 the name falls back to the app_type). No product copy, colour or imagery
 lives here: everything a visitor reads is the home SDK's, registered into
 `base_sdk`'s landing registries at compose time. Each host seam file says in
@@ -55,22 +53,13 @@ bash scripts/compose.sh && npm run build
 ```
 
 `refresh` composes from the registry template named by
-`.rokct/config/app_type` (`polaris-web`, the slug of the name given in the
-factory issue form): `core/utils/frappe/composer/polaris-web.json` in
-`RokctAI/The-Rokct-Protocol`. **Adding that template to the protocol
-registry is what makes `compose.sh refresh` work for a new app** — until it
-exists the refresh stops at its registry guard. Start it from the
-protocol's `nextjs_compose_example.json` (its `sdks[]` is the kernel this
-shell already composes; `_available_sdks` is the menu of every other SDK with
-a Next.js half, with repo, path, version and pin per the consumers index)
-and mirror the result here in `composer.json`.
-
-Two manual steps remain for every new shell:
-
-1. The registry template above.
-2. The home SDK: flag exactly one non-kernel entry `"home_sdk": true` — it
-   owns `app/page.tsx` and `base_sdk`'s single-answer landing registries.
-   The spawn cannot pick it.
+`.rokct/config/app_type` (`polaris`):
+`core/utils/nextjs/composer/polaris.json` in `RokctAI/The-Rokct-Protocol`,
+the Next.js template `polaris_sdk` is the home SDK of (beside
+`telemetry_sdk`, `base_sdk`, `auth_sdk` and `corporate_sdk`). The marker
+is the template's name, not this repo's slug, the same way `supacharge-web`
+reads `supacharge`. `composer.json` mirrors that template: change the
+template first, mirror it here, then refresh.
 
 Once base_sdk 1.35.0 is composed, add `data/` per the base docs.
 
