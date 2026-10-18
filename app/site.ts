@@ -35,7 +35,7 @@ function resolveSiteUrl(): string {
 
 export const SITE_URL = resolveSiteUrl();
 
-/** The app_type this shell was spawned with; the neutral fallback name. */
-export const APP_TYPE = "polaris-web";
+/** The app_type this shell was spawned with (the template's name, as .rokct/config/app_type reads); the fallback name. */
+export const APP_TYPE = "polaris";
 
 export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME?.trim() || APP_TYPE;

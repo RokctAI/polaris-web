@@ -79,10 +79,10 @@ SDK installer convention assumes.
 by default, light through the header toggle) and the shadcn HSL token set
 `components/ui/*` reads through `hsl(var(--token))`. The content globs cover
 every directory an SDK installer writes into (`app/`, `components/`, `lib/`,
-`hooks/`). `--primary` in `app/globals.css` is the platform's placeholder
-accent until this product has a look of its own; it is the one place the
-accent, the primitives and `base_sdk`'s generated favicon letter take their
-colour from.
+`hooks/`). `--primary` in `app/globals.css` is Polaris's gold (the landing's
+palette is `polaris_sdk`'s, scoped to the composed landing); it is the one
+place the accent, the primitives and `base_sdk`'s generated favicon letter
+take their colour from.
 
 `.npmrc` sets `legacy-peer-deps=true`: `react-day-picker@8` declares a
 `date-fns` peer of `^2 || ^3` while `base_sdk`'s manifest declares
