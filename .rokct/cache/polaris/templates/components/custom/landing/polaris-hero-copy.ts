@@ -17,24 +17,27 @@
 
 // The Polaris web app's hero copy, for base_sdk's hero-copy registry
 // (components/custom/landing/hero-copy.ts). The hero frame renders
-// "<text> <verb> <suffix>"; the suffix carries the point Ray made for this
-// app (2026-10-17): a borrower does it all in the browser, with no app to
-// download. Every line says only what the product does; no rate, amount or
-// approval time is fixed in any source, so none is claimed. No input on this
-// hero (polaris-hero-form.tsx draws two calls to action) and no store badges.
+// "<text> <suffix>": the rotating text is what the loan is for, the suffix
+// the one promise the page keeps - the full cost is on the page before the
+// application starts (the calculator under the headline). No rate, amount
+// or approval time is claimed; the calculator shows the Act's ceilings and
+// says so. The trust line is drawn by polaris-hero-form.tsx under the
+// calculator (the frame draws it only beside store badges, and a lender
+// has none). `brand` stays "name": the host's Branding is the brand row,
+// restyled by polaris-theme.css into the gold eyebrow.
 
 import type { HeroCopy } from "@/components/custom/landing/hero-copy";
 
+import { POLARIS_LANDING_CONFIG } from "./polaris-landing-config";
+
 const POLARIS_HERO_COPY: HeroCopy = {
-  headlineWords: [
-    { text: "Apply for a loan", verb: "" },
-    { text: "Send your bank statement", verb: "" },
-    { text: "Accept your contract", verb: "" },
-  ],
-  headlineSuffix: "from your browser",
+  headlineWords: POLARIS_LANDING_CONFIG.hero.words.map((text) => ({ text, verb: "" })),
+  headlineSuffix: POLARIS_LANDING_CONFIG.hero.suffix,
+  wordIntervalMs: 3200,
   placeholders: [],
   backgroundImage: "",
-  trustLine: ["No app to download", "Your statement as the PDF from your bank"],
+  logo: "none",
+  trustLine: [...POLARIS_LANDING_CONFIG.hero.trust],
   badges: [],
 };
 
