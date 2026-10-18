@@ -31,10 +31,9 @@ import Link from "next/link";
 import { listPublicTerms } from "@/app/actions/base/legal";
 import { FooterChromeRow } from "@/components/custom/footer-chrome";
 import { legalFooterLinks } from "@/components/custom/landing/legal-links";
-import { POLARIS_MOTTO } from "@/components/custom/landing/polaris-brand";
+import { POLARIS_MOTTO, polarisBrandName } from "@/components/custom/landing/polaris-brand";
 import { POLARIS_FOOTER_CHROME } from "@/components/custom/landing/polaris-footer-chrome";
 import { POLARIS_LANDING_CONFIG } from "@/components/custom/landing/polaris-landing-config";
-import { PolarisWordmark } from "@/components/custom/landing/polaris-star";
 import type {
   PageSectionMeta,
   PageSectionProps,
@@ -60,8 +59,8 @@ export async function PolarisFooterSection({
       <div className="container mx-auto flex max-w-6xl flex-col gap-12 px-4 xl:px-0">
         <div className="flex flex-col justify-between gap-10 md:flex-row md:items-end">
           <div className="flex flex-col gap-3">
-            <PolarisWordmark size={30} className="text-[var(--px-ink)]" />
-            <p className="px-display text-xl !font-normal italic text-[var(--px-gold-text)]">
+            <p className="px-display text-3xl text-[var(--px-ink)]">{polarisBrandName()}</p>
+            <p className="px-display text-xl !font-normal italic text-[var(--px-ember-text)]">
               {POLARIS_MOTTO}
             </p>
           </div>

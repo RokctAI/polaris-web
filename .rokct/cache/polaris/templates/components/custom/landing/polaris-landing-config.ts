@@ -36,7 +36,7 @@ export const POLARIS_LANDING_CONFIG = {
   hero: {
     /** The rotating part of the headline: what the loan is for. */
     words: [
-      "A loan for school fees",
+      "A loan for the rent",
       "A loan for the car",
       "A loan for a tight month",
       "A loan for the unexpected",

@@ -55,7 +55,7 @@
       "git": "https://github.com/RokctAI/corporate",
       "path": "../corporate/corporate/nextjs",
       "ref": "main",
-      "commit": "fed097d03bf84542f52e2b328dbccca9f1e3ad03",
+      "commit": "a611dcda90da803d9d8bb3bec531d1abfe0f15a4",
       "version": "1.3.0",
       "install_py_sha256": "6e03485fd03617ea1e175adc50354a91af25e213908371fa3581083d8aa7d4ba",
       "content_sha256": "9aef15ba5eea518c6f7e17456ad31ad53a2b3cc29e445f30328ed7bf07829c09"
@@ -67,10 +67,10 @@
       "git": "https://github.com/RokctAI/corporate",
       "path": "../corporate/polaris/nextjs",
       "ref": "main",
-      "commit": "fed097d03bf84542f52e2b328dbccca9f1e3ad03",
-      "version": "1.7.0",
+      "commit": "a611dcda90da803d9d8bb3bec531d1abfe0f15a4",
+      "version": "1.7.1",
       "install_py_sha256": "90c6e577255101f2804dd74bf2b311cd45bbf1d84adbd52759f9728bec30b60a",
-      "content_sha256": "278171c59adb6ccff670879c494012d0899f7d4f9b445d9af19e16abb7b60798"
+      "content_sha256": "592fa47e2903c313da2cae39262029c16194fb18eda953aea92171e412c4f8fd"
     }
   ]
 }

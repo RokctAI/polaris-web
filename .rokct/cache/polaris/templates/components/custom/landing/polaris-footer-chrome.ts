@@ -26,14 +26,14 @@
 import { LEGAL_COMPANY_NAME } from "@/app/config/platform";
 import type { FooterChromeConfig } from "@/components/custom/landing/footer-chrome-config";
 
-export const POLARIS_LANDING_VERSION = "1.7.0";
+export const POLARIS_LANDING_VERSION = "1.7.1";
 
 export const POLARIS_FOOTER_CHROME: FooterChromeConfig = {
   copyrightHolder: LEGAL_COMPANY_NAME,
   version: process.env.NEXT_PUBLIC_APP_VERSION || POLARIS_LANDING_VERSION,
   statusColors: {
     operational: "var(--px-green)",
-    maintenance: "var(--px-gold)",
+    maintenance: "var(--px-ember)",
     offline: "var(--px-red)",
     checking: "var(--px-ink-3)",
   },
