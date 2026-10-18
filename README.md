@@ -79,7 +79,7 @@ SDK installer convention assumes.
 by default, light through the header toggle) and the shadcn HSL token set
 `components/ui/*` reads through `hsl(var(--token))`. The content globs cover
 every directory an SDK installer writes into (`app/`, `components/`, `lib/`,
-`hooks/`). `--primary` in `app/globals.css` is Polaris's gold (the landing's
+`hooks/`). `--primary` in `app/globals.css` is Polaris's ember (the landing's
 palette is `polaris_sdk`'s, scoped to the composed landing); it is the one
 place the accent, the primitives and `base_sdk`'s generated favicon letter
 take their colour from.
