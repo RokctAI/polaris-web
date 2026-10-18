@@ -16,16 +16,18 @@
 
 
 // The Polaris web app's header menu, for base_sdk's header-menu registry
-// (components/custom/landing/header-menu.ts). One anchor, resolved against
-// the page's live nav (polaris-how-it-works-section.tsx registers it); the
-// header already draws Log in and Sign up. No Polaris artwork exists, so the
-// header draws the shell's wordmark alone.
+// (components/custom/landing/header-menu.ts). The anchors are resolved
+// against the page's live nav, in page order (the sections' meta.nav ids),
+// so reading the bar is reading down the page; About is corporate_sdk's
+// page, in Polaris's frame. The brand slot draws no image: the host's
+// wordmark is the brand, restyled by polaris-theme.css.
 
 import type { HeaderMenu } from "@/components/custom/landing/header-menu";
 
 const POLARIS_HEADER_MENU: HeaderMenu = {
   brand: { logo: "none" },
-  anchors: ["how-it-works"],
+  anchors: ["why", "how-it-works", "costs", "faq"],
+  links: [{ id: "about", label: "About", href: "/about" }],
 };
 
 export default POLARIS_HEADER_MENU;

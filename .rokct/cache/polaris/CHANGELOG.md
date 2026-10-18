@@ -1,5 +1,56 @@
 # Changelog
 
+## 1.7.0
+
+The landing is Polaris's own, with a loan calculator (Ray, 2026-10-18:
+"redesign this landing page. the site is polaris not polaris-web. make it
+look good and give it a loan calculator"; and the rule that every Next.js
+site is built to a portfolio standard with an identity of its own, not the
+platform's frame with new words). `app_type.polaris` only; the back office
+and the borrower area are untouched.
+
+* **A look of its own.** `landing/polaris-theme.css`, scoped to the
+  `px-landing` class the new theme section (order -2, `rootClass`,
+  `frame`) puts on the landing root and `landing/polaris-theme.tsx` puts on
+  `<html>`: the navy and gold of Polaris's decision notices as page tokens,
+  a warm-paper light set, dark by default without overriding the header's
+  toggle. The shadcn tokens are redefined inside the scope, so base_sdk's
+  header and primitives wear the palette untouched. Two faces through
+  `next/font/google` (`landing/polaris-fonts.ts`): Fraunces for display
+  and figures, Manrope for text. The hero frame is re-set from outside
+  (sky, eyebrow brand row, serif headline, gold italic rotating word), and
+  base's wordmark reads "Polaris" with a star before it.
+* **The hero is the calculator.** `landing/polaris-hero-form.tsx` draws
+  `landing/polaris-loan-calculator.tsx`: an amount (typed or slid, R500 to
+  R8 000), a term (one to six months), credit life cover on or off, and the
+  most that loan can cost under the National Credit Act - the total, the
+  instalment, every line of the cost and the s103(5) bar (cost of credit
+  against the amount, the ceiling the Act sets). The maths is
+  `landing/polaris-loan-presets.ts` over the SDK's own
+  `app/lib/lending/ncr_calculator.ts` at the Act's caps (5% a month, R165 +
+  10% over R1 000 capped at R1 050, R60 a month, 15% VAT on the fees, R4,50
+  per R1 000 cover), labelled as an indication, not an offer. Apply goes to
+  sign-up with the amount in the button.
+* **Six sections** (`components/custom/polaris-*-section.tsx`): why (an
+  editorial spread, four numbered reasons), how it works (the four apply
+  steps on a gold line), what it costs (the Act's ceilings as a price list,
+  ending on s103(5) in a gold band), questions (`.client` half holds the
+  open item; CSS reveal, no motion library), a closing gold band, and the
+  footer (wordmark, motto, links, base's `FooterChromeRow` with the Legal
+  link group from `listPublicTerms()`; `frame: true`, so /about, /team and
+  /legal end the same way). The header menu anchors why, how-it-works,
+  costs and faq and links About.
+* **The name.** `landing/polaris-brand.ts`: the shell's `PLATFORM_NAME`
+  unless it is still the app_type (`polaris`, `polaris-web`), then
+  "Polaris". Site metadata, the footer wordmark and the title read it.
+* Copy lives in `landing/polaris-landing-config.ts` and claims no rate,
+  amount, approval time or registration of the lender's own: the figures
+  on the page are the law's.
+* New `tests/test_manifest.py` (stdlib): every install exists, every
+  registry entry is server-safe (the hero form apart), every section
+  exports `meta`, every host import is in `requires`, the footer version
+  matches the manifest.
+
 ## 1.6.0
 
 The Polaris web app: polaris_sdk is the home SDK of the `polaris` Next.js
