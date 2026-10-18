@@ -18,7 +18,7 @@
 // "How it works" on the Polaris web app's landing, for base_sdk's
 // page-sections registry: the four steps of the borrower's journey, the
 // same steps the apply flow walks (polaris/docs/web-app.md section 4), on
-// a gold line with a numbered node each. Copy: POLARIS_LANDING_CONFIG.how.
+// an ember line with a numbered node each. Copy: POLARIS_LANDING_CONFIG.how.
 // Server-safe: no hooks.
 
 import React from "react";

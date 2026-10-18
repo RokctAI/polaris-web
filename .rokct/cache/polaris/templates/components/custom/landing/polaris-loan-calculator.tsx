@@ -274,7 +274,7 @@ export function PolarisLoanCalculator({
             </p>
           </div>
 
-          <Link href={signupUrl} className="px-btn px-btn-gold w-full">
+          <Link href={signupUrl} className="px-btn px-btn-ember w-full">
             Apply for {formatRand(estimate.amount)}
           </Link>
           <p className="text-xs leading-relaxed text-[var(--px-ink-3)]">

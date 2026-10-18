@@ -240,7 +240,6 @@ next-env.d.ts
 /components/custom/landing/polaris-loan-presets.ts
 /components/custom/landing/polaris-plans-query.ts
 /components/custom/landing/polaris-site-metadata.ts
-/components/custom/landing/polaris-star.tsx
 /components/custom/landing/polaris-theme-classes.ts
 /components/custom/landing/polaris-theme.css
 /components/custom/landing/polaris-theme.tsx

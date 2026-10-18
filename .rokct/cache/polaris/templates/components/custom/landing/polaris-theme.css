@@ -20,11 +20,12 @@
  * and polaris-theme.tsx also puts on <html> while the landing is up. Nothing
  * here reaches the back office or the borrower area.
  *
- * Night sky and gold: a deep navy page, warm off-white ink, one gold - the
- * palette Polaris already prints on its decision notices
- * (app/templates/lending/decisionNoticeImage.ts), so the site and the
- * paperwork a borrower gets are one thing. The light set is warm paper
- * with the same navy as ink and a deeper gold that still reads on paper.
+ * Pine and ember: a deep pine-green page, cool off-white ink, one ember -
+ * a warm coral-orange that is nobody else's in the fleet (Ray, 2026-10-18:
+ * "pick new branding colors for polaris", away from the navy and gold that
+ * read as the platform's yellow). The light set is a pale mint linen with
+ * the same pine as ink and a deeper ember that still reads on paper. No
+ * mark anywhere: Ray's standing word for Polaris is no star.
  *
  * Two layers of tokens: the --px-* set the Polaris sections read, and the
  * shadcn HSL set (--background, --border, --primary ...) redefined inside
@@ -33,51 +34,49 @@
  * without being touched.
  */
 .px-landing {
-  --px-sky: #0b1426;
-  --px-sky-2: #0f1a2e;
-  --px-sky-3: #152442;
-  --px-line: #24365a;
-  --px-line-soft: #182845;
-  --px-ink: #f1f4f9;
-  --px-ink-2: #a9b8cf;
-  --px-ink-3: #7b8ba6;
-  --px-gold: #f2c94c;
-  --px-gold-deep: #d9ad2a;
-  --px-gold-text: #f2c94c;
-  --px-gold-ink: #0b1426;
-  --px-green: #6fdc9a;
-  --px-red: #ff8a7a;
+  --px-sky: #0b1f1a;
+  --px-sky-2: #10302a;
+  --px-sky-3: #163f37;
+  --px-line: #255548;
+  --px-line-soft: #1b443a;
+  --px-ink: #eef5f0;
+  --px-ink-2: #a7c3b7;
+  --px-ink-3: #789c8e;
+  --px-ember: #ff7a59;
+  --px-ember-deep: #f0623f;
+  --px-ember-text: #ff8a6b;
+  --px-ember-ink: #1b0f0a;
+  --px-green: #7fe0a8;
+  --px-red: #ff6b8a;
   --px-font-sans: var(--px-font-manrope, "Manrope"), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --px-font-display: var(--px-font-fraunces, "Fraunces"), "Iowan Old Style", "Palatino Linotype",
     Georgia, serif;
   --px-glow: radial-gradient(
     70% 55% at 50% 0%,
-    rgba(242, 201, 76, 0.2) 0%,
-    rgba(242, 201, 76, 0.06) 40%,
-    rgba(242, 201, 76, 0) 70%
+    rgba(255, 122, 89, 0.2) 0%,
+    rgba(255, 122, 89, 0.06) 40%,
+    rgba(255, 122, 89, 0) 70%
   );
-  --px-star-dot: rgba(241, 244, 249, 0.75);
-  --px-star-dim: rgba(241, 244, 249, 0.35);
   --px-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6);
 
-  --background: 221 55% 10%;
-  --foreground: 218 40% 96%;
-  --card: 221 51% 12%;
-  --card-foreground: 218 40% 96%;
-  --popover: 221 51% 12%;
-  --popover-foreground: 218 40% 96%;
-  --primary: 45 86% 62%;
-  --primary-foreground: 221 55% 10%;
-  --secondary: 221 51% 17%;
-  --secondary-foreground: 218 40% 96%;
-  --muted: 221 51% 17%;
-  --muted-foreground: 216 28% 74%;
-  --accent: 221 51% 17%;
-  --accent-foreground: 218 40% 96%;
-  --border: 221 43% 25%;
-  --input: 221 43% 25%;
-  --ring: 45 86% 62%;
+  --background: 165 48% 8%;
+  --foreground: 137 26% 95%;
+  --card: 169 50% 13%;
+  --card-foreground: 137 26% 95%;
+  --popover: 169 50% 13%;
+  --popover-foreground: 137 26% 95%;
+  --primary: 12 100% 67%;
+  --primary-foreground: 18 46% 7%;
+  --secondary: 168 48% 17%;
+  --secondary-foreground: 137 26% 95%;
+  --muted: 168 48% 17%;
+  --muted-foreground: 154 19% 71%;
+  --accent: 168 48% 17%;
+  --accent-foreground: 137 26% 95%;
+  --border: 164 39% 24%;
+  --input: 164 39% 24%;
+  --ring: 12 100% 67%;
   color-scheme: dark;
 }
 
@@ -90,45 +89,43 @@
  */
 html.px-landing:not(.dark),
 html.light .px-landing {
-  --px-sky: #f6f3ea;
-  --px-sky-2: #fffdf8;
-  --px-sky-3: #efe9da;
-  --px-line: #ddd5c2;
-  --px-line-soft: #e9e3d3;
-  --px-ink: #0f1a2e;
-  --px-ink-2: #4a5876;
-  --px-ink-3: #7b8ba6;
-  --px-gold: #d4ad2f;
-  --px-gold-deep: #b8911c;
-  --px-gold-text: #8a6a0e;
-  --px-gold-ink: #0b1426;
+  --px-sky: #eef3ee;
+  --px-sky-2: #fbfdfb;
+  --px-sky-3: #e1eae3;
+  --px-line: #c9d8cf;
+  --px-line-soft: #d9e4dc;
+  --px-ink: #0b1f1a;
+  --px-ink-2: #3d5a50;
+  --px-ink-3: #6f8c81;
+  --px-ember: #e4572e;
+  --px-ember-deep: #c9461f;
+  --px-ember-text: #b5401b;
+  --px-ember-ink: #1b0f0a;
   --px-glow: radial-gradient(
     70% 55% at 50% 0%,
-    rgba(212, 173, 47, 0.22) 0%,
-    rgba(212, 173, 47, 0.07) 40%,
-    rgba(212, 173, 47, 0) 70%
+    rgba(228, 87, 46, 0.16) 0%,
+    rgba(228, 87, 46, 0.05) 40%,
+    rgba(228, 87, 46, 0) 70%
   );
-  --px-star-dot: rgba(15, 26, 46, 0.35);
-  --px-star-dim: rgba(15, 26, 46, 0.16);
-  --px-shadow: 0 30px 80px -30px rgba(15, 26, 46, 0.25);
+  --px-shadow: 0 30px 80px -30px rgba(11, 31, 26, 0.22);
 
-  --background: 45 40% 94%;
-  --foreground: 221 51% 12%;
-  --card: 43 100% 99%;
-  --card-foreground: 221 51% 12%;
-  --popover: 43 100% 99%;
-  --popover-foreground: 221 51% 12%;
-  --primary: 45 67% 47%;
-  --primary-foreground: 221 55% 10%;
-  --secondary: 43 40% 90%;
-  --secondary-foreground: 221 51% 12%;
-  --muted: 43 40% 90%;
-  --muted-foreground: 221 23% 38%;
-  --accent: 43 40% 90%;
-  --accent-foreground: 221 51% 12%;
-  --border: 42 29% 81%;
-  --input: 42 29% 81%;
-  --ring: 45 67% 47%;
+  --background: 120 17% 94%;
+  --foreground: 165 48% 8%;
+  --card: 120 33% 99%;
+  --card-foreground: 165 48% 8%;
+  --popover: 120 33% 99%;
+  --popover-foreground: 165 48% 8%;
+  --primary: 14 77% 54%;
+  --primary-foreground: 18 46% 7%;
+  --secondary: 133 18% 90%;
+  --secondary-foreground: 165 48% 8%;
+  --muted: 133 18% 90%;
+  --muted-foreground: 159 19% 30%;
+  --accent: 133 18% 90%;
+  --accent-foreground: 165 48% 8%;
+  --border: 144 16% 82%;
+  --input: 144 16% 82%;
+  --ring: 14 77% 54%;
   color-scheme: light;
 }
 
@@ -141,8 +138,8 @@ html.light .px-landing {
 }
 
 .px-landing ::selection {
-  background: var(--px-gold);
-  color: var(--px-gold-ink);
+  background: var(--px-ember);
+  color: var(--px-ember-ink);
 }
 
 /* ------------------------------------------------------------ type ---- */
@@ -157,7 +154,7 @@ html.light .px-landing {
 .px-display em {
   font-style: italic;
   font-weight: 400;
-  color: var(--px-gold-text);
+  color: var(--px-ember-text);
 }
 .px-num {
   font-family: var(--px-font-display);
@@ -174,12 +171,15 @@ html.light .px-landing {
   line-height: 1;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--px-gold-text);
+  color: var(--px-ember-text);
 }
 .px-eyebrow::before {
-  content: "\2726";
-  font-size: 0.9em;
-  letter-spacing: 0;
+  content: "";
+  display: inline-block;
+  width: 1.5em;
+  height: 2px;
+  background: currentColor;
+  vertical-align: middle;
 }
 .px-lede {
   font-size: 1.125rem;
@@ -208,32 +208,20 @@ html.light .px-landing {
   background: linear-gradient(
     90deg,
     transparent,
-    var(--px-gold) 18%,
-    var(--px-gold) 82%,
+    var(--px-ember) 18%,
+    var(--px-ember) 82%,
     transparent
   );
 }
 .px-band {
-  background: var(--px-gold);
-  color: var(--px-gold-ink);
+  background: var(--px-ember);
+  color: var(--px-ember-ink);
 }
 .px-sky {
   background: var(--px-sky);
 }
 .px-sky-2 {
   background: var(--px-sky-2);
-}
-.px-stars {
-  background-image:
-    radial-gradient(1.5px 1.5px at 8% 18%, var(--px-star-dot) 50%, transparent 52%),
-    radial-gradient(1px 1px at 22% 62%, var(--px-star-dim) 50%, transparent 52%),
-    radial-gradient(1.5px 1.5px at 31% 30%, var(--px-star-dim) 50%, transparent 52%),
-    radial-gradient(1px 1px at 44% 80%, var(--px-star-dot) 50%, transparent 52%),
-    radial-gradient(2px 2px at 58% 14%, var(--px-star-dot) 50%, transparent 52%),
-    radial-gradient(1px 1px at 67% 48%, var(--px-star-dim) 50%, transparent 52%),
-    radial-gradient(1.5px 1.5px at 78% 26%, var(--px-star-dot) 50%, transparent 52%),
-    radial-gradient(1px 1px at 86% 70%, var(--px-star-dim) 50%, transparent 52%),
-    radial-gradient(1.5px 1.5px at 94% 12%, var(--px-star-dim) 50%, transparent 52%);
 }
 
 /* ---------------------------------------------------------- buttons ---- */
@@ -260,14 +248,14 @@ html.light .px-landing {
 .px-btn:active {
   transform: translateY(1px);
 }
-.px-btn-gold {
-  background: var(--px-gold);
-  color: var(--px-gold-ink);
-  border: 1px solid var(--px-gold);
+.px-btn-ember {
+  background: var(--px-ember);
+  color: var(--px-ember-ink);
+  border: 1px solid var(--px-ember);
 }
-.px-btn-gold:hover {
-  background: var(--px-gold-deep);
-  border-color: var(--px-gold-deep);
+.px-btn-ember:hover {
+  background: var(--px-ember-deep);
+  border-color: var(--px-ember-deep);
 }
 .px-btn-ghost {
   background: transparent;
@@ -278,20 +266,20 @@ html.light .px-landing {
   border-color: var(--px-ink);
 }
 .px-btn-ink {
-  background: var(--px-gold-ink);
-  color: #f1f4f9;
-  border: 1px solid var(--px-gold-ink);
+  background: var(--px-ember-ink);
+  color: #eef5f0;
+  border: 1px solid var(--px-ember-ink);
 }
 .px-btn-ink:hover {
-  background: #152442;
+  background: #3a2419;
 }
 .px-btn-ink-ghost {
   background: transparent;
-  color: var(--px-gold-ink);
-  border: 1px solid rgba(11, 20, 38, 0.45);
+  color: var(--px-ember-ink);
+  border: 1px solid rgba(27, 15, 10, 0.45);
 }
 .px-btn-ink-ghost:hover {
-  border-color: var(--px-gold-ink);
+  border-color: var(--px-ember-ink);
 }
 
 /* ------------------------------------------------------- calculator ---- */
@@ -318,7 +306,7 @@ html.light .px-landing {
   font-variant-numeric: tabular-nums lining-nums;
 }
 .px-amount-input:focus-visible {
-  box-shadow: 0 2px 0 0 var(--px-gold);
+  box-shadow: 0 2px 0 0 var(--px-ember);
 }
 .px-range {
   -webkit-appearance: none;
@@ -328,7 +316,7 @@ html.light .px-landing {
   border-radius: 999px;
   background: linear-gradient(
     90deg,
-    var(--px-gold) var(--px-fill, 0%),
+    var(--px-ember) var(--px-fill, 0%),
     var(--px-line) var(--px-fill, 0%)
   );
   outline: none;
@@ -340,10 +328,10 @@ html.light .px-landing {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: var(--px-gold);
+  background: var(--px-ember);
   border: 4px solid var(--px-sky-2);
   box-shadow:
-    0 0 0 1px var(--px-gold),
+    0 0 0 1px var(--px-ember),
     0 6px 18px rgba(0, 0, 0, 0.35);
   cursor: grab;
 }
@@ -351,22 +339,22 @@ html.light .px-landing {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: var(--px-gold);
+  background: var(--px-ember);
   border: 4px solid var(--px-sky-2);
   box-shadow:
-    0 0 0 1px var(--px-gold),
+    0 0 0 1px var(--px-ember),
     0 6px 18px rgba(0, 0, 0, 0.35);
   cursor: grab;
 }
 .px-range:focus-visible::-webkit-slider-thumb {
   box-shadow:
-    0 0 0 1px var(--px-gold),
-    0 0 0 6px rgba(242, 201, 76, 0.28);
+    0 0 0 1px var(--px-ember),
+    0 0 0 6px color-mix(in srgb, var(--px-ember) 28%, transparent);
 }
 .px-range:focus-visible::-moz-range-thumb {
   box-shadow:
-    0 0 0 1px var(--px-gold),
-    0 0 0 6px rgba(242, 201, 76, 0.28);
+    0 0 0 1px var(--px-ember),
+    0 0 0 6px color-mix(in srgb, var(--px-ember) 28%, transparent);
 }
 .px-seg {
   display: grid;
@@ -394,8 +382,8 @@ html.light .px-landing {
   color: var(--px-ink);
 }
 .px-seg > button[aria-pressed="true"] {
-  background: var(--px-gold);
-  color: var(--px-gold-ink);
+  background: var(--px-ember);
+  color: var(--px-ember-ink);
 }
 .px-switch {
   position: relative;
@@ -420,11 +408,11 @@ html.light .px-landing {
     background-color 0.2s ease;
 }
 [aria-checked="true"] > .px-switch {
-  background: var(--px-gold);
+  background: var(--px-ember);
 }
 [aria-checked="true"] > .px-switch::after {
   transform: translateX(20px);
-  background: var(--px-gold-ink);
+  background: var(--px-ember-ink);
 }
 .px-bar {
   height: 8px;
@@ -436,7 +424,7 @@ html.light .px-landing {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--px-gold-deep), var(--px-gold));
+  background: linear-gradient(90deg, var(--px-ember-deep), var(--px-ember));
   transition: width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .px-row {
@@ -481,7 +469,7 @@ html.light .px-landing {
   place-items: center;
   background: var(--px-sky-3);
   border: 1px solid var(--px-line);
-  color: var(--px-gold-text);
+  color: var(--px-ember-text);
   font-family: var(--px-font-display);
   font-weight: 500;
   font-size: 1.15rem;
@@ -493,7 +481,7 @@ html.light .px-landing {
 /*
  * The header is base_sdk's; it already reads the shadcn tokens above. Its
  * wordmark is the host's Branding (the platform name in the host's sans):
- * re-set in the display face with the star before it, and capitalised,
+ * re-set in the display face, with no mark, and capitalised,
  * because a shell whose name is still its app_type prints "polaris".
  */
 .px-landing header .font-sans.font-bold.tracking-tight {
@@ -504,23 +492,15 @@ html.light .px-landing {
   text-transform: capitalize;
   color: var(--px-ink) !important;
 }
-.px-landing header .font-sans.font-bold.tracking-tight::before {
-  content: "\2726";
-  color: var(--px-gold);
-  font-style: normal;
-  font-size: 0.8em;
-  margin-right: 0.4em;
-  vertical-align: 0.1em;
-}
 
 /*
  * The hero frame is base_sdk's hero-view.tsx; its element order is
  * hero > column > [brand row, headline, (the form), badges]. Re-painted
  * from outside through the `#hero` id the frame gets from
  * LANDING_CONFIG.nav.hero: the sky and the glow, the padding, the brand
- * row as a small gold eyebrow (the host's name, capitalised, the star
- * before it; the letter tile hidden), the headline in the display face
- * with the rotating word in gold italic.
+ * row as a small ember eyebrow (the host's name, capitalised, a short
+ * rule before it; the letter tile hidden), the headline in the display
+ * face with the rotating word in ember italic.
  */
 .px-landing #hero {
   background: var(--px-glow), var(--px-sky) !important;
@@ -550,13 +530,17 @@ html.light .px-landing {
   font-weight: 700 !important;
   letter-spacing: 0.32em !important;
   text-transform: uppercase;
-  color: var(--px-gold-text) !important;
+  color: var(--px-ember-text) !important;
   transform: none !important;
 }
 .px-landing #hero > div > div:first-child span > span::before {
-  content: "\2726";
+  content: "";
+  display: inline-block;
+  width: 1.5em;
+  height: 2px;
   margin-right: 0.7em;
-  letter-spacing: 0;
+  background: currentColor;
+  vertical-align: middle;
 }
 .px-landing #hero > div > div:first-child + div {
   margin-bottom: 2.75rem !important;
@@ -577,7 +561,7 @@ html.light .px-landing {
   font-style: italic !important;
   font-weight: 400 !important;
   font-size: 1em !important;
-  color: var(--px-gold-text) !important;
+  color: var(--px-ember-text) !important;
 }
 @media (min-width: 768px) {
   .px-landing #hero {

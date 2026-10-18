@@ -1,5 +1,31 @@
 # Changelog
 
+## 1.7.1
+
+Three corrections to the 1.7.0 landing, all Ray's on 2026-10-18, `app_type.polaris` only:
+
+* **New brand colours: pine and ember.** "pick new branding colors for
+  polaris". The navy-and-gold set read as the platform's yellow; the
+  landing is now a deep pine-green sky, cool off-white ink and one ember
+  (a warm coral-orange) for the eyebrows, the figures, the calculator's
+  controls and the sign-up band, with a pale mint-linen light set. The
+  tokens are renamed with the colour (`--px-gold*` is `--px-ember*`,
+  `.px-btn-gold` is `.px-btn-ember`) in `landing/polaris-theme.css` and
+  the sections that read them; the shadcn HSL set inside the scope follows
+  (`--primary: 12 100% 67%` dark, `14 77% 54%` light). The status red is
+  a pink-red so it is not the accent. Fonts, layout and the calculator
+  are as in 1.7.0.
+* **No star.** "polaris no star please i made you remove it before".
+  `landing/polaris-star.tsx` is gone with its four-point mark: the header
+  wordmark, the hero eyebrow, the section eyebrows, the why cards, the
+  costs band, the sign-up band, the trust line and the footer carry no
+  mark (eyebrows get a short rule, the trust line a dot, the footer the
+  name in the display face), and the starfield texture behind the costs
+  section is gone too.
+* **"A loan for the rent".** "loan for school fees? thats connecting it
+  to supacharge". The first rotating hero word is the rent, not school
+  fees (`landing/polaris-landing-config.ts`).
+
 ## 1.7.0
 
 The landing is Polaris's own, with a loan calculator (Ray, 2026-10-18:

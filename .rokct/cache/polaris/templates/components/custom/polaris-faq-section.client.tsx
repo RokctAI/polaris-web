@@ -58,7 +58,7 @@ export function PolarisFaqSection({ id }: { id?: string }) {
                     <span className="px-display text-xl md:text-2xl">{item.question}</span>
                     <span
                       aria-hidden="true"
-                      className="px-faq-mark px-num flex-none text-3xl font-light leading-none text-[var(--px-gold-text)]"
+                      className="px-faq-mark px-num flex-none text-3xl font-light leading-none text-[var(--px-ember-text)]"
                     >
                       +
                     </span>

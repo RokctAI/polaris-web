@@ -16,14 +16,13 @@
 
 
 // The closing call on the Polaris landing, for base_sdk's page-sections
-// registry: one gold band, two doors - sign up, or sign in. Not a nav stop.
+// registry: one ember band, two doors - sign up, or sign in. Not a nav stop.
 // Copy: POLARIS_LANDING_CONFIG.cta. Server-safe: no hooks.
 
 import React from "react";
 import Link from "next/link";
 
 import { POLARIS_LANDING_CONFIG } from "@/components/custom/landing/polaris-landing-config";
-import { PolarisStar } from "@/components/custom/landing/polaris-star";
 import type {
   PageSectionMeta,
   PageSectionProps,
@@ -43,13 +42,13 @@ export function PolarisCtaSection({
     <section id={id} className="px-sky w-full py-6 md:py-10">
       <div className="container mx-auto max-w-6xl px-4 xl:px-0">
         <div className="px-band relative overflow-hidden rounded-[1.75rem] px-6 py-12 md:px-14 md:py-16">
-          <PolarisStar
-            size={260}
-            className="pointer-events-none absolute -right-16 -top-20 opacity-[0.12]"
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-24 -top-32 h-80 w-80 rounded-full bg-[var(--px-ember-ink)] opacity-[0.08]"
           />
           <div className="relative flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <div className="flex max-w-xl flex-col gap-3">
-              <h2 className="px-display text-4xl !text-[var(--px-gold-ink)] md:text-5xl">
+              <h2 className="px-display text-4xl !text-[var(--px-ember-ink)] md:text-5xl">
                 {copy.heading}
               </h2>
               <p className="text-lg font-medium opacity-80">{copy.blurb}</p>

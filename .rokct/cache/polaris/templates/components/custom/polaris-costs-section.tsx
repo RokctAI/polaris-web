@@ -25,7 +25,6 @@
 import React from "react";
 
 import { POLARIS_LANDING_CONFIG } from "@/components/custom/landing/polaris-landing-config";
-import { PolarisStar } from "@/components/custom/landing/polaris-star";
 import type {
   PageSectionMeta,
   PageSectionProps,
@@ -34,7 +33,7 @@ import type {
 export function PolarisCostsSection({ id }: { id?: string }) {
   const copy = POLARIS_LANDING_CONFIG.costs;
   return (
-    <section id={id} className="px-sky px-stars w-full py-20 md:py-28">
+    <section id={id} className="px-sky w-full py-20 md:py-28">
       <div className="container mx-auto grid max-w-6xl gap-12 px-4 lg:grid-cols-[1fr_1.2fr] lg:gap-20 xl:px-0">
         <div className="flex flex-col gap-6">
           <p className="px-eyebrow">{copy.eyebrow}</p>
@@ -59,12 +58,11 @@ export function PolarisCostsSection({ id }: { id?: string }) {
             ))}
           </dl>
           <div className="px-band flex gap-4 p-6 md:p-8">
-            <PolarisStar size={22} className="mt-1 flex-none" />
             <div className="flex flex-col gap-1">
               <p className="text-xs font-bold uppercase tracking-[0.22em] opacity-70">
                 {copy.cap.label}
               </p>
-              <p className="px-display text-2xl !text-[var(--px-gold-ink)] md:text-3xl">
+              <p className="px-display text-2xl !text-[var(--px-ember-ink)] md:text-3xl">
                 {copy.cap.value}
               </p>
               <p className="text-sm font-medium opacity-80">{copy.cap.note}</p>

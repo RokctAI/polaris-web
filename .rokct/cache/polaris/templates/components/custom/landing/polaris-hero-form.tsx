@@ -39,9 +39,10 @@ export default function PolarisHeroForm({ hero, signupUrl }: HeroFormProps) {
         <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium text-[var(--px-ink-2)]">
           {hero.trustLine.map((claim) => (
             <li key={claim} className="inline-flex items-center gap-2">
-              <span aria-hidden="true" className="text-[var(--px-gold-text)]">
-                &#10022;
-              </span>
+              <span
+                aria-hidden="true"
+                className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--px-ember-text)]"
+              />
               {claim}
             </li>
           ))}

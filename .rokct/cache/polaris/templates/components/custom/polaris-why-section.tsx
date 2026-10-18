@@ -23,7 +23,6 @@
 import React from "react";
 
 import { POLARIS_LANDING_CONFIG } from "@/components/custom/landing/polaris-landing-config";
-import { PolarisStar } from "@/components/custom/landing/polaris-star";
 import type {
   PageSectionMeta,
   PageSectionProps,
@@ -45,12 +44,9 @@ export function PolarisWhySection({ id }: { id?: string }) {
         <ol className="grid gap-4 sm:grid-cols-2">
           {copy.items.map((item, index) => (
             <li key={item.title} className="px-card flex flex-col gap-5 p-6 md:p-7">
-              <div className="flex items-center justify-between">
-                <span className="px-num text-3xl text-[var(--px-gold-text)]">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <PolarisStar size={14} className="text-[var(--px-ink-3)]" />
-              </div>
+              <span className="px-num text-3xl text-[var(--px-ember-text)]">
+                {String(index + 1).padStart(2, "0")}
+              </span>
               <div className="flex flex-col gap-2">
                 <h3 className="px-display text-2xl">{item.title}</h3>
                 <p className="text-[15px] leading-relaxed text-[var(--px-ink-2)]">{item.text}</p>
