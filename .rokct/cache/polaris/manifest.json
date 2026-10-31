@@ -1,6 +1,6 @@
 {
   "name": "polaris_sdk",
-  "version": "1.8.1",
+  "version": "1.9.0",
   "installs": [
     {
       "from": "templates/app/handson/all/lending",
@@ -145,6 +145,10 @@
           "to": "components/custom/landing/polaris-header-menu.ts"
         },
         {
+          "from": "templates/components/custom/landing/polaris-back-to-top.ts",
+          "to": "components/custom/landing/polaris-back-to-top.ts"
+        },
+        {
           "from": "templates/components/custom/landing/polaris-site-metadata.ts",
           "to": "components/custom/landing/polaris-site-metadata.ts"
         },
@@ -229,6 +233,11 @@
           "replacement": "  { id: \"polaris-site-metadata\", load: () => import(\"@/components/custom/landing/polaris-site-metadata\") },"
         },
         {
+          "target": "components/custom/landing/back-to-top-style.ts",
+          "placeholder": "// @rokct-sdk-back-to-top-style-start",
+          "replacement": "  { id: \"polaris-back-to-top\", load: () => import(\"@/components/custom/landing/polaris-back-to-top\") },"
+        },
+        {
           "target": "components/custom/landing/plans-query.ts",
           "placeholder": "// @rokct-sdk-plans-query-start",
           "replacement": "  { id: \"polaris-plans\", load: () => import(\"@/components/custom/landing/polaris-plans-query\") },"
@@ -281,13 +290,15 @@
         "components/custom/landing/legal-links.ts",
         "components/custom/landing/page-sections.ts",
         "components/custom/landing/plans-query.ts",
-        "components/custom/landing/site-metadata.ts"
+        "components/custom/landing/site-metadata.ts",
+        "components/custom/landing/back-to-top-style.ts",
+        "components/custom/landing/back-to-top.ts"
       ]
     }
   },
   "_comment": {
     "about": "The Next.js half of the Polaris lending SDK. Top-level installs go to every host that composes it: the staff back office (app/handson/all/lending), the public quote page (app/portal/loan-quote) and, since 1.6.0, the borrower area (app/loans, app/actions/lending, app/api/lending, components/custom/lending), with the lending-owned plumbing that used to be borrowed from the RokctAI_frontend host (app/services/all/lending/base.ts over base_sdk's platformCall, app/actions/handson/all/lending/access.ts over api.lending.get_my_lending_access, currency.ts, lookups.ts, app/lib/lending/ncr_calculator.ts and reports_config.ts). The app_type.polaris block is the Polaris web app (Ray, 2026-10-17: a Next.js frontend that gets its landing from the SDK as the home SDK, staff do their thing when signed in as such, customers do what they do in the Dart app): it owns app/page.tsx (signed out to /landing; signed in to /handson/all/lending for staff, /loans for everyone else) and fills base_sdk's landing registries with one module each. The contract is polaris/docs/web-app.md. The shell is the protocol template core/utils/nextjs/composer/polaris.json (telemetry_sdk, base_sdk, auth_sdk, corporate_sdk, polaris_sdk as home_sdk).",
     "integrations": "The top-level line targets the RokctAI_frontend host's app/handson/sidebar-client.tsx; a host without that file skips it. The back office's own layout.tsx carries its navigation.",
-    "app_type": "polaris: the home SDK's files and its one line at each of base_sdk's landing registries (hero-copy, hero-form, header-menu, site-metadata, plans-query) and seven at page-sections. Since 1.7.0 the landing is Polaris's own (Ray, 2026-10-18: 'redesign this landing page. the site is polaris not polaris-web. make it look good and give it a loan calculator'; and the rule that every Next.js site is built to a portfolio standard with its own identity): landing/polaris-theme.css + polaris-fonts.ts (Fraunces and Manrope through next/font) scoped to the `px-landing` class the theme section (order -2, rootClass, frame) puts on the landing root, a pine-and-ember palette with no mark (1.7.1; Ray, 2026-10-18: 'pick new branding colors for polaris', 'no star please') that also redefines the shadcn tokens inside the scope so base's header wears it; the hero form IS the loan calculator (landing/polaris-loan-calculator.tsx over landing/polaris-loan-presets.ts over the SDK's own app/lib/lending/ncr_calculator.ts, pricing at the National Credit Act's ceilings and saying so); then why, how-it-works, costs, faq (+ .client), cta and the footer (frame, FooterChromeRow + legal links). The name is landing/polaris-brand.ts: the shell's PLATFORM_NAME unless it is still the app_type, then 'Polaris'. polaris-plans-query.ts answers null: the Subscription Plan catalog is what a lender buys, so a borrower's landing lists none."
+    "app_type": "polaris: the home SDK's files and its one line at each of base_sdk's landing registries (hero-copy, hero-form, header-menu, site-metadata, plans-query, and since 1.9.0 back-to-top-style: Polaris' own Back to top button, the lime pill labelled Top) and seven at page-sections. Since 1.7.0 the landing is Polaris's own (Ray, 2026-10-18: 'redesign this landing page. the site is polaris not polaris-web. make it look good and give it a loan calculator'; and the rule that every Next.js site is built to a portfolio standard with its own identity): landing/polaris-theme.css + polaris-fonts.ts (Fraunces and Manrope through next/font) scoped to the `px-landing` class the theme section (order -2, rootClass, frame) puts on the landing root, a pine-and-ember palette with no mark (1.7.1; Ray, 2026-10-18: 'pick new branding colors for polaris', 'no star please') that also redefines the shadcn tokens inside the scope so base's header wears it; the hero form IS the loan calculator (landing/polaris-loan-calculator.tsx over landing/polaris-loan-presets.ts over the SDK's own app/lib/lending/ncr_calculator.ts, pricing at the National Credit Act's ceilings and saying so); then why, how-it-works, costs, faq (+ .client), cta and the footer (frame, FooterChromeRow + legal links). The name is landing/polaris-brand.ts: the shell's PLATFORM_NAME unless it is still the app_type, then 'Polaris'. polaris-plans-query.ts answers null: the Subscription Plan catalog is what a lender buys, so a borrower's landing lists none."
   }
 }
