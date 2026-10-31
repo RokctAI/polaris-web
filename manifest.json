@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "repo": "RokctAI/polaris-web",
+  "commit": "ccc8d7ab069b90e83be32e2bbd2016a5db5d70e4",
+  "taken_at": "2026-10-31T11:30:21Z",
+  "dir": "shots/ccc8d7ab069b90e83be32e2bbd2016a5db5d70e4",
+  "files": {
+    "desktop-light.webp": {
+      "width": 1200,
+      "height": 833,
+      "bytes": 57276,
+      "sha256": "d3ce79da2c0ebc421a80fb03170f790523e097bcefd887cee3f1dd3cf2f55a08"
+    },
+    "desktop-dark.webp": {
+      "width": 1200,
+      "height": 833,
+      "bytes": 61604,
+      "sha256": "915bf120fda00b6ce8ca2284b9acc535f5de06abd25a384ae2784034eabc26a3"
+    },
+    "option-light.webp": {
+      "width": 800,
+      "height": 500,
+      "bytes": 30414,
+      "sha256": "4215e5786a1662dc3ec0704e6ab6064efc2c11d5edf11d8e7c4cbd2b649c0158"
+    },
+    "option-dark.webp": {
+      "width": 800,
+      "height": 500,
+      "bytes": 32110,
+      "sha256": "6516bebf93e8705598e3a36ea46b50ff11fef42a327815daf235cc907d04fd52"
+    },
+    "phone-light.webp": {
+      "width": 560,
+      "height": 1149,
+      "bytes": 43196,
+      "sha256": "65009dbec2831af33e133cd284e40c80553af59d4130a3f92c21d2aaad19df36"
+    },
+    "phone-dark.webp": {
+      "width": 560,
+      "height": 1149,
+      "bytes": 46256,
+      "sha256": "834601f102de03686a2dea7b848811aa99ab4ded86159d67db6a0ef01cc1abed"
+    }
+  }
+}
