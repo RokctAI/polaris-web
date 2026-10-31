@@ -21,10 +21,15 @@
 // the choices cost), the receipt keeps the total, the lines and the action,
 // and each half's fine print follows its own content.
 //
+// 1.9.1: Polaris repays once-off. The term row still draws the Act's one
+// to six months, but only the one month is open; the others are drawn
+// locked (disabled, muted, a small lock), so the receipt is always one
+// repayment a month after the payout. The section is also drawn tighter.
+//
 // The hero's one picture: the receipt. The left half is what the borrower
 // chooses (amount, term, cover); the right half is the receipt the app's
 // Agreement step prints - every line of the cost on tabular numerals,
-// right-aligned, the total as one number, and the instalment dates written
+// right-aligned, the total as one number, and the repayment date written
 // out in full. Lime appears once, on the action. (v2 standard: one picture
 // per screen, lime means go, money is tabular, say what happens next.)
 "use client";
@@ -37,9 +42,20 @@ import {
   estimateAtLegalMaximum,
   formatRand,
   groupThousands,
+  isMonthOptionOpen,
   MONTH_OPTIONS,
+  ONCE_OFF_MONTHS,
   SHORT_TERM_LOAN,
 } from "./polaris-loan-presets";
+
+function IconLock({ size = 11 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="5" y="10.5" width="14" height="10" rx="2.2" stroke="currentColor" strokeWidth="2.2" />
+      <path d="M8.5 10.5V7.8a3.5 3.5 0 017 0v2.7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 const EASE_MS = 420;
 
@@ -124,7 +140,8 @@ export function PolarisLoanCalculator({
 }) {
   const [amount, setAmount] = useState<number>(SHORT_TERM_LOAN.defaultAmount);
   const [typed, setTyped] = useState<string | null>(null);
-  const [months, setMonths] = useState<number>(SHORT_TERM_LOAN.defaultMonths);
+  // Once-off: the term is fixed at the one open month; the other months are drawn locked.
+  const [months, setMonths] = useState<number>(ONCE_OFF_MONTHS);
   const [cover, setCover] = useState(false);
   // The calendar is the visitor's, read after hydration so the server's HTML
   // and the client's first paint agree.
@@ -137,11 +154,9 @@ export function PolarisLoanCalculator({
     [amount, months, cover],
   );
   const total = useEasedNumber(estimate.quote.totalRepayment);
-  const instalment = useEasedNumber(estimate.instalment);
   const { minAmount, maxAmount, step } = SHORT_TERM_LOAN;
   const fill = ((amount - minAmount) / (maxAmount - minAmount)) * 100;
-  const first = today ? addMonths(today, 1) : null;
-  const last = today ? addMonths(today, months) : null;
+  const due = today ? addMonths(today, months) : null;
 
   const commitTyped = () => {
     if (typed === null) return;
@@ -167,7 +182,7 @@ export function PolarisLoanCalculator({
       </div>
       <div className="grid lg:grid-cols-[1fr_1.05fr]">
         {/* ------------------------------------------------ what you choose */}
-        <div className="flex flex-col gap-4 p-6 md:p-8">
+        <div className="flex flex-col gap-3.5 p-5 md:px-7 md:py-6">
           <div>
             <label htmlFor={amountId} className="px-eyebrow">
               How much do you need?
@@ -211,21 +226,30 @@ export function PolarisLoanCalculator({
           <div>
             <p className="px-eyebrow">Over how long?</p>
             <div role="group" aria-label="Term in months" className="px-seg mt-3">
-              {MONTH_OPTIONS.map((option) => (
-                <button
-                  key={option}
-                  type="button"
-                  aria-pressed={option === months}
-                  onClick={() => setMonths(option)}
-                >
-                  {option}
-                  <span className="sr-only"> {option === 1 ? "month" : "months"}</span>
-                </button>
-              ))}
+              {MONTH_OPTIONS.map((option) => {
+                const open = isMonthOptionOpen(option);
+                return (
+                  <button
+                    key={option}
+                    type="button"
+                    aria-pressed={option === months}
+                    disabled={!open}
+                    data-locked={open ? undefined : ""}
+                    title={open ? undefined : "Polaris repays once-off"}
+                    onClick={() => open && setMonths(option)}
+                  >
+                    {!open && <IconLock />}
+                    {option}
+                    <span className="sr-only">
+                      {" "}
+                      {option === 1 ? "month" : "months"}
+                      {open ? "" : ", locked: Polaris repays once-off"}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
-            <p className="px-k mt-2">
-              {months === 1 ? "One month, one instalment." : `${months} months, one instalment a month.`}
-            </p>
+            <p className="px-k mt-2">Once-off: one repayment, a month after the payout.</p>
           </div>
 
           <button
@@ -256,18 +280,15 @@ export function PolarisLoanCalculator({
             </div>
             <p className="px-fine mt-2">
               By law the cost of credit can never be more than the amount you borrow (National Credit
-              Act, section 103(5)). The bar is how far this loan sits from that line.
+              Act, section 103(5)). The bar is how far this loan sits from that line. Short-term
+              credit under the Act: up to {formatRand(maxAmount)}, repaid within six months; Polaris
+              is repaid once-off. Change the amount and the figures follow.
             </p>
           </div>
-
-          <p className="px-fine">
-            Short-term credit under the National Credit Act: up to {formatRand(maxAmount)}, repaid
-            within six months. Change the amount or the term and the figures follow.
-          </p>
         </div>
 
         {/* ----------------------------------------------------- the receipt */}
-        <div className="px-alt flex flex-col gap-5 border-t border-[var(--px-sub)] p-6 md:p-8 lg:border-l lg:border-t-0">
+        <div className="px-alt flex flex-col gap-4 border-t border-[var(--px-sub)] p-5 md:px-7 md:py-6 lg:border-l lg:border-t-0">
           <div className="flex items-baseline justify-between gap-4">
             <p className="px-eyebrow">At the legal maximum</p>
             <p className="px-k">Not yet an offer</p>
@@ -282,34 +303,16 @@ export function PolarisLoanCalculator({
               {formatRand(total, { cents: true })}
             </p>
             <p className="mt-2.5 text-[15px] leading-snug text-[var(--px-sec)]">
-              {months === 1 ? (
+              Once-off, in one repayment
+              {due ? (
                 <>
-                  In one instalment
-                  {first ? (
-                    <>
-                      , on <b className="font-semibold text-[var(--px-ink)]">{longDate(first)}</b>
-                    </>
-                  ) : (
-                    ", a month from the payout"
-                  )}
-                  .
+                  {" "}
+                  on <b className="font-semibold text-[var(--px-ink)]">{longDate(due)}</b>
                 </>
               ) : (
-                <>
-                  <b className="px-num font-semibold text-[var(--px-ink)]">
-                    {formatRand(instalment, { cents: true })}
-                  </b>{" "}
-                  a month for {months} months
-                  {first && last ? (
-                    <>
-                      : the first on{" "}
-                      <b className="font-semibold text-[var(--px-ink)]">{longDate(first)}</b>, the
-                      last on <b className="font-semibold text-[var(--px-ink)]">{longDate(last)}</b>
-                    </>
-                  ) : null}
-                  .
-                </>
+                ", a month from the payout"
               )}
+              .
             </p>
           </div>
 
@@ -317,7 +320,7 @@ export function PolarisLoanCalculator({
             <Line label="You borrow" value={estimate.amount} />
             <Line label="Interest" note="5% a month" value={estimate.quote.interest} />
             <Line label="Initiation fee" note="once" value={estimate.quote.initiationFee} />
-            <Line label="Service fee" note="R60 a month" value={estimate.quote.serviceFee} />
+            <Line label="Service fee" note="R60 a month, at most" value={estimate.quote.serviceFee} />
             <Line label="VAT on the fees" note="15%" value={estimate.quote.vat} />
             {cover && (
               <Line label="Credit life cover" note="R4,50 per R1 000" value={estimate.quote.insurance} />

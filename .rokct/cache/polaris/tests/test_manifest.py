@@ -332,5 +332,38 @@ class BackToTopStyle(unittest.TestCase):
         self.assertNotRegex(re.sub(r"//.*", "", code), r"#[0-9a-fA-F]{3,8}\b", "no colour value copied")
 
 
+class OnceOffRepayment(unittest.TestCase):
+    """1.9.1 (Ray, 2026-10-31: "we do once off i think it should lock other
+    months"): the calculator opens on the one month and draws the Act's
+    other terms locked - disabled, not removed - and the example month's
+    loan is the default amount repaid once-off at the caps."""
+
+    CALCULATOR = os.path.join(LANDING, "polaris-loan-calculator.tsx")
+
+    def test_presets_default_to_once_off(self):
+        presets = read(PRESETS)
+        self.assertRegex(presets, r"defaultMonths: 1,")
+        self.assertIn("export const MONTH_OPTIONS: readonly number[] = [1, 2, 3, 4, 5, 6];", presets)
+        self.assertIn("export const ONCE_OFF_MONTHS = 1;", presets)
+        self.assertIn("return months === ONCE_OFF_MONTHS;", presets)
+
+    def test_other_months_are_drawn_locked(self):
+        code = read(self.CALCULATOR)
+        self.assertIn("useState<number>(ONCE_OFF_MONTHS)", code)
+        self.assertIn("MONTH_OPTIONS.map(", code)
+        self.assertIn("disabled={!open}", code)
+        self.assertIn("{!open && <IconLock />}", code)
+        self.assertNotIn("a month for {months} months", code)
+
+    def test_example_month_is_the_once_off_repayment(self):
+        # R3 000 for 30 days at the caps: R150 interest, R365 initiation,
+        # R58,06 service (the engine's R60 / 31 a day), R63,46 VAT.
+        copy = read(COPY)
+        self.assertNotIn("3706.4", copy)
+        self.assertIn("loan: 3636.52,", copy)
+        self.assertIn('verdict: "Fits, with R9 863,48 to spare",', copy)
+        self.assertAlmostEqual(20000 - 5000 - 1500 - 3636.52, 9863.48, places=2)
+
+
 if __name__ == "__main__":
     unittest.main()

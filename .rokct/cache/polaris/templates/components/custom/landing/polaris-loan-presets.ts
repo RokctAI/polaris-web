@@ -54,10 +54,25 @@ export const SHORT_TERM_LOAN = {
   /** The engine prices interest per 30 days; a month is one of those. */
   daysPerMonth: 30,
   defaultAmount: 3000,
-  defaultMonths: 3,
+  /** Polaris repays once-off: one repayment, a month after the payout. */
+  defaultMonths: 1,
 } as const;
 
+/**
+ * The terms the Act allows a short-term loan (1 to 6 months). The calculator
+ * still draws every one of them, so a visitor sees what the law allows, but
+ * only ONCE_OFF_MONTHS is open: Polaris repays once-off (Ray, 2026-10-31:
+ * "we do once off i think it should lock other months").
+ */
 export const MONTH_OPTIONS: readonly number[] = [1, 2, 3, 4, 5, 6];
+
+/** The one term Polaris offers: a single repayment, one month (30 days) after the payout. */
+export const ONCE_OFF_MONTHS = 1;
+
+/** Whether a term can be chosen: only the once-off month is open, the rest are drawn locked. */
+export function isMonthOptionOpen(months: number): boolean {
+  return months === ONCE_OFF_MONTHS;
+}
 
 /** Regulation 42's initiation fee ceiling for `principal`, in rand. */
 export function statutoryInitiationFee(principal: number): number {

@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.57.0
+
+* feat(site-data): a site's order form goes by email, not WhatsApp (Ray,
+  2026-10-31: "orders@sitedomain"). `data/site.json` gains an optional
+  `email: { orders?, domain? }`; the address is `email.orders` if set,
+  else orders@`email.domain`, else orders@ the site's own host
+  (`templates/lib/site-data/order-email.ts`: `orderEmailAddress`,
+  `orderEmailMessage`, `orderMailto`). An order section no longer
+  requires a WhatsApp number; pricing and contact sections still do.
+  Every site offers all its channels by default (email, plus WhatsApp when
+  it has a number; `orderChannels`). `email.orderVia` (`"email"`,
+  `"whatsapp"`, `"both"`) narrows it; WhatsApp or both needs the number.
+  Backward compatible: existing site.json files validate unchanged.
+  The host's mail transport and its credentials are env secrets, set by Ray.
+
 ## 1.56.0
 
 * feat(back-to-top): the "Back to top" button is on every page of every

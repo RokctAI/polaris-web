@@ -344,6 +344,7 @@ next-env.d.ts
 /lib/site-data/generate.mjs
 /lib/site-data/generated.ts
 /lib/site-data/kinds.ts
+/lib/site-data/order-email.ts
 /lib/site-data/read-site-data.ts
 /lib/site-data/site-theme.ts
 /lib/site-data/validate-site.mjs

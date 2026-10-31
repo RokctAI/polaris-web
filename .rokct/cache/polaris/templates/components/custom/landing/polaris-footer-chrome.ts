@@ -28,7 +28,7 @@
 import { POLARIS_BRAND_NAME } from "./polaris-brand";
 import type { FooterChromeConfig } from "@/components/custom/landing/footer-chrome-config";
 
-export const POLARIS_LANDING_VERSION = "1.9.0";
+export const POLARIS_LANDING_VERSION = "1.9.1";
 
 export const POLARIS_FOOTER_CHROME: FooterChromeConfig = {
   siteName: POLARIS_BRAND_NAME,

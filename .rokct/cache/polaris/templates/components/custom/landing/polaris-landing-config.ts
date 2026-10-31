@@ -129,8 +129,14 @@ export const POLARIS_LANDING_CONFIG = {
       income: 20000,
       living: 5000,
       debts: 1500,
-      loan: 3706.4,
-      verdict: "Fits, with R9 793,60 to spare",
+      /**
+       * Once-off (1.9.1): the whole repayment falls in this one month - the
+       * calculator's default R3 000 repaid in one go at the Act's ceilings
+       * (estimateAtLegalMaximum({ amount: 3000, months: 1 })). Was R3 706,40,
+       * which no single repayment of the default loan produced.
+       */
+      loan: 3636.52,
+      verdict: "Fits, with R9 863,48 to spare",
     },
     next: "The four steps of the application, and what each one asks of you.",
   },
