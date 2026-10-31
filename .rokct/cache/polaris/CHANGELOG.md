@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.9.0
+
+* **Polaris' own Back to top button.** Ray, 2026-10-31: the button must
+  not look the same on every site; base_sdk supplies only the mechanism
+  and each home SDK sets its own style. New
+  `components/custom/landing/polaris-back-to-top.ts` registers a
+  `BackToTopConfig` at base_sdk 1.56.0's
+  `// @rokct-sdk-back-to-top-style-start` marker, so the landing's framed
+  button and the root button on every other route read it.
+* The style is Polaris' call-to-action pill (`.px-btn-lime`): fully
+  rounded, `--px-lime` fill with `--px-lime-ink` text, `--px-lime-hover`
+  on hover, the label "Top" in `--px-font-sans` (Manrope) 700 with
+  -0.01em tracking beside Remixicon's chevron, no border, the soft lime
+  glow beneath and the quick 150ms ease. Outside `.px-landing` each value
+  falls back to base's shadcn token.
+* The polaris block's `requires` gains `back-to-top-style.ts` and
+  `back-to-top.ts` (base_sdk >= 1.56.0). `POLARIS_LANDING_VERSION` goes to
+  1.9.0.
+
 ## 1.8.1
 
 * **Fonts are bundled; the build no longer fetches Google Fonts.** The four

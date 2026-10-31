@@ -280,5 +280,57 @@ class SiteCredit(unittest.TestCase):
         self.assertIn("siteName: POLARIS_BRAND_NAME", chrome)
 
 
+class BackToTopStyle(unittest.TestCase):
+    """1.9.0 (Ray, 2026-10-31: the button must not look the same on every
+    site): Polaris registers its own Back to top style at base_sdk 1.56.0's
+    registry marker - the lime call-to-action pill labelled "Top" - and the
+    style names Polaris' tokens rather than copying their values."""
+
+    STYLE = os.path.join(TEMPLATES, "components", "custom", "landing", "polaris-back-to-top.ts")
+    THEME = os.path.join(TEMPLATES, "components", "custom", "landing", "polaris-theme.css")
+
+    @staticmethod
+    def field(code, name):
+        m = re.search(r"^\s+" + name + r': (?:"([^"]*)"|(\d+)),$', code, re.M)
+        return None if not m else (m.group(1) if m.group(1) is not None else int(m.group(2)))
+
+    def test_installed_and_registered_in_the_polaris_block(self):
+        manifest = json.loads(read(MANIFEST))
+        block = manifest["app_type"]["polaris"]
+        installs = {e["from"]: e["to"] for e in block["installs"]}
+        self.assertEqual(
+            installs.get("templates/components/custom/landing/polaris-back-to-top.ts"),
+            "components/custom/landing/polaris-back-to-top.ts",
+        )
+        hits = [i for i in block["integrations"]
+                if i.get("target") == "components/custom/landing/back-to-top-style.ts"]
+        self.assertEqual(len(hits), 1)
+        self.assertEqual(hits[0]["placeholder"], "// @rokct-sdk-back-to-top-style-start")
+        self.assertIn('import("@/components/custom/landing/polaris-back-to-top")', hits[0]["replacement"])
+        self.assertIn("components/custom/landing/back-to-top-style.ts", block["requires"])
+
+    def test_style_is_the_lime_pill(self):
+        code = read(self.STYLE)
+        self.assertTrue(code.lstrip().startswith("/*"), "licence header first")
+        self.assertIn('import type { BackToTopConfig } from "@/components/custom/landing/back-to-top";', code)
+        self.assertIn("export default POLARIS_BACK_TO_TOP;", code)
+        self.assertEqual(self.field(code, "shape"), "pill-with-label")
+        self.assertEqual(self.field(code, "icon"), "chevron-up")
+        self.assertEqual(self.field(code, "label"), "Top")
+        self.assertEqual(self.field(code, "radius"), "999px")
+        self.assertEqual(self.field(code, "fontWeight"), 700)
+        self.assertEqual(self.field(code, "duration"), "150ms")
+
+    def test_every_colour_and_face_names_a_polaris_token(self):
+        code = read(self.STYLE)
+        css = read(self.THEME)
+        for name, token in (("background", "--px-lime"), ("foreground", "--px-lime-ink"),
+                            ("hoverBackground", "--px-lime-hover"), ("fontFamily", "--px-font-sans")):
+            value = self.field(code, name)
+            self.assertTrue(value and value.startswith("var(%s, " % token), "%s: %s" % (name, value))
+            self.assertIn("%s:" % token, css, token)
+        self.assertNotRegex(re.sub(r"//.*", "", code), r"#[0-9a-fA-F]{3,8}\b", "no colour value copied")
+
+
 if __name__ == "__main__":
     unittest.main()
