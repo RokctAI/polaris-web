@@ -185,6 +185,7 @@ next-env.d.ts
 /app/services/base/tenant-hosts.ts
 /app/services/control/global_settings.ts
 /app/services/public/lending/quote.ts
+/app/site-shots/\[file\]/route.ts
 /app/styles/rokct-marquee.css
 /app/styles/rokct-scroll.css
 /app/team/page.tsx
@@ -253,6 +254,7 @@ next-env.d.ts
 /components/custom/landing/site-credit.ts
 /components/custom/landing/site-frame.ts
 /components/custom/landing/site-metadata.ts
+/components/custom/landing/site-shots.ts
 /components/custom/landing/testimonials-marquee.tsx
 /components/custom/legal/legal-doc.tsx
 /components/custom/legal/legal-frame.tsx
