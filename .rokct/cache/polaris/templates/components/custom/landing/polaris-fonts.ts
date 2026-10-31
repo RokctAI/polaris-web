@@ -30,7 +30,12 @@
 // server render (components/custom/landing/page-sections.ts), where the
 // variable class names below are joined onto the landing root.
 
-import { Fraunces, Manrope } from "next/font/google";
+// v3 adds two faces, each with one job: Inter draws the product's own
+// screens (the Polaris app's face, so a window on the landing reads as the
+// app it is), and IBM Plex Mono the section indices and small labels - the
+// editorial grid the v3 layout hangs on.
+
+import { Fraunces, IBM_Plex_Mono, Inter, Manrope } from "next/font/google";
 
 export const polarisDisplay = Fraunces({
   subsets: ["latin"],
@@ -44,5 +49,19 @@ export const polarisSans = Manrope({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--px-font-manrope",
+  display: "swap",
+});
+
+export const polarisUi = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--px-font-inter",
+  display: "swap",
+});
+
+export const polarisMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--px-font-plex-mono",
   display: "swap",
 });

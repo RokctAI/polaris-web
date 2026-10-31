@@ -32,20 +32,68 @@ export interface PolarisCostRow {
   note: string;
 }
 
+export interface PolarisStoreLink {
+  /** Stable key; also picks the badge's glyph. */
+  id: "android" | "huawei" | "app-store";
+  /** The small line over the platform's name. */
+  eyebrow: string;
+  label: string;
+  /** Where the badge goes. An empty href draws no badge. */
+  href: string;
+  /** Off keeps the slot in the config without drawing it. */
+  enabled: boolean;
+  /**
+   * The download route's platform this badge needs in the latest release
+   * (app/download/[platform]/resolve.ts). Set: the badge is drawn only
+   * when the release really carries that build. Absent: no release check.
+   */
+  release?: "android" | "huawei";
+}
+
+/** Which mobile builds the latest release carries (resolve.ts's DownloadAvailability). */
+export type PolarisAppAvailability = Partial<Record<"android" | "huawei", boolean>>;
+
+/**
+ * The badges to draw: enabled, with somewhere to go, and - for a badge tied
+ * to a release build - only when the latest release carries it. With no
+ * answer about the release (null: not checked yet, or the fetch failed)
+ * every release-tied badge stays hidden.
+ */
+export function polarisShownStores(
+  stores: readonly PolarisStoreLink[],
+  available: PolarisAppAvailability | null,
+): PolarisStoreLink[] {
+  return stores.filter((store) => {
+    if (!store.enabled || store.href.trim().length === 0) return false;
+    if (!store.release) return true;
+    return available?.[store.release] === true;
+  });
+}
+
 export const POLARIS_LANDING_CONFIG = {
   hero: {
-    /** The rotating part of the headline: what the loan is for. */
+    /** The rotating part of the headline: what the credit is for. */
     words: [
-      "A loan for the rent",
-      "A loan for the car",
-      "A loan for a tight month",
-      "A loan for the unexpected",
+      "Credit for the rent",
+      "Credit for the car",
+      "Credit for a tight month",
+      "Credit for the unexpected",
     ],
     /** The rest of the sentence, after the rotating part. */
     suffix: "with the full cost shown before you apply.",
+    /**
+     * v3: the hero's static headline - the promise of the suffix, set as
+     * the page's one big line - and the line above it naming what the loan
+     * is for, the four rotating words read as one sentence.
+     */
+    headline: { lead: "The full cost,", accent: "shown before", tail: "you apply." },
+    kicker: "Polaris lends for the rent, the car, a tight month or the unexpected",
+    lede: "Credit should be a number you can see, not a surprise on a statement. Apply, upload, sign and follow your loan from your phone or your computer.",
+    primary: "Apply now",
+    secondary: "How it works",
     trust: [
       "Priced under the National Credit Act",
-      "No app to download",
+      "Apply in your browser or the app",
       "Your contract, signed in the browser",
     ],
     /** What happens after the button: the screen says what comes next. */
@@ -56,7 +104,7 @@ export const POLARIS_LANDING_CONFIG = {
     eyebrow: "Why Polaris",
     heading: "Lending, with the lights on.",
     blurb:
-      "A loan should be a number you can see, not a surprise on a statement. Polaris puts every rand of the cost in front of you first, then reads your own bank statement to decide what you can afford.",
+      "Credit should be a number you can see, not a surprise on a statement. Polaris puts every rand of the cost in front of you first, then reads your own bank statement to decide what you can afford.",
     items: [
       {
         title: "Every rand, itemised",
@@ -116,7 +164,7 @@ export const POLARIS_LANDING_CONFIG = {
 
   costs: {
     eyebrow: "What it costs",
-    heading: "What a short-term loan can cost, by law.",
+    heading: "What short-term credit can cost, by law.",
     blurb:
       "The National Credit Act caps every part of a short-term loan: up to R8 000, repaid within six months. These are the ceilings. An offer from Polaris is written underneath them.",
     rows: [
@@ -195,11 +243,55 @@ export const POLARIS_LANDING_CONFIG = {
     ],
   },
 
+  /**
+   * The mobile app (Ray, 2026-10-31: "add link to download mobile app").
+   * The browser stays the whole product; the app is the other door, so the
+   * badges sit under the calls to action, in the close and in the footer.
+   * The app has no Play listing, so the badges are the site's own download
+   * route (Ray, 2026-10-31: "do what you did with supacharge-web"):
+   * /download/<platform> resolves the latest RokctAI/polaris release's
+   * build and redirects to it. Mobile only (Ray: "polaris wont have the web
+   * app downloadable only the mobile platforms"). Android and Huawei are
+   * drawn only when the latest release carries that build (Ray: the Huawei
+   * badge shows only when there is a real Huawei build; the same rule for
+   * Android). The wording names the platform, never a file format. The
+   * polaris app has no iOS target and no App Store listing yet, so that
+   * slot is kept here, disabled, until one exists.
+   */
+  app: {
+    label: "Get the app",
+    stores: [
+      {
+        id: "android",
+        eyebrow: "Download for",
+        label: "Android",
+        href: "/download/android",
+        enabled: true,
+        release: "android",
+      },
+      {
+        id: "huawei",
+        eyebrow: "Download for",
+        label: "Huawei",
+        href: "/download/huawei",
+        enabled: true,
+        release: "huawei",
+      },
+      {
+        id: "app-store",
+        eyebrow: "Download on the",
+        label: "App Store",
+        href: "",
+        enabled: false,
+      },
+    ] satisfies PolarisStoreLink[],
+  },
+
   footer: {
     links: [
-      { label: "Why Polaris", href: "#why" },
-      { label: "How it works", href: "#how-it-works" },
       { label: "What it costs", href: "#costs" },
+      { label: "How it works", href: "#how-it-works" },
+      { label: "Why Polaris", href: "#why" },
       { label: "Questions", href: "#faq" },
       { label: "About", href: "/about" },
     ],

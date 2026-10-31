@@ -26,7 +26,7 @@ import type { HeaderMenu } from "@/components/custom/landing/header-menu";
 
 const POLARIS_HEADER_MENU: HeaderMenu = {
   brand: { logo: "none" },
-  anchors: ["why", "how-it-works", "costs", "faq"],
+  anchors: ["costs", "how-it-works", "why", "faq"],
   links: [{ id: "about", label: "About", href: "/about" }],
 };
 

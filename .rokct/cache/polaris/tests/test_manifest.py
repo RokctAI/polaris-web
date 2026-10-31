@@ -54,6 +54,7 @@ HERO_FORM_TARGET = "components/custom/landing/hero-form.ts"
 ALIAS_IMPORT = re.compile(r"""from\s+["']@/([^"']+)["']""")
 REPLACEMENT_IMPORT = re.compile(r"""import\(["']@/([^"']+)["']\)""")
 PLACEHOLDER = re.compile(r"\[\[|TODO|lorem ipsum|\{\{", re.IGNORECASE)
+CASH_LOAN_WORDS = re.compile(r"\b(quick cash|cash loans?|instant|payday|fast cash)\b", re.IGNORECASE)
 
 
 def read(path):
@@ -208,6 +209,34 @@ class ManifestContract(unittest.TestCase):
         metadata = read(os.path.join(LANDING, "polaris-site-metadata.ts"))
         self.assertIn("POLARIS_BRAND_NAME", metadata)
         self.assertNotIn("PLATFORM_NAME", metadata)
+
+    def test_brand_voice_is_lending_not_cash_loans(self):
+        """Ray, 2026-10-31: Polaris reads as a lending institution, never as
+        "just another cash loan". The brand lines speak of lending and
+        credit; no cash-loan vocabulary anywhere in the landing's copy."""
+        copy = read(COPY)
+        metadata = read(os.path.join(LANDING, "polaris-site-metadata.ts"))
+        brand = read(os.path.join(LANDING, "polaris-brand.ts"))
+        for name, source in (("copy", copy), ("metadata", metadata), ("brand", brand)):
+            self.assertIsNone(
+                CASH_LOAN_WORDS.search(source), "cash-loan vocabulary in the landing %s" % name
+            )
+        self.assertIn('tagline: "Lending with the full cost shown first"', metadata)
+        self.assertIn('heading: "Lending, with the lights on."', copy)
+        self.assertIn('kicker: "Polaris lends for', copy)
+        self.assertIn('POLARIS_MOTTO = "Your north star for credit."', brand)
+
+
+class SiteCredit(unittest.TestCase):
+    """Ray, 2026-10-31: every site's footer reads "(c) <year> <site> . Built with
+    love by ROKCT". The row names the site, never the legal entity."""
+
+    def test_footer_names_the_site_not_the_company(self):
+        chrome = read(os.path.join(TEMPLATES, "components", "custom", "landing",
+                                   "polaris-footer-chrome.ts"))
+        self.assertNotIn("copyrightHolder", chrome)
+        self.assertNotIn("LEGAL_COMPANY_NAME", chrome)
+        self.assertIn("siteName: POLARIS_BRAND_NAME", chrome)
 
 
 if __name__ == "__main__":

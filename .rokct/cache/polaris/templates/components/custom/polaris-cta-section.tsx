@@ -14,19 +14,24 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-// The close: what happens next, in order and with a time against each
-// line, then the one lime button on this screen. No lime band: the brand
-// colour is the action, not the wallpaper.
+
+// The close (v3): one dark panel in both themes - the only surface on the
+// page that does not follow the mode, so the last thing the visitor sees
+// is the darkest and the one lime button on it the brightest. The headline
+// at the size of the hero's; under it, what happens next as a row of four
+// with a time against each.
 import React from "react";
 import Link from "next/link";
 
+import { fetchPolarisDownloadAvailability } from "@/app/download/release";
 import { POLARIS_LANDING_CONFIG } from "@/components/custom/landing/polaris-landing-config";
+import { PolarisStoreBadges } from "@/components/custom/landing/polaris-store-badges";
 import type {
   PageSectionMeta,
   PageSectionProps,
 } from "@/components/custom/landing/page-sections";
 
-export function PolarisCtaSection({
+export async function PolarisCtaSection({
   id,
   signupUrl,
   loginUrl,
@@ -36,31 +41,38 @@ export function PolarisCtaSection({
   loginUrl: string;
 }) {
   const copy = POLARIS_LANDING_CONFIG.cta;
+  const available = await fetchPolarisDownloadAvailability();
   return (
-    <section id={id} className="px-sky-2 px-section w-full">
-      <div className="container mx-auto max-w-6xl px-4 xl:px-0">
-        <div className="px-card grid gap-10 p-7 md:grid-cols-[1fr_1fr] md:p-12 lg:gap-16">
-          <div className="flex flex-col gap-4">
-            <p className="px-eyebrow">What happens next</p>
-            <h2 className="px-display text-4xl md:text-5xl">{copy.heading}</h2>
-            <p className="px-lede max-w-md">{copy.blurb}</p>
-            <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-              <Link href={signupUrl} className="px-btn px-btn-lime">
-                {copy.primary}
-              </Link>
-              <Link href={loginUrl} className="px-btn px-btn-ghost">
-                {copy.secondary}
-              </Link>
+    <section id={id} className="px-band px-section px-section-tight w-full">
+      <div className="px-wrap">
+        <div className="px-cta">
+          <div className="px-cta-top">
+            <div>
+              <p className="px-head-index">
+                <span>→</span>
+                What happens next
+              </p>
+              <h2 className="px-display px-cta-h">{copy.heading}</h2>
+            </div>
+            <div className="px-cta-side">
+              <p className="px-lede">{copy.blurb}</p>
+              <div className="px-cta-buttons">
+                <Link href={signupUrl} className="px-btn px-btn-lime px-btn-lg">
+                  {copy.primary}
+                </Link>
+                <Link href={loginUrl} className="px-btn px-btn-ghost px-btn-lg">
+                  {copy.secondary}
+                </Link>
+              </div>
+              <PolarisStoreBadges available={available} className="px-cta-stores" />
             </div>
           </div>
-          <ol className="px-tl md:pt-2">
+          <ol className="px-cta-steps">
             {copy.steps.map((step, index) => (
               <li key={step.text}>
                 <i aria-hidden="true">{index + 1}</i>
-                <div>
-                  <span className="when">{step.when}</span>
-                  <p className="text-[15px] font-medium leading-snug text-[var(--px-ink)]">{step.text}</p>
-                </div>
+                <span className="when">{step.when}</span>
+                <p>{step.text}</p>
               </li>
             ))}
           </ol>

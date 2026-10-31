@@ -1,6 +1,6 @@
 {
   "name": "polaris_sdk",
-  "version": "1.7.3",
+  "version": "1.8.0",
   "installs": [
     {
       "from": "templates/app/handson/all/lending",
@@ -125,6 +125,18 @@
           "to": "components/custom/landing/polaris-loan-calculator.tsx"
         },
         {
+          "from": "templates/components/custom/landing/polaris-product-ui.tsx",
+          "to": "components/custom/landing/polaris-product-ui.tsx"
+        },
+        {
+          "from": "templates/components/custom/landing/polaris-section-head.tsx",
+          "to": "components/custom/landing/polaris-section-head.tsx"
+        },
+        {
+          "from": "templates/components/custom/landing/polaris-store-badges.tsx",
+          "to": "components/custom/landing/polaris-store-badges.tsx"
+        },
+        {
           "from": "templates/components/custom/landing/polaris-header-menu.ts",
           "to": "components/custom/landing/polaris-header-menu.ts"
         },
@@ -139,6 +151,22 @@
         {
           "from": "templates/components/custom/landing/polaris-footer-chrome.ts",
           "to": "components/custom/landing/polaris-footer-chrome.ts"
+        },
+        {
+          "from": "templates/app/download/route.ts",
+          "to": "app/download/route.ts"
+        },
+        {
+          "from": "templates/app/download/release.ts",
+          "to": "app/download/release.ts"
+        },
+        {
+          "from": "templates/app/download/[platform]/route.ts",
+          "to": "app/download/[platform]/route.ts"
+        },
+        {
+          "from": "templates/app/download/[platform]/resolve.ts",
+          "to": "app/download/[platform]/resolve.ts"
         },
         {
           "from": "templates/components/custom/polaris-theme-section.tsx",

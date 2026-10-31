@@ -21,16 +21,18 @@
 // because that module is a client module and every export of a client
 // module is a client reference in the server render.
 
-import { polarisDisplay, polarisSans } from "./polaris-fonts";
+import { polarisDisplay, polarisMono, polarisSans, polarisUi } from "./polaris-fonts";
 
 /** The class every polaris-theme.css rule is scoped to. */
 export const POLARIS_THEME_CLASS = "px-landing";
 
-/** The token class and the two font variables. */
+/** The token class and the four font variables. */
 export const POLARIS_THEME_CLASSES: readonly string[] = [
   POLARIS_THEME_CLASS,
   polarisSans.variable,
   polarisDisplay.variable,
+  polarisUi.variable,
+  polarisMono.variable,
 ];
 
 /** POLARIS_THEME_CLASSES as base_sdk's `PageSectionMeta.rootClass` wants it: space-separated. */

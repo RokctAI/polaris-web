@@ -118,6 +118,10 @@ next-env.d.ts
 /app/admin/system/update/page.tsx
 /app/api/lending/documents/route.ts
 /app/brand-icon/route.tsx
+/app/download/\[platform\]/resolve.ts
+/app/download/\[platform\]/route.ts
+/app/download/release.ts
+/app/download/route.ts
 /app/handson/all/lending/adjustments/page.tsx
 /app/handson/all/lending/application/\[id\]/page.tsx
 /app/handson/all/lending/application/new/page.tsx
@@ -239,10 +243,14 @@ next-env.d.ts
 /components/custom/landing/polaris-loan-calculator.tsx
 /components/custom/landing/polaris-loan-presets.ts
 /components/custom/landing/polaris-plans-query.ts
+/components/custom/landing/polaris-product-ui.tsx
+/components/custom/landing/polaris-section-head.tsx
 /components/custom/landing/polaris-site-metadata.ts
+/components/custom/landing/polaris-store-badges.tsx
 /components/custom/landing/polaris-theme-classes.ts
 /components/custom/landing/polaris-theme.css
 /components/custom/landing/polaris-theme.tsx
+/components/custom/landing/site-credit.ts
 /components/custom/landing/site-frame.ts
 /components/custom/landing/site-metadata.ts
 /components/custom/landing/testimonials-marquee.tsx
@@ -272,6 +280,7 @@ next-env.d.ts
 /components/custom/polaris-theme-section.tsx
 /components/custom/polaris-why-section.tsx
 /components/custom/session-provider.tsx
+/components/custom/site-credit.tsx
 /components/custom/site-frame.tsx
 /components/custom/site-theme.tsx
 /components/custom/submit-button.tsx
@@ -319,6 +328,7 @@ next-env.d.ts
 /lib/site-data/kinds.ts
 /lib/site-data/read-site-data.ts
 /lib/site-data/site-theme.ts
+/lib/site-data/validate-site.mjs
 /lib/site-data/validate.mjs
 /middleware.ts
 /public/brand/marks/app-gallery.svg

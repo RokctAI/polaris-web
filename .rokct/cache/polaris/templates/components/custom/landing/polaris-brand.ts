@@ -41,4 +41,4 @@ export function polarisBrandName(platformName: string = PLATFORM_NAME): string {
 export const POLARIS_BRAND_NAME = polarisBrandName();
 
 /** The line under the wordmark; the north star the name is. */
-export const POLARIS_MOTTO = "Your north star for borrowing.";
+export const POLARIS_MOTTO = "Your north star for credit.";

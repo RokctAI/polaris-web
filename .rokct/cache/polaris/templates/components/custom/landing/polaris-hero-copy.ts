@@ -15,6 +15,13 @@
  */
 
 
+// v3: `headlineWords` is empty on purpose. base's hero frame draws its
+// rotating h1 only when there is a word to rotate, so with none it draws no
+// headline and the registered hero form (polaris-hero-form.tsx) owns the
+// whole hero: the static headline, the call to action and the product on
+// screen beside it. The four words are still the page's - the form reads
+// them, as one sentence, above the headline.
+//
 // The Polaris web app's hero copy, for base_sdk's hero-copy registry
 // (components/custom/landing/hero-copy.ts). The hero frame renders
 // "<text> <suffix>": the rotating text is what the loan is for, the suffix
@@ -31,7 +38,7 @@ import type { HeroCopy } from "@/components/custom/landing/hero-copy";
 import { POLARIS_LANDING_CONFIG } from "./polaris-landing-config";
 
 const POLARIS_HERO_COPY: HeroCopy = {
-  headlineWords: POLARIS_LANDING_CONFIG.hero.words.map((text) => ({ text, verb: "" })),
+  headlineWords: [],
   headlineSuffix: POLARIS_LANDING_CONFIG.hero.suffix,
   wordIntervalMs: 3200,
   placeholders: [],
