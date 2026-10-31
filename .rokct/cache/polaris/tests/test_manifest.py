@@ -122,6 +122,11 @@ class ManifestContract(unittest.TestCase):
         sources = {os.path.relpath(p, SDK_ROOT) for p in self.installed.values()}
         for name in os.listdir(LANDING):
             rel = os.path.relpath(os.path.join(LANDING, name), SDK_ROOT)
+            if os.path.isdir(os.path.join(LANDING, name)):
+                # A directory of assets (1.8.1: fonts/polaris) is installed whole.
+                covered = any(s == rel or s.startswith(rel + "/") for s in sources)
+                self.assertTrue(covered, "%s is in templates but no install names it" % rel)
+                continue
             self.assertIn(rel, sources, "%s is in templates but no install names it" % rel)
 
     def test_integration_ids_are_unique(self):
@@ -169,7 +174,7 @@ class ManifestContract(unittest.TestCase):
             registered.add(self.source_for_host_path(REPLACEMENT_IMPORT.search(integration["replacement"]).group(1)))
         for entry in self.block["installs"]:
             path = os.path.join(SDK_ROOT, entry["from"])
-            if path.endswith(".css"):
+            if path.endswith(".css") or os.path.isdir(path):
                 continue
             if is_client_module(read(path)):
                 self.assertNotIn(path, registered, "%s is a client module registered in a server registry" % entry["from"])
@@ -177,7 +182,7 @@ class ManifestContract(unittest.TestCase):
     def test_every_host_import_is_declared_in_requires(self):
         for entry in self.block["installs"]:
             path = os.path.join(SDK_ROOT, entry["from"])
-            if path.endswith(".css"):
+            if path.endswith(".css") or os.path.isdir(path):
                 continue
             for host_path in ALIAS_IMPORT.findall(read(path)):
                 if self.installs_host_path(host_path):
@@ -187,6 +192,42 @@ class ManifestContract(unittest.TestCase):
                     candidates & self.requires,
                     "%s imports @/%s, which neither this SDK installs nor requires names" % (entry["from"], host_path),
                 )
+
+    def test_fonts_are_bundled_not_fetched_from_google(self):
+        """1.8.1: next/font/local over bundled woff2 files; the build makes no
+        request to Google Fonts. Same variables, weights and styles as the
+        next/font/google calls they replace."""
+        for entry in self.manifest["installs"] + self.block["installs"]:
+            path = os.path.join(SDK_ROOT, entry["from"])
+            if os.path.isfile(path) and path.endswith((".ts", ".tsx", ".css")):
+                self.assertNotRegex(read(path), r"""from\s+["']next/font/google["']""", entry["from"])
+        fonts = read(os.path.join(LANDING, "polaris-fonts.ts"))
+        self.assertIn('import localFont from "next/font/local";', fonts)
+        for variable in ("--px-font-fraunces", "--px-font-manrope", "--px-font-inter", "--px-font-plex-mono"):
+            self.assertIn('variable: "%s"' % variable, fonts)
+        self.assertEqual(fonts.count('display: "swap"'), 4)
+        self.assertIn('adjustFontFallback: "Times New Roman"', fonts)
+        paths = re.findall(r'path: "\./(fonts/polaris/[^"]+\.woff2)",\s*weight: "([^"]+)",\s*style: "([^"]+)"', fonts)
+        self.assertEqual(
+            sorted((os.path.basename(p), w, s) for p, w, s in paths),
+            [
+                ("fraunces-wght-300-700-italic.woff2", "300 700", "italic"),
+                ("fraunces-wght-300-700.woff2", "300 700", "normal"),
+                ("ibm-plex-mono-400.woff2", "400", "normal"),
+                ("ibm-plex-mono-500.woff2", "500", "normal"),
+                ("inter-wght-400-700.woff2", "400 700", "normal"),
+                ("manrope-wght-400-800.woff2", "400 800", "normal"),
+            ],
+        )
+        for rel, _, _ in paths:
+            with open(os.path.join(LANDING, rel), "rb") as f:
+                self.assertEqual(f.read(4), b"wOF2", rel)
+        licence = read(os.path.join(LANDING, "fonts", "polaris", "OFL.txt"))
+        self.assertIn("SIL OPEN FONT LICENSE Version 1.1", licence)
+        self.assertEqual(
+            self.installed.get("components/custom/landing/fonts/polaris"),
+            os.path.join(SDK_ROOT, "templates/components/custom/landing/fonts/polaris"),
+        )
 
     def test_calculator_runs_on_the_sdk_ncr_engine(self):
         source = read(PRESETS)

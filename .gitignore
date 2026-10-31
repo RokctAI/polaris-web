@@ -35,6 +35,12 @@ next-env.d.ts
 # build loudly if a cache entry is ever incomplete or edited.
 .rokct/cache/
 .rokct/sdk_installer_base.py
+# The installers' record of what they wrote into THIS working tree, rewritten
+# by every compose. Never commit it: `scripts/compose.sh refresh` excludes it
+# from its `git add -f`, Vercel needs a fresh checkout with no record, and its
+# sha256 content hashes trip gitleaks' generic-api-key rule. Listed on its own
+# so it stays ignored even if the .rokct/cache/ rule above ever changes.
+.rokct/cache/install_state.json
 
 # Composed output — everything the SDK installers write into the host, listed
 # in the generated block at the end of this file. The shell commits none of
@@ -219,6 +225,13 @@ next-env.d.ts
 /components/custom/landing/back-to-top.ts
 /components/custom/landing/brand-marks.ts
 /components/custom/landing/download-platform.ts
+/components/custom/landing/fonts/polaris/OFL.txt
+/components/custom/landing/fonts/polaris/fraunces-wght-300-700-italic.woff2
+/components/custom/landing/fonts/polaris/fraunces-wght-300-700.woff2
+/components/custom/landing/fonts/polaris/ibm-plex-mono-400.woff2
+/components/custom/landing/fonts/polaris/ibm-plex-mono-500.woff2
+/components/custom/landing/fonts/polaris/inter-wght-400-700.woff2
+/components/custom/landing/fonts/polaris/manrope-wght-400-800.woff2
 /components/custom/landing/footer-chrome-config.ts
 /components/custom/landing/header-menu.ts
 /components/custom/landing/hero-config.ts

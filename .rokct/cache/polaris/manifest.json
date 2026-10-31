@@ -1,6 +1,6 @@
 {
   "name": "polaris_sdk",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "installs": [
     {
       "from": "templates/app/handson/all/lending",
@@ -91,6 +91,10 @@
         {
           "from": "templates/components/custom/landing/polaris-fonts.ts",
           "to": "components/custom/landing/polaris-fonts.ts"
+        },
+        {
+          "from": "templates/components/custom/landing/fonts/polaris",
+          "to": "components/custom/landing/fonts/polaris"
         },
         {
           "from": "templates/components/custom/landing/polaris-theme-classes.ts",
