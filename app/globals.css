@@ -112,3 +112,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+/*
+ * The platform scrollbar (base_sdk app/styles/rokct-scroll.css, imported by
+ * the root layout so every route has it), in Polaris lime (the 10-30 ruling; brass is for pending only). Fixed colours,
+ * since --primary here is still the old ember; `html:root` outranks the SDK's `:root` defaults whichever
+ * stylesheet Next.js emits last.
+ */
+html:root {
+  --rokct-scroll-thumb: #b8e05a;
+  --rokct-scroll-thumb-hover: #a3cc47;
+}
