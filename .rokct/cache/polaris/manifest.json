@@ -1,6 +1,6 @@
 {
   "name": "polaris_sdk",
-  "version": "1.7.1",
+  "version": "1.7.3",
   "installs": [
     {
       "from": "templates/app/handson/all/lending",

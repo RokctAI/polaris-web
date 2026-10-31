@@ -14,13 +14,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-
-// "How it works" on the Polaris web app's landing, for base_sdk's
-// page-sections registry: the four steps of the borrower's journey, the
-// same steps the apply flow walks (polaris/docs/web-app.md section 4), on
-// an ember line with a numbered node each. Copy: POLARIS_LANDING_CONFIG.how.
-// Server-safe: no hooks.
-
+// "How it works": one picture, the timeline the app's consent and review
+// screens share. Each step says how long it takes. Lime appears once, on
+// the step the visitor is about to take.
 import React from "react";
 
 import { POLARIS_LANDING_CONFIG } from "@/components/custom/landing/polaris-landing-config";
@@ -32,30 +28,39 @@ import type {
 export function PolarisHowItWorksSection({ id }: { id?: string }) {
   const copy = POLARIS_LANDING_CONFIG.how;
   return (
-    <section id={id} className="px-sky-2 w-full border-y border-[var(--px-line-soft)] py-20 md:py-28">
-      <div className="container mx-auto flex max-w-6xl flex-col gap-14 px-4 xl:px-0">
-        <div className="flex flex-col items-start gap-5 md:max-w-2xl">
+    <section id={id} className="px-sky px-section w-full">
+      <div className="container mx-auto grid max-w-6xl gap-12 px-4 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 xl:px-0">
+        <div className="flex flex-col gap-6 lg:sticky lg:top-28 lg:self-start">
           <p className="px-eyebrow">{copy.eyebrow}</p>
-          <h2 className="px-display text-balance text-4xl md:text-5xl">
+          <h2 className="px-display text-4xl md:text-5xl">
             Four steps, <em>all of them</em> in your browser.
           </h2>
+          <p className="px-lede max-w-md">{copy.note}</p>
         </div>
-        <ol className="relative grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-          <div
-            aria-hidden="true"
-            className="px-hair absolute left-6 top-6 hidden w-[calc(100%-3rem)] lg:block"
-          />
-          {copy.steps.map((step, index) => (
-            <li key={step.title} className="relative flex gap-5 lg:flex-col lg:gap-6">
-              <span className="px-step-node relative z-10 flex-none">{index + 1}</span>
-              <div className="flex flex-col gap-2">
-                <h3 className="px-display text-2xl">{step.title}</h3>
-                <p className="text-[15px] leading-relaxed text-[var(--px-ink-2)]">{step.text}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-        <p className="text-sm font-medium text-[var(--px-ink-3)]">{copy.note}</p>
+        <div className="px-card p-6 md:p-8">
+          <ol className="px-tl">
+            {copy.steps.map((step, index) => (
+              <li key={step.title}>
+                <i className={index === 0 ? "on" : undefined} aria-hidden="true">
+                  {index + 1}
+                </i>
+                <div>
+                  <span className="when">
+                    {index === 0 ? "Start here" : `Step ${index + 1}`} · {copy.when[index]}
+                  </span>
+                  <h3 className="text-lg font-semibold tracking-[-0.01em] text-[var(--px-ink)]">
+                    {step.title}
+                  </h3>
+                  <p className="mt-1 text-[15px] leading-relaxed text-[var(--px-sec)]">{step.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <div className="px-next mt-8">
+            <b>Next</b>
+            <span>{copy.next}</span>
+          </div>
+        </div>
       </div>
     </section>
   );

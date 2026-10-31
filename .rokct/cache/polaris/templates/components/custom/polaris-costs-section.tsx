@@ -14,14 +14,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-
-// "What it costs" on the Polaris landing, for base_sdk's page-sections
-// registry: the National Credit Act's ceilings on a short-term loan as a
-// price list, line by line, ending on the one ceiling over all of them
-// (s103(5)). The figures are the law's, not the lender's - the same
-// numbers polaris-loan-presets.ts feeds the calculator. Copy:
-// POLARIS_LANDING_CONFIG.costs. Server-safe: no hooks.
-
+// "What it costs": one picture, the ceiling. The Act's caps as a receipt
+// (label left, figure right on tabular numerals), and under it the one
+// rule above all of them, set as the one lime fact on this screen.
 import React from "react";
 
 import { POLARIS_LANDING_CONFIG } from "@/components/custom/landing/polaris-landing-config";
@@ -33,46 +28,56 @@ import type {
 export function PolarisCostsSection({ id }: { id?: string }) {
   const copy = POLARIS_LANDING_CONFIG.costs;
   return (
-    <section id={id} className="px-sky w-full py-20 md:py-28">
-      <div className="container mx-auto grid max-w-6xl gap-12 px-4 lg:grid-cols-[1fr_1.2fr] lg:gap-20 xl:px-0">
-        <div className="flex flex-col gap-6">
+    <section id={id} className="px-sky-2 px-section w-full">
+      <div className="container mx-auto grid max-w-6xl gap-12 px-4 lg:grid-cols-[1fr_1.15fr] lg:gap-20 xl:px-0">
+        <div className="flex flex-col gap-6 lg:sticky lg:top-28 lg:self-start">
           <p className="px-eyebrow">{copy.eyebrow}</p>
-          <h2 className="px-display text-balance text-4xl md:text-5xl">
+          <h2 className="px-display text-4xl md:text-5xl">
             What a short-term loan can cost, <em>by law.</em>
           </h2>
           <p className="px-lede max-w-md">{copy.blurb}</p>
+          <p className="px-fine max-w-md">{copy.footnote}</p>
         </div>
-        <div className="px-card overflow-hidden">
-          <dl className="px-6 pt-2 md:px-8">
+        <div className="flex flex-col gap-4">
+          <dl className="px-card px-6 py-2 md:px-8">
             {copy.rows.map((row) => (
               <div
                 key={row.label}
-                className="grid grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 border-b border-[var(--px-line-soft)] py-5 sm:grid-cols-[1fr_auto]"
+                className="grid grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 border-b border-[var(--px-sub)] py-4 last:border-b-0"
               >
-                <dt className="font-semibold text-[var(--px-ink)]">{row.label}</dt>
-                <dd className="px-num text-right text-2xl text-[var(--px-ink)] md:text-3xl">
+                <dt className="text-[15px] font-semibold text-[var(--px-ink)]">{row.label}</dt>
+                <dd className="px-money text-xl font-semibold text-[var(--px-ink)] md:text-2xl">
                   {row.value}
                 </dd>
-                <dd className="col-span-2 text-sm text-[var(--px-ink-2)]">{row.note}</dd>
+                <dd className="col-span-2 text-sm text-[var(--px-sec)]">{row.note}</dd>
               </div>
             ))}
           </dl>
-          <div className="px-band flex gap-4 p-6 md:p-8">
-            <div className="flex flex-col gap-1">
-              <p className="text-xs font-bold uppercase tracking-[0.22em] opacity-70">
-                {copy.cap.label}
-              </p>
-              <p className="px-display text-2xl !text-[var(--px-ember-ink)] md:text-3xl">
-                {copy.cap.value}
-              </p>
-              <p className="text-sm font-medium opacity-80">{copy.cap.note}</p>
+          <div className="px-card relative overflow-hidden p-6 md:p-8">
+            <p className="px-eyebrow">{copy.cap.label}</p>
+            <p className="px-display mt-3 text-2xl md:text-[1.75rem]">{copy.cap.value}</p>
+            <p className="px-k mt-2">{copy.cap.note}</p>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <div className="rounded-[10px] bg-[var(--px-alt)] p-3 shadow-[0_0_0_1px_var(--px-sub)]">
+                <p className="px-fine">You borrow</p>
+                <div className="px-bar mt-2">
+                  <span style={{ width: "100%" }} />
+                </div>
+              </div>
+              <div className="rounded-[10px] bg-[var(--px-alt)] p-3 shadow-[0_0_0_1px_var(--px-sub)]">
+                <p className="px-fine">The cost, at most</p>
+                <div className="px-bar mt-2">
+                  <span style={{ width: "100%", background: "var(--px-lime)" }} />
+                </div>
+              </div>
             </div>
+          </div>
+          <div className="px-next">
+            <b>Next</b>
+            <span>{copy.next}</span>
           </div>
         </div>
       </div>
-      <p className="container mx-auto mt-8 max-w-6xl px-4 text-xs leading-relaxed text-[var(--px-ink-3)] xl:px-0">
-        {copy.footnote}
-      </p>
     </section>
   );
 }

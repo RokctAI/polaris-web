@@ -24,7 +24,7 @@
 // says so. The trust line is drawn by polaris-hero-form.tsx under the
 // calculator (the frame draws it only beside store badges, and a lender
 // has none). `brand` stays "name": the host's Branding is the brand row,
-// restyled by polaris-theme.css into the ember eyebrow.
+// restyled by polaris-theme.css into the lime eyebrow.
 
 import type { HeroCopy } from "@/components/custom/landing/hero-copy";
 

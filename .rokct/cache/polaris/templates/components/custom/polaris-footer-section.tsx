@@ -54,13 +54,13 @@ export async function PolarisFooterSection({
   return (
     <footer
       id={id}
-      className="px-sky w-full border-t border-[var(--px-line-soft)] py-14 text-[var(--px-ink-2)] md:py-20"
+      className="px-sky w-full border-t border-[var(--px-sub)] py-14 text-[var(--px-sec)] md:py-20"
     >
       <div className="container mx-auto flex max-w-6xl flex-col gap-12 px-4 xl:px-0">
         <div className="flex flex-col justify-between gap-10 md:flex-row md:items-end">
           <div className="flex flex-col gap-3">
-            <p className="px-display text-3xl text-[var(--px-ink)]">{polarisBrandName()}</p>
-            <p className="px-display text-xl !font-normal italic text-[var(--px-ember-text)]">
+            <p className="px-display text-3xl">{polarisBrandName()}</p>
+            <p className="px-display text-xl !font-normal italic !text-[var(--px-sec)]">
               {POLARIS_MOTTO}
             </p>
           </div>
@@ -87,7 +87,7 @@ export async function PolarisFooterSection({
         </div>
         <FooterChromeRow
           config={{ ...POLARIS_FOOTER_CHROME, links: legalFooterLinks(terms) }}
-          className="border-t border-[var(--px-line-soft)] pt-6"
+          className="border-t border-[var(--px-sub)] pt-6"
         />
       </div>
     </footer>

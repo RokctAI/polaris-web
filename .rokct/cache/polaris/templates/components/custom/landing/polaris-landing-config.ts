@@ -48,6 +48,8 @@ export const POLARIS_LANDING_CONFIG = {
       "No app to download",
       "Your contract, signed in the browser",
     ],
+    /** What happens after the button: the screen says what comes next. */
+    next: "Create an account, then tell us about your money. Your offer is written after that, and it can only sit below the figures above.",
   },
 
   why: {
@@ -73,6 +75,16 @@ export const POLARIS_LANDING_CONFIG = {
         text: "Once we approve, your contract is on the page to read. Accept it or decline it there, and ask for your payout from the same place.",
       },
     ],
+    /** The one picture of this screen: a month as the statement reader sees it. */
+    month: {
+      caption: "An example month, as we read it from a statement",
+      income: 20000,
+      living: 5000,
+      debts: 1500,
+      loan: 3706.4,
+      verdict: "Fits, with R9 793,60 to spare",
+    },
+    next: "The four steps of the application, and what each one asks of you.",
   },
 
   how: {
@@ -97,6 +109,9 @@ export const POLARIS_LANDING_CONFIG = {
       },
     ],
     note: "Stop at any step and your application waits for you; pick it up again from your loans page.",
+    /** When each step is done with, in the borrower's terms. */
+    when: ["About two minutes", "One minute", "Two uploads", "When we have decided"],
+    next: "After the fourth step you ask for your payout from your loan's page, and the money follows.",
   },
 
   costs: {
@@ -126,6 +141,7 @@ export const POLARIS_LANDING_CONFIG = {
     },
     footnote:
       "Regulations 42, 44 and 106, and section 103(5), of the National Credit Act, 34 of 2005, as the calculator above applies them.",
+    next: "Your offer prints every one of these lines with its rand figure before you sign anything.",
   },
 
   faq: {
@@ -170,6 +186,13 @@ export const POLARIS_LANDING_CONFIG = {
     blurb: "Create an account, tell us about your money, and see your offer on the page.",
     primary: "Apply now",
     secondary: "Sign in",
+    /** What happens next, in order, once the button is pressed. */
+    steps: [
+      { when: "Now", text: "Create an account with your phone number." },
+      { when: "About two minutes", text: "Tell us about your money and who you are." },
+      { when: "Two uploads", text: "A photo of your ID and your bank statement as a PDF." },
+      { when: "Then", text: "Your offer, and your contract, on the page." },
+    ],
   },
 
   footer: {
