@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.8.1
+
+* **Fonts are bundled; the build no longer fetches Google Fonts.** The four
+  landing faces load through `next/font/local` from
+  `landing/fonts/polaris/` instead of `next/font/google`. polaris-web main
+  a9fd8c3 failed in Actions, and supacharge-web main 6449cbd failed twice on
+  Vercel, with `next/font/google queries have exactly one entry` for Inter:
+  Google answered with `fonts.gstatic.com/l/font?kit=...` URLs, which
+  Turbopack's `next/font/google` loader cannot resolve.
+  * Fraunces (300 to 700, upright and italic), Manrope (400 to 800) and
+    Inter (400 to 700) are the google/fonts sources (the versions Google
+    serves) cut to the latin and latin-ext characters, with the other axes
+    pinned where Google pins them; they draw the same glyphs. Cyrillic,
+    greek and vietnamese text, which Google's extra faces covered, now
+    draws in the fallback.
+  * IBM Plex Mono 400 and 500 ship whole (the TTFs as woff2): "Plex" is a
+    Reserved Font Name, so the files are not subset.
+  * `OFL.txt` (SIL Open Font License 1.1) sits beside the fonts.
+  * `polaris-fonts.ts` keeps its four exports, the `--px-font-*`
+    variables, `display: swap` and the metric-matched fallbacks (Times New
+    Roman for Fraunces, Arial for the rest), so the landing looks the same.
+    `POLARIS_LANDING_VERSION` goes to 1.8.1. No base_sdk floor moves.
+
 ## 1.8.0
 
 * **Footer credit.** Ray, 2026-10-31: "all site will be copyright sitename
