@@ -15,280 +15,323 @@
  */
 
 /*
- * Polaris's look, scoped to `.px-landing` - the class base_sdk puts on the
- * landing root from the server render (the theme section's meta.rootClass)
- * and polaris-theme.tsx also puts on <html> while the landing is up. Nothing
- * here reaches the back office or the borrower area.
+ * Polaris landing, v2 (the app's redesign standard, polaris-redesign/v2):
  *
- * Pine and ember: a deep pine-green page, cool off-white ink, one ember -
- * a warm coral-orange that is nobody else's in the fleet (Ray, 2026-10-18:
- * "pick new branding colors for polaris", away from the navy and gold that
- * read as the platform's yellow). The light set is a pale mint linen with
- * the same pine as ink and a deeper ember that still reads on paper. No
- * mark anywhere: Ray's standing word for Polaris is no star.
+ *   - One picture per screen. The hero is the receipt, "why" is the month
+ *     bar, "how" is the timeline, "costs" is the ceiling, the close is the
+ *     list of what happens next. Nothing is a bare wall of cards.
+ *   - Lime means go. The brand colour appears ONCE per screen, on the action
+ *     or the one fact that matters. Eyebrows, numerals and italics are ink.
+ *   - Money is tabular. Every rand figure is set on lining tabular numerals,
+ *     right-aligned, through the SDK's own formatter. Dates are written out.
+ *   - Brass is for pending states only; it never decorates.
  *
- * Two layers of tokens: the --px-* set the Polaris sections read, and the
- * shadcn HSL set (--background, --border, --primary ...) redefined inside
- * the scope, so base_sdk's header (bg-background/80, border-border), its
- * primitives and anything else composed into the landing wear this palette
- * without being touched.
+ * Tokens are the v2 phone frames' (m-dark / m-light), one to one, so the
+ * site and the app are visibly the same product. Everything is scoped to
+ * `.px-landing`, the class the theme section puts on the landing root and
+ * the theme effect puts on <html>.
  */
+
 .px-landing {
-  --px-sky: #0b1f1a;
-  --px-sky-2: #10302a;
-  --px-sky-3: #163f37;
-  --px-line: #255548;
-  --px-line-soft: #1b443a;
-  --px-ink: #eef5f0;
-  --px-ink-2: #a7c3b7;
-  --px-ink-3: #789c8e;
-  --px-ember: #ff7a59;
-  --px-ember-deep: #f0623f;
-  --px-ember-text: #ff8a6b;
-  --px-ember-ink: #1b0f0a;
-  --px-green: #7fe0a8;
-  --px-red: #ff6b8a;
+  /* surfaces: dark pine */
+  --px-surface: #081914;
+  --px-surface-2: #0f2b25;
+  --px-card: #153a32;
+  --px-alt: #0f2b25;
+  --px-stroke: #2f6656;
+  --px-sub: #1f4a3f;
+  /* ink */
+  --px-ink: #f3f8f4;
+  --px-sec: #9db8ae;
+  --px-faint: #6b8c80;
+  /* the one brand colour */
+  --px-lime: #b8e05a;
+  --px-lime-ink: #13200a;
+  --px-lime-text: #b8e05a;
+  --px-tint: rgba(184, 224, 90, 0.15);
+  /* pending only */
+  --px-brass: #e3ae45;
+  --px-brass-tint: rgba(227, 174, 69, 0.16);
+  --px-red: #ff6b6b;
+
+  /* names the SDK's older rules still read */
+  --px-sky: var(--px-surface);
+  --px-sky-2: var(--px-card);
+  --px-sky-3: var(--px-alt);
+  --px-line: var(--px-stroke);
+  --px-line-soft: var(--px-sub);
+  --px-ink-2: var(--px-sec);
+  --px-ink-3: var(--px-faint);
+
   --px-font-sans: var(--px-font-manrope, "Manrope"), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --px-font-display: var(--px-font-fraunces, "Fraunces"), "Iowan Old Style", "Palatino Linotype",
     Georgia, serif;
-  --px-glow: radial-gradient(
-    70% 55% at 50% 0%,
-    rgba(255, 122, 89, 0.2) 0%,
-    rgba(255, 122, 89, 0.06) 40%,
-    rgba(255, 122, 89, 0) 70%
-  );
-  --px-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6);
+  --px-radius: 18px;
+  --px-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.55);
 
+  /* shadcn tokens, so base's header and primitives wear the same surfaces */
   --background: 165 48% 8%;
-  --foreground: 137 26% 95%;
+  --foreground: 132 22% 96%;
   --card: 169 50% 13%;
-  --card-foreground: 137 26% 95%;
+  --card-foreground: 132 22% 96%;
   --popover: 169 50% 13%;
-  --popover-foreground: 137 26% 95%;
-  --primary: 12 100% 67%;
-  --primary-foreground: 18 46% 7%;
+  --popover-foreground: 132 22% 96%;
+  --primary: 78 68% 62%;
+  --primary-foreground: 95 52% 8%;
   --secondary: 168 48% 17%;
-  --secondary-foreground: 137 26% 95%;
+  --secondary-foreground: 132 22% 96%;
   --muted: 168 48% 17%;
-  --muted-foreground: 154 19% 71%;
+  --muted-foreground: 154 19% 67%;
   --accent: 168 48% 17%;
-  --accent-foreground: 137 26% 95%;
+  --accent-foreground: 132 22% 96%;
   --border: 164 39% 24%;
   --input: 164 39% 24%;
-  --ring: 12 100% 67%;
+  --ring: 78 68% 62%;
   color-scheme: dark;
 }
 
-/*
- * The light set. `html.light` is what the shell's ThemeProvider writes
- * from the header's theme toggle; `html.px-landing:not(.dark)` is the
- * same choice read off <html> once the effect has put the token class
- * there. Nothing matches before hydration, so the first paint is the dark
- * set - the default polaris-theme.tsx also writes when nothing chose.
- */
 html.px-landing:not(.dark),
 html.light .px-landing {
-  --px-sky: #eef3ee;
-  --px-sky-2: #fbfdfb;
-  --px-sky-3: #e1eae3;
-  --px-line: #c9d8cf;
-  --px-line-soft: #d9e4dc;
-  --px-ink: #0b1f1a;
-  --px-ink-2: #3d5a50;
-  --px-ink-3: #6f8c81;
-  --px-ember: #e4572e;
-  --px-ember-deep: #c9461f;
-  --px-ember-text: #b5401b;
-  --px-ember-ink: #1b0f0a;
-  --px-glow: radial-gradient(
-    70% 55% at 50% 0%,
-    rgba(228, 87, 46, 0.16) 0%,
-    rgba(228, 87, 46, 0.05) 40%,
-    rgba(228, 87, 46, 0) 70%
-  );
-  --px-shadow: 0 30px 80px -30px rgba(11, 31, 26, 0.22);
+  --px-surface: #eef3ee;
+  --px-surface-2: #e2ebe4;
+  --px-card: #ffffff;
+  --px-alt: #f1f5f2;
+  --px-stroke: #c9d6cc;
+  --px-sub: #dfe8e1;
+  --px-ink: #15201b;
+  --px-sec: #5b6660;
+  --px-faint: #8b958f;
+  --px-lime: #b8e05a;
+  --px-lime-ink: #13200a;
+  --px-lime-text: #4e7a12;
+  --px-tint: rgba(184, 224, 90, 0.22);
+  --px-brass: #e3ae45;
+  --px-brass-tint: rgba(227, 174, 69, 0.2);
+  --px-red: #d1402b;
+  --px-shadow: 0 24px 60px -30px rgba(21, 32, 27, 0.25);
 
   --background: 120 17% 94%;
-  --foreground: 165 48% 8%;
-  --card: 120 33% 99%;
-  --card-foreground: 165 48% 8%;
-  --popover: 120 33% 99%;
-  --popover-foreground: 165 48% 8%;
-  --primary: 14 77% 54%;
-  --primary-foreground: 18 46% 7%;
-  --secondary: 133 18% 90%;
-  --secondary-foreground: 165 48% 8%;
-  --muted: 133 18% 90%;
-  --muted-foreground: 159 19% 30%;
-  --accent: 133 18% 90%;
-  --accent-foreground: 165 48% 8%;
-  --border: 144 16% 82%;
-  --input: 144 16% 82%;
-  --ring: 14 77% 54%;
+  --foreground: 160 22% 11%;
+  --card: 120 20% 98%;
+  --card-foreground: 160 22% 11%;
+  --popover: 120 20% 98%;
+  --popover-foreground: 160 22% 11%;
+  --primary: 78 68% 62%;
+  --primary-foreground: 95 52% 8%;
+  --secondary: 120 11% 90%;
+  --secondary-foreground: 160 22% 11%;
+  --muted: 120 11% 90%;
+  --muted-foreground: 150 4% 38%;
+  --accent: 120 11% 90%;
+  --accent-foreground: 160 22% 11%;
+  --border: 120 9% 85%;
+  --input: 120 9% 85%;
+  --ring: 85 74% 27%;
   color-scheme: light;
 }
 
 .px-landing body,
 .px-landing:not(html) {
-  background: var(--px-sky) !important;
+  background: var(--px-surface) !important;
   color: var(--px-ink) !important;
   font-family: var(--px-font-sans) !important;
   -webkit-font-smoothing: antialiased;
 }
-
 .px-landing ::selection {
-  background: var(--px-ember);
-  color: var(--px-ember-ink);
+  background: var(--px-lime);
+  color: var(--px-lime-ink);
 }
 
 /* ------------------------------------------------------------ type ---- */
-
 .px-display {
   font-family: var(--px-font-display);
   font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
+  letter-spacing: -0.025em;
+  line-height: 1.04;
   color: var(--px-ink);
+  text-wrap: balance;
 }
 .px-display em {
   font-style: italic;
   font-weight: 400;
-  color: var(--px-ember-text);
+  color: inherit;
 }
 .px-num {
-  font-family: var(--px-font-display);
   font-variant-numeric: tabular-nums lining-nums;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
+}
+.px-money {
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.01em;
+  text-align: right;
+  white-space: nowrap;
 }
 .px-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 0.6em;
   font-family: var(--px-font-sans);
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--px-ember-text);
-}
-.px-eyebrow::before {
-  content: "";
-  display: inline-block;
-  width: 1.5em;
-  height: 2px;
-  background: currentColor;
-  vertical-align: middle;
+  color: var(--px-sec);
 }
 .px-lede {
-  font-size: 1.125rem;
-  line-height: 1.6;
-  color: var(--px-ink-2);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--px-sec);
 }
 @media (min-width: 768px) {
   .px-lede {
-    font-size: 1.25rem;
+    font-size: 1.1875rem;
   }
+}
+.px-k {
+  font-size: 0.8125rem;
+  color: var(--px-sec);
+}
+.px-fine {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--px-faint);
 }
 
 /* --------------------------------------------------------- surfaces ---- */
-
 .px-card {
-  background: var(--px-sky-2);
-  border: 1px solid var(--px-line);
-  border-radius: 1.25rem;
+  background: var(--px-card);
+  border-radius: var(--px-radius);
+  box-shadow: 0 0 0 1px var(--px-stroke);
   color: var(--px-ink);
 }
-.px-card-raised {
-  background: var(--px-sky-3);
+.px-alt {
+  background: var(--px-alt);
 }
-.px-hair {
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--px-ember) 18%,
-    var(--px-ember) 82%,
-    transparent
-  );
-}
-.px-band {
-  background: var(--px-ember);
-  color: var(--px-ember-ink);
-}
+/* Two bands. Sections alternate between them; a card is always one step
+   lighter than the band it sits on, with a visible stroke. */
 .px-sky {
-  background: var(--px-sky);
+  background: var(--px-surface);
+  --px-card: #153a32;
+  --px-alt: #0f2b25;
+  --px-sub: #1f4a3f;
+  --px-stroke: #2f6656;
 }
 .px-sky-2 {
-  background: var(--px-sky-2);
+  background: var(--px-surface-2);
+  --px-card: #1b473d;
+  --px-alt: #153a32;
+  --px-sub: #28584b;
+  --px-stroke: #3a7563;
+}
+html.px-landing:not(.dark) .px-sky,
+html.light .px-landing .px-sky {
+  --px-card: #ffffff;
+  --px-alt: #f1f5f2;
+  --px-sub: #dfe8e1;
+  --px-stroke: #c9d6cc;
+}
+html.px-landing:not(.dark) .px-sky-2,
+html.light .px-landing .px-sky-2 {
+  --px-card: #ffffff;
+  --px-alt: #eef3ef;
+  --px-sub: #d3dfd6;
+  --px-stroke: #bccabf;
+}
+.px-section + .px-section {
+  border-top: 0;
+}
+.px-hr {
+  height: 1px;
+  background: var(--px-sub);
+}
+.px-section {
+  padding-block: 4.5rem;
+}
+@media (min-width: 768px) {
+  .px-section {
+    padding-block: 6.5rem;
+  }
+}
+
+/* "What happens next": the line every screen ends with. */
+.px-next {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem 0.9rem;
+  align-items: start;
+  padding: 1rem 1.125rem;
+  border-radius: 14px;
+  background: var(--px-alt);
+  box-shadow: 0 0 0 1px var(--px-sub);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--px-ink);
+}
+.px-next > b {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--px-sec);
+  padding-top: 0.3rem;
 }
 
 /* ---------------------------------------------------------- buttons ---- */
-
 .px-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   min-height: 3.25rem;
-  padding: 0.9rem 1.75rem;
-  border-radius: 999px;
+  padding: 0.85rem 1.5rem;
+  border-radius: 14px;
   font-family: var(--px-font-sans);
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 0.97rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   line-height: 1.2;
   text-align: center;
   transition:
     transform 0.15s ease,
     background-color 0.15s ease,
-    border-color 0.15s ease,
+    box-shadow 0.15s ease,
     color 0.15s ease;
 }
 .px-btn:active {
   transform: translateY(1px);
 }
-.px-btn-ember {
-  background: var(--px-ember);
-  color: var(--px-ember-ink);
-  border: 1px solid var(--px-ember);
+/* The one lime thing on its screen. */
+.px-btn-lime {
+  background: var(--px-lime);
+  color: var(--px-lime-ink);
 }
-.px-btn-ember:hover {
-  background: var(--px-ember-deep);
-  border-color: var(--px-ember-deep);
+.px-btn-lime:hover {
+  background: #c6e977;
 }
 .px-btn-ghost {
   background: transparent;
   color: var(--px-ink);
-  border: 1px solid var(--px-line);
+  box-shadow: inset 0 0 0 1.5px var(--px-stroke);
+  min-height: 2.875rem;
+  font-weight: 500;
 }
 .px-btn-ghost:hover {
-  border-color: var(--px-ink);
-}
-.px-btn-ink {
-  background: var(--px-ember-ink);
-  color: #eef5f0;
-  border: 1px solid var(--px-ember-ink);
-}
-.px-btn-ink:hover {
-  background: #3a2419;
-}
-.px-btn-ink-ghost {
-  background: transparent;
-  color: var(--px-ember-ink);
-  border: 1px solid rgba(27, 15, 10, 0.45);
-}
-.px-btn-ink-ghost:hover {
-  border-color: var(--px-ember-ink);
+  box-shadow: inset 0 0 0 1.5px var(--px-sec);
 }
 
 /* ------------------------------------------------------- calculator ---- */
-
 .px-calc {
-  box-shadow: var(--px-shadow);
+  box-shadow:
+    0 0 0 1px var(--px-stroke),
+    var(--px-shadow);
 }
-.px-calc-result {
-  background: var(--px-sky-3);
+.px-calc .px-alt {
+  background: var(--px-alt);
+}
+.px-tl i {
+  box-shadow: 0 0 0 3px var(--px-card);
 }
 .px-amount-input {
   width: 100%;
@@ -297,27 +340,27 @@ html.light .px-landing {
   border: 0;
   outline: none;
   padding: 0;
-  font-family: var(--px-font-display);
-  font-weight: 500;
-  font-size: clamp(2.5rem, 2rem + 2.5vw, 3.75rem);
+  font-family: var(--px-font-sans);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 2rem + 2.5vw, 3.5rem);
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: var(--px-ink);
   font-variant-numeric: tabular-nums lining-nums;
 }
 .px-amount-input:focus-visible {
-  box-shadow: 0 2px 0 0 var(--px-ember);
+  box-shadow: 0 2px 0 0 var(--px-ink);
 }
 .px-range {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 4px;
-  border-radius: 999px;
+  height: 6px;
+  border-radius: 4px;
   background: linear-gradient(
     90deg,
-    var(--px-ember) var(--px-fill, 0%),
-    var(--px-line) var(--px-fill, 0%)
+    var(--px-ink) var(--px-fill, 0%),
+    var(--px-sub) var(--px-fill, 0%)
   );
   outline: none;
   cursor: pointer;
@@ -325,55 +368,47 @@ html.light .px-landing {
 .px-range::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: var(--px-ember);
-  border: 4px solid var(--px-sky-2);
-  box-shadow:
-    0 0 0 1px var(--px-ember),
-    0 6px 18px rgba(0, 0, 0, 0.35);
+  background: var(--px-card);
+  border: 2px solid var(--px-ink);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   cursor: grab;
 }
 .px-range::-moz-range-thumb {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: var(--px-ember);
-  border: 4px solid var(--px-sky-2);
-  box-shadow:
-    0 0 0 1px var(--px-ember),
-    0 6px 18px rgba(0, 0, 0, 0.35);
+  background: var(--px-card);
+  border: 2px solid var(--px-ink);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   cursor: grab;
 }
 .px-range:focus-visible::-webkit-slider-thumb {
-  box-shadow:
-    0 0 0 1px var(--px-ember),
-    0 0 0 6px color-mix(in srgb, var(--px-ember) 28%, transparent);
+  box-shadow: 0 0 0 5px var(--px-sub);
 }
 .px-range:focus-visible::-moz-range-thumb {
-  box-shadow:
-    0 0 0 1px var(--px-ember),
-    0 0 0 6px color-mix(in srgb, var(--px-ember) 28%, transparent);
+  box-shadow: 0 0 0 5px var(--px-sub);
 }
 .px-seg {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
-  gap: 4px;
-  padding: 4px;
-  border-radius: 999px;
-  background: var(--px-sky-3);
-  border: 1px solid var(--px-line);
+  gap: 3px;
+  padding: 3px;
+  border-radius: 12px;
+  background: var(--px-alt);
+  box-shadow: inset 0 0 0 1px var(--px-sub);
 }
 .px-seg > button {
-  border-radius: 999px;
-  padding: 0.7rem 0;
+  border-radius: 9px;
+  height: 2.25rem;
   font-family: var(--px-font-sans);
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: 0.875rem;
+  font-weight: 500;
   line-height: 1;
-  color: var(--px-ink-2);
+  color: var(--px-sec);
   transition:
     background-color 0.15s ease,
     color 0.15s ease;
@@ -382,16 +417,19 @@ html.light .px-landing {
   color: var(--px-ink);
 }
 .px-seg > button[aria-pressed="true"] {
-  background: var(--px-ember);
-  color: var(--px-ember-ink);
+  background: var(--px-card);
+  color: var(--px-ink);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 .px-switch {
   position: relative;
   flex: none;
-  width: 46px;
+  width: 44px;
   height: 26px;
   border-radius: 999px;
-  background: var(--px-line);
+  background: var(--px-sub);
+  box-shadow: inset 0 0 0 1px var(--px-stroke);
   transition: background-color 0.2s ease;
 }
 .px-switch::after {
@@ -402,45 +440,206 @@ html.light .px-landing {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: var(--px-ink);
+  background: var(--px-sec);
   transition:
     transform 0.2s ease,
     background-color 0.2s ease;
 }
 [aria-checked="true"] > .px-switch {
-  background: var(--px-ember);
+  background: var(--px-ink);
+  box-shadow: none;
 }
 [aria-checked="true"] > .px-switch::after {
-  transform: translateX(20px);
-  background: var(--px-ember-ink);
+  transform: translateX(18px);
+  background: var(--px-card);
+}
+/* The receipt. */
+.px-lr {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.45rem 0;
+  font-size: 0.9375rem;
+  color: var(--px-sec);
+}
+.px-lr b {
+  font-weight: 500;
+  color: var(--px-ink);
+}
+.px-lr.tot {
+  margin-top: 0.4rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--px-sub);
+  color: var(--px-ink);
+  font-weight: 600;
+  font-size: 1rem;
+}
+.px-lr.tot b {
+  font-weight: 700;
+}
+.px-cost {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 12px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.75rem;
+  background: var(--px-alt);
+  box-shadow: 0 0 0 1px var(--px-sub);
+}
+.px-cost span {
+  font-size: 0.8125rem;
+  color: var(--px-ink);
+}
+.px-cost b {
+  font-size: 0.9375rem;
+  color: var(--px-ink);
 }
 .px-bar {
   height: 8px;
-  border-radius: 999px;
-  background: var(--px-line-soft);
+  border-radius: 4px;
+  background: var(--px-sub);
   overflow: hidden;
 }
 .px-bar > span {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--px-ember-deep), var(--px-ember));
+  background: var(--px-ink);
   transition: width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.px-row {
+
+/* ------------------------------------------------------ month bar ---- */
+.px-month .bar {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.55rem 0;
-  border-bottom: 1px solid var(--px-line-soft);
+  height: 28px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0.9rem 0 0.75rem;
 }
-.px-row:last-child {
-  border-bottom: 0;
+.px-month .bar i {
+  display: block;
+  height: 100%;
+}
+.px-month .seg-exp {
+  background: var(--px-stroke);
+}
+.px-month .seg-debt {
+  background: var(--px-sub);
+}
+.px-month .seg-loan {
+  background: var(--px-lime); /* the one lime thing on this screen */
+}
+.px-month .seg-left {
+  background: color-mix(in srgb, var(--px-ink) 10%, var(--px-sub));
+}
+html.px-landing:not(.dark) .px-month .seg-exp,
+html.light .px-landing .px-month .seg-exp {
+  background: #1a3f35;
+}
+html.px-landing:not(.dark) .px-month .seg-debt,
+html.light .px-landing .px-month .seg-debt {
+  background: #5b6660;
+}
+.px-legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 1rem;
+}
+.px-legend div {
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+  font-size: 0.8125rem;
+  color: var(--px-sec);
+  white-space: nowrap;
+}
+.px-legend i {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex: none;
+}
+.px-legend b {
+  margin-left: auto;
+  font-weight: 600;
+  color: var(--px-ink);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.px-verdict {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.9rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--px-ink);
+}
+
+/* ------------------------------------------------------- timeline ---- */
+.px-tl {
+  display: flex;
+  flex-direction: column;
+  padding-left: 4px;
+}
+.px-tl > li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 1rem;
+  position: relative;
+  padding-bottom: 1.75rem;
+}
+.px-tl > li::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 22px;
+  bottom: 0;
+  width: 2px;
+  background: var(--px-sub);
+}
+.px-tl > li:last-child::before {
+  display: none;
+}
+.px-tl > li:last-child {
+  padding-bottom: 0;
+}
+.px-tl i {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--px-sub);
+  display: grid;
+  place-items: center;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 0 3px var(--px-card);
+  font-style: normal;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--px-sec);
+  font-variant-numeric: lining-nums;
+}
+.px-tl i.on {
+  background: var(--px-lime); /* the one lime thing on this screen */
+  color: var(--px-lime-ink);
+  box-shadow:
+    0 0 0 3px var(--px-card),
+    0 0 0 6px var(--px-tint);
+}
+.px-tl .when {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--px-sec);
+  margin-bottom: 0.2rem;
 }
 
 /* ------------------------------------------------------------- faq ---- */
-
 .px-faq-body {
   display: grid;
   grid-template-rows: 0fr;
@@ -453,131 +652,85 @@ html.light .px-landing {
   overflow: hidden;
 }
 .px-faq-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--px-alt);
+  box-shadow: 0 0 0 1px var(--px-sub);
+  color: var(--px-sec);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1;
   transition: transform 0.3s ease;
 }
 [aria-expanded="true"] .px-faq-mark {
   transform: rotate(45deg);
-}
-
-/* ------------------------------------------------------- timeline ---- */
-
-.px-step-node {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: var(--px-sky-3);
-  border: 1px solid var(--px-line);
-  color: var(--px-ember-text);
-  font-family: var(--px-font-display);
-  font-weight: 500;
-  font-size: 1.15rem;
-  font-variant-numeric: lining-nums;
+  color: var(--px-ink);
 }
 
 /* ------------------------------------------- base's header and hero ---- */
-
-/*
- * The header is base_sdk's; it already reads the shadcn tokens above. Its
- * wordmark is the host's Branding (the platform name in the host's sans):
- * re-set in the display face, with no mark, and capitalised,
- * because a shell whose name is still its app_type prints "polaris".
- */
-.px-landing header .font-sans.font-bold.tracking-tight {
+.px-landing header > div:first-child {
+  background: color-mix(in srgb, var(--px-surface) 86%, transparent) !important;
+  border-color: var(--px-sub) !important;
+}
+.px-landing header .font-sans.font-bold.tracking-tight,
+.px-landing header [data-brand-wordmark] {
   font-family: var(--px-font-display) !important;
-  font-weight: 600 !important;
-  font-style: italic;
-  letter-spacing: -0.01em !important;
-  text-transform: capitalize;
+  font-weight: 500 !important;
+  letter-spacing: -0.02em !important;
   color: var(--px-ink) !important;
 }
-
-/*
- * The hero frame is base_sdk's hero-view.tsx; its element order is
- * hero > column > [brand row, headline, (the form), badges]. Re-painted
- * from outside through the `#hero` id the frame gets from
- * LANDING_CONFIG.nav.hero: the sky and the glow, the padding, the brand
- * row as a small ember eyebrow (the host's name, capitalised, a short
- * rule before it; the letter tile hidden), the headline in the display
- * face with the rotating word in ember italic.
- */
+.px-landing header a.rounded-full {
+  background: var(--px-ink) !important;
+  color: var(--px-surface) !important;
+  border-radius: 10px !important;
+}
 .px-landing #hero {
-  background: var(--px-glow), var(--px-sky) !important;
+  background: var(--px-surface) !important;
   color: var(--px-ink);
-  padding-top: 2.5rem !important;
-  padding-bottom: 4rem !important;
+  padding-top: 2rem !important;
+  padding-bottom: 4.5rem !important;
 }
+/* the wordmark slot: the header already carries the name */
 .px-landing #hero > div > div:first-child {
-  margin-top: 0 !important;
-  margin-bottom: 1.5rem !important;
-}
-.px-landing #hero > div > div:first-child > div {
-  height: auto !important;
-}
-.px-landing #hero > div > div:first-child > div > div:first-child {
   display: none !important;
 }
-.px-landing #hero > div > div:first-child > div > div:last-child {
-  width: auto !important;
-}
-.px-landing #hero > div > div:first-child > div > div:last-child > div {
-  padding: 0 !important;
-}
-.px-landing #hero > div > div:first-child span > span {
-  font-family: var(--px-font-sans) !important;
-  font-size: 0.8125rem !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.32em !important;
-  text-transform: uppercase;
-  color: var(--px-ember-text) !important;
-  transform: none !important;
-}
-.px-landing #hero > div > div:first-child span > span::before {
-  content: "";
-  display: inline-block;
-  width: 1.5em;
-  height: 2px;
-  margin-right: 0.7em;
-  background: currentColor;
-  vertical-align: middle;
-}
 .px-landing #hero > div > div:first-child + div {
-  margin-bottom: 2.75rem !important;
+  margin-bottom: 2rem !important;
+  margin-top: 1.5rem !important;
 }
 .px-landing #hero h1 {
   font-family: var(--px-font-display) !important;
   font-weight: 500 !important;
-  font-size: clamp(2.25rem, 1.1rem + 4vw, 4.25rem) !important;
-  line-height: 1.06 !important;
-  letter-spacing: -0.02em !important;
+  font-size: clamp(2.125rem, 1rem + 3.6vw, 3.75rem) !important;
+  line-height: 1.04 !important;
+  letter-spacing: -0.025em !important;
   color: var(--px-ink) !important;
-  max-width: 22ch;
+  max-width: 24ch;
   margin-inline: auto;
-  row-gap: 0.1em;
+  row-gap: 0.05em;
 }
 .px-landing #hero h1 > div:first-child span {
   font-family: var(--px-font-display) !important;
   font-style: italic !important;
   font-weight: 400 !important;
   font-size: 1em !important;
-  color: var(--px-ember-text) !important;
+  color: var(--px-ink) !important;
 }
 @media (min-width: 768px) {
   .px-landing #hero {
-    padding-top: 3.5rem !important;
-    padding-bottom: 5.5rem !important;
-  }
-  .px-landing #hero > div > div:first-child {
-    margin-bottom: 2rem !important;
+    padding-top: 3rem !important;
+    padding-bottom: 6rem !important;
   }
   .px-landing #hero > div > div:first-child + div {
-    margin-bottom: 3.5rem !important;
+    margin-bottom: 2.75rem !important;
+    margin-top: 2.5rem !important;
   }
 }
 
 /* --------------------------------------------------------- motion ---- */
-
 @media (prefers-reduced-motion: reduce) {
   .px-btn,
   .px-bar > span,

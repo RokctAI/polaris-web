@@ -14,11 +14,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-
-// The closing call on the Polaris landing, for base_sdk's page-sections
-// registry: one ember band, two doors - sign up, or sign in. Not a nav stop.
-// Copy: POLARIS_LANDING_CONFIG.cta. Server-safe: no hooks.
-
+// The close: what happens next, in order and with a time against each
+// line, then the one lime button on this screen. No lime band: the brand
+// colour is the action, not the wallpaper.
 import React from "react";
 import Link from "next/link";
 
@@ -39,29 +37,33 @@ export function PolarisCtaSection({
 }) {
   const copy = POLARIS_LANDING_CONFIG.cta;
   return (
-    <section id={id} className="px-sky w-full py-6 md:py-10">
+    <section id={id} className="px-sky-2 px-section w-full">
       <div className="container mx-auto max-w-6xl px-4 xl:px-0">
-        <div className="px-band relative overflow-hidden rounded-[1.75rem] px-6 py-12 md:px-14 md:py-16">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-24 -top-32 h-80 w-80 rounded-full bg-[var(--px-ember-ink)] opacity-[0.08]"
-          />
-          <div className="relative flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-            <div className="flex max-w-xl flex-col gap-3">
-              <h2 className="px-display text-4xl !text-[var(--px-ember-ink)] md:text-5xl">
-                {copy.heading}
-              </h2>
-              <p className="text-lg font-medium opacity-80">{copy.blurb}</p>
-            </div>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link href={signupUrl} className="px-btn px-btn-ink">
+        <div className="px-card grid gap-10 p-7 md:grid-cols-[1fr_1fr] md:p-12 lg:gap-16">
+          <div className="flex flex-col gap-4">
+            <p className="px-eyebrow">What happens next</p>
+            <h2 className="px-display text-4xl md:text-5xl">{copy.heading}</h2>
+            <p className="px-lede max-w-md">{copy.blurb}</p>
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+              <Link href={signupUrl} className="px-btn px-btn-lime">
                 {copy.primary}
               </Link>
-              <Link href={loginUrl} className="px-btn px-btn-ink-ghost">
+              <Link href={loginUrl} className="px-btn px-btn-ghost">
                 {copy.secondary}
               </Link>
             </div>
           </div>
+          <ol className="px-tl md:pt-2">
+            {copy.steps.map((step, index) => (
+              <li key={step.text}>
+                <i aria-hidden="true">{index + 1}</i>
+                <div>
+                  <span className="when">{step.when}</span>
+                  <p className="text-[15px] font-medium leading-snug text-[var(--px-ink)]">{step.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>

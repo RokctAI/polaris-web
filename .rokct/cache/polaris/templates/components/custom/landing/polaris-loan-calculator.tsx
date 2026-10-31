@@ -14,20 +14,12 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-
-// The loan calculator on the Polaris landing: an amount, a term, cover on
-// or off, and what that loan can cost at most under the National Credit
-// Act - worked by the SDK's NCR engine through polaris-loan-presets.ts. The
-// left column is the borrower's side (the amount as a figure they can type
-// or slide, the months as a row of buttons, the cover as a switch); the
-// right is the answer (the total, the instalment, every line of the cost,
-// and the s103(5) bar: cost of credit against the amount, the ceiling the
-// Act sets). The figures ease between values; a visitor who prefers
-// reduced motion sees them jump.
-//
-// A client module: it holds the inputs. It is drawn by the hero form, so
-// it sits where the frame puts the form - under the headline.
-
+// The hero's one picture: the receipt. The left half is what the borrower
+// chooses (amount, term, cover); the right half is the receipt the app's
+// Agreement step prints - every line of the cost on tabular numerals,
+// right-aligned, the total as one number, and the instalment dates written
+// out in full. Lime appears once, on the action. (v2 standard: one picture
+// per screen, lime means go, money is tabular, say what happens next.)
 "use client";
 
 import React, { useEffect, useId, useMemo, useRef, useState } from "react";
@@ -76,27 +68,41 @@ function useEasedNumber(target: number): number {
   return value;
 }
 
-function CostRow({
+/** "Monday, 30 November 2026": dates are written out, never numeric. */
+export function longDate(date: Date): string {
+  return new Intl.DateTimeFormat("en-ZA", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(date);
+}
+
+/** The payout date plus `months` calendar months, clamped to the month's last day. */
+export function addMonths(date: Date, months: number): Date {
+  const next = new Date(date.getFullYear(), date.getMonth() + months, 1);
+  const last = new Date(next.getFullYear(), next.getMonth() + 1, 0).getDate();
+  next.setDate(Math.min(date.getDate(), last));
+  return next;
+}
+
+function Line({
   label,
   note,
   value,
-  strong = false,
 }: {
   label: string;
   note?: string;
   value: number;
-  strong?: boolean;
 }) {
   return (
-    <div className="px-row">
-      <dt className={strong ? "font-semibold text-[var(--px-ink)]" : "text-[var(--px-ink-2)]"}>
+    <div className="px-lr">
+      <dt>
         {label}
-        {note && <span className="ml-1.5 text-xs text-[var(--px-ink-3)]">{note}</span>}
+        {note && <span className="ml-1.5 text-xs text-[var(--px-faint)]">{note}</span>}
       </dt>
-      <dd
-        className={`px-num ${strong ? "text-lg text-[var(--px-ink)]" : "text-[var(--px-ink)]"}`}
-      >
-        {formatRand(value, { cents: true })}
+      <dd className="px-money">
+        <b>{formatRand(value, { cents: true })}</b>
       </dd>
     </div>
   );
@@ -113,6 +119,10 @@ export function PolarisLoanCalculator({
   const [typed, setTyped] = useState<string | null>(null);
   const [months, setMonths] = useState<number>(SHORT_TERM_LOAN.defaultMonths);
   const [cover, setCover] = useState(false);
+  // The calendar is the visitor's, read after hydration so the server's HTML
+  // and the client's first paint agree.
+  const [today, setToday] = useState<Date | null>(null);
+  useEffect(() => setToday(new Date()), []);
   const amountId = useId();
 
   const estimate = useMemo(
@@ -121,9 +131,10 @@ export function PolarisLoanCalculator({
   );
   const total = useEasedNumber(estimate.quote.totalRepayment);
   const instalment = useEasedNumber(estimate.instalment);
-
   const { minAmount, maxAmount, step } = SHORT_TERM_LOAN;
   const fill = ((amount - minAmount) / (maxAmount - minAmount)) * 100;
+  const first = today ? addMonths(today, 1) : null;
+  const last = today ? addMonths(today, months) : null;
 
   const commitTyped = () => {
     if (typed === null) return;
@@ -138,14 +149,15 @@ export function PolarisLoanCalculator({
       data-polaris-calculator
       className="px-card px-calc w-full max-w-5xl overflow-hidden text-left"
     >
-      <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
-        <div className="flex flex-col gap-9 p-6 md:p-10">
+      <div className="grid lg:grid-cols-[1fr_1fr]">
+        {/* ------------------------------------------------ what you choose */}
+        <div className="flex flex-col gap-8 p-6 md:p-9">
           <div>
             <label htmlFor={amountId} className="px-eyebrow">
               How much do you need?
             </label>
-            <div className="mt-4 flex items-baseline gap-1">
-              <span className="px-num text-3xl text-[var(--px-ink-2)] md:text-4xl">R</span>
+            <div className="mt-3 flex items-baseline gap-1">
+              <span className="px-num text-3xl font-medium text-[var(--px-sec)] md:text-4xl">R</span>
               <input
                 id={amountId}
                 className="px-amount-input"
@@ -174,7 +186,7 @@ export function PolarisLoanCalculator({
               aria-valuetext={formatRand(amount)}
               style={{ "--px-fill": `${fill}%` } as React.CSSProperties}
             />
-            <div className="mt-2 flex justify-between text-xs font-medium text-[var(--px-ink-3)]">
+            <div className="px-num mt-2 flex justify-between text-xs font-medium text-[var(--px-faint)]">
               <span>{formatRand(minAmount)}</span>
               <span>{formatRand(maxAmount)}</span>
             </div>
@@ -182,7 +194,7 @@ export function PolarisLoanCalculator({
 
           <div>
             <p className="px-eyebrow">Over how long?</p>
-            <div role="group" aria-label="Term in months" className="px-seg mt-4">
+            <div role="group" aria-label="Term in months" className="px-seg mt-3">
               {MONTH_OPTIONS.map((option) => (
                 <button
                   key={option}
@@ -195,7 +207,7 @@ export function PolarisLoanCalculator({
                 </button>
               ))}
             </div>
-            <p className="mt-2 text-xs font-medium text-[var(--px-ink-3)]">
+            <p className="px-k mt-2">
               {months === 1 ? "One month, one instalment." : `${months} months, one instalment a month.`}
             </p>
           </div>
@@ -205,81 +217,109 @@ export function PolarisLoanCalculator({
             role="switch"
             aria-checked={cover}
             onClick={() => setCover((on) => !on)}
-            className="flex items-center justify-between gap-4 rounded-2xl border border-[var(--px-line)] p-4 text-left transition-colors hover:border-[var(--px-ink-3)]"
+            className="px-alt flex items-center justify-between gap-4 rounded-[14px] p-4 text-left shadow-[0_0_0_1px_var(--px-sub)] transition-shadow hover:shadow-[0_0_0_1px_var(--px-stroke)]"
           >
             <span>
-              <span className="block font-semibold text-[var(--px-ink)]">Add credit life cover</span>
-              <span className="mt-0.5 block text-sm leading-snug text-[var(--px-ink-2)]">
+              <span className="block text-[15px] font-semibold text-[var(--px-ink)]">
+                Add credit life cover
+              </span>
+              <span className="px-k mt-0.5 block leading-snug">
                 Settles the loan if you die or lose your income. At most R4,50 per R1 000 a month.
               </span>
             </span>
             <span className="px-switch" aria-hidden="true" />
           </button>
 
-          <p className="mt-auto text-xs leading-relaxed text-[var(--px-ink-3)]">
+          <p className="px-fine mt-auto">
             Short-term credit under the National Credit Act: up to {formatRand(maxAmount)}, repaid
             within six months. Change the amount or the term and the figures follow.
           </p>
         </div>
 
-        <div className="px-calc-result flex flex-col gap-7 border-t border-[var(--px-line)] p-6 md:p-10 lg:border-l lg:border-t-0">
-          <p className="px-eyebrow">At the legal maximum</p>
+        {/* ----------------------------------------------------- the receipt */}
+        <div className="px-alt flex flex-col gap-6 border-t border-[var(--px-sub)] p-6 md:p-9 lg:border-l lg:border-t-0">
+          <div className="flex items-baseline justify-between gap-4">
+            <p className="px-eyebrow">At the legal maximum</p>
+            <p className="px-k">Not yet an offer</p>
+          </div>
+
           <div>
-            <p className="text-sm font-medium text-[var(--px-ink-2)]">You repay in total</p>
-            <p className="px-num mt-1 text-5xl leading-none text-[var(--px-ink)] md:text-6xl" aria-live="polite">
-              {formatRand(total)}
+            <p className="px-k font-medium">You repay in total</p>
+            <p
+              className="px-num mt-1 text-[2.75rem] font-semibold leading-none tracking-[-0.03em] text-[var(--px-ink)] md:text-[3.25rem]"
+              aria-live="polite"
+            >
+              {formatRand(total, { cents: true })}
             </p>
-            <p className="mt-3 text-[var(--px-ink-2)]">
+            <p className="mt-3 text-[15px] leading-snug text-[var(--px-sec)]">
               {months === 1 ? (
-                "In one instalment, a month from the payout."
+                <>
+                  In one instalment
+                  {first ? (
+                    <>
+                      , on <b className="font-semibold text-[var(--px-ink)]">{longDate(first)}</b>
+                    </>
+                  ) : (
+                    ", a month from the payout"
+                  )}
+                  .
+                </>
               ) : (
                 <>
-                  That is{" "}
-                  <strong className="px-num font-medium text-[var(--px-ink)]">
-                    {formatRand(instalment)}
-                  </strong>{" "}
-                  a month for {months} months.
+                  <b className="px-num font-semibold text-[var(--px-ink)]">
+                    {formatRand(instalment, { cents: true })}
+                  </b>{" "}
+                  a month for {months} months
+                  {first && last ? (
+                    <>
+                      : the first on{" "}
+                      <b className="font-semibold text-[var(--px-ink)]">{longDate(first)}</b>, the
+                      last on <b className="font-semibold text-[var(--px-ink)]">{longDate(last)}</b>
+                    </>
+                  ) : null}
+                  .
                 </>
               )}
             </p>
           </div>
 
-          <dl className="text-sm">
-            <CostRow label="You borrow" value={estimate.amount} strong />
-            <CostRow label="Interest" note="5% a month" value={estimate.quote.interest} />
-            <CostRow label="Initiation fee" note="once" value={estimate.quote.initiationFee} />
-            <CostRow label="Service fee" note="R60 a month" value={estimate.quote.serviceFee} />
-            <CostRow label="VAT on the fees" note="15%" value={estimate.quote.vat} />
+          <dl className="rc">
+            <Line label="You borrow" value={estimate.amount} />
+            <Line label="Interest" note="5% a month" value={estimate.quote.interest} />
+            <Line label="Initiation fee" note="once" value={estimate.quote.initiationFee} />
+            <Line label="Service fee" note="R60 a month" value={estimate.quote.serviceFee} />
+            <Line label="VAT on the fees" note="15%" value={estimate.quote.vat} />
             {cover && (
-              <CostRow label="Credit life cover" note="R4,50 per R1 000" value={estimate.quote.insurance} />
+              <Line label="Credit life cover" note="R4,50 per R1 000" value={estimate.quote.insurance} />
             )}
+            <div className="px-lr tot">
+              <dt>Total to repay</dt>
+              <dd className="px-money">
+                <b>{formatRand(estimate.quote.totalRepayment, { cents: true })}</b>
+              </dd>
+            </div>
           </dl>
 
           <div>
-            <div className="flex items-baseline justify-between gap-3 text-xs font-medium">
-              <span className="text-[var(--px-ink-2)]">
-                Cost of credit{" "}
-                <span className="px-num text-sm text-[var(--px-ink)]">
-                  {formatRand(estimate.costOfCredit)}
-                </span>
-              </span>
-              <span className="text-[var(--px-ink-3)]">Ceiling {formatRand(estimate.amount)}</span>
+            <div className="px-cost">
+              <span>Cost of credit, all in</span>
+              <b className="px-money">{formatRand(estimate.costOfCredit, { cents: true })}</b>
             </div>
-            <div className="px-bar mt-2" role="presentation">
+            <div className="px-bar mt-3" role="presentation">
               <span style={{ width: `${Math.round(estimate.costShare * 100)}%` }} />
             </div>
-            <p className="mt-2 text-xs leading-relaxed text-[var(--px-ink-3)]">
-              By law the cost of credit can never be more than the amount you borrow
-              (National Credit Act, section 103(5)).
+            <p className="px-fine mt-2">
+              By law the cost of credit can never be more than the amount you borrow (National Credit
+              Act, section 103(5)). The bar is how far this loan sits from that line.
             </p>
           </div>
 
-          <Link href={signupUrl} className="px-btn px-btn-ember w-full">
+          <Link href={signupUrl} className="px-btn px-btn-lime w-full">
             Apply for {formatRand(estimate.amount)}
           </Link>
-          <p className="text-xs leading-relaxed text-[var(--px-ink-3)]">
-            An indication at the Act&rsquo;s ceilings, not an offer. Your offer is written after
-            we check what you can afford, and it can only sit below these figures.
+          <p className="px-fine">
+            An indication at the Act&rsquo;s ceilings, not an offer. Your offer is written after we
+            check what you can afford, and it can only sit below these figures.
           </p>
         </div>
       </div>

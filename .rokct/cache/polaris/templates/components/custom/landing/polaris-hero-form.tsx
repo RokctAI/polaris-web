@@ -30,24 +30,29 @@ import React from "react";
 import type { HeroFormProps } from "@/components/custom/landing/hero-form";
 
 import { PolarisLoanCalculator } from "./polaris-loan-calculator";
+import { POLARIS_LANDING_CONFIG } from "./polaris-landing-config";
 
 export default function PolarisHeroForm({ hero, signupUrl }: HeroFormProps) {
   return (
     <div className="flex w-full flex-col items-center gap-8">
       <PolarisLoanCalculator signupUrl={signupUrl} />
       {hero.trustLine.length > 0 && (
-        <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium text-[var(--px-ink-2)]">
+        <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium text-[var(--px-sec)]">
           {hero.trustLine.map((claim) => (
             <li key={claim} className="inline-flex items-center gap-2">
               <span
                 aria-hidden="true"
-                className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--px-ember-text)]"
+                className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--px-sec)]"
               />
               {claim}
             </li>
           ))}
         </ul>
       )}
+      <div className="px-next w-full max-w-5xl text-left">
+        <b>Next</b>
+        <span>{POLARIS_LANDING_CONFIG.hero.next}</span>
+      </div>
     </div>
   );
 }

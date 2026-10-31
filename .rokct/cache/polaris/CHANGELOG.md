@@ -1,5 +1,32 @@
 # Changelog
 
+## 1.7.3
+
+* **v2 landing.** The public landing is brought up to the app's v2
+  standard: the hero calculator becomes a receipt (tabular, right-aligned
+  rand lines, the total as one number, instalment dates written out in
+  full, one lime button); "why" is a month bar, "how" a timeline, "costs"
+  the receipt with the legal ceiling, and the close lists what happens
+  next. Every section ends with a "Next" row. Dark mode alternates deep
+  and lighter pine bands with stroked cards; light mode uses linen bands
+  with white cards. All existing copy is kept; the DebiCheck wording is
+  untouched.
+
+## 1.7.2
+
+* **Lime and brass replace ember.** Ray, 2026-10-30, after ember read as
+  overused: lime for the brand, brass for pending. In
+  `landing/polaris-theme.css` the `--px-ember*` tokens become `--px-lime*`
+  (`#B8E05A`, ink `#13200A` on lime fills) and `.px-btn-ember` becomes
+  `.px-btn-lime`; the sections that read them follow. Light mode keeps the
+  lime fill and uses `#4E7A12` for lime text. New `--px-brass*` tokens
+  (`#E3AE45`, ink `#1D1405`, light-mode text `#8F6410`) mark pending
+  states: the footer's maintenance status. Lime is also the "good" colour,
+  so `--px-green` is gone and the operational status reads lime. The
+  shadcn HSL set follows (`--primary: 78 68% 62%`, foreground
+  `95 52% 8%`; light `--ring` is the lime text shade). Layout and copy are
+  unchanged.
+
 ## 1.7.1
 
 Three corrections to the 1.7.0 landing, all Ray's on 2026-10-18, `app_type.polaris` only:
