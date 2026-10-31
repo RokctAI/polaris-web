@@ -291,6 +291,7 @@ SITE_DATA_INSTALLS = {
     "templates/lib/site-data/generated.ts": "lib/site-data/generated.ts",
     "templates/lib/site-data/read-site-data.ts": "lib/site-data/read-site-data.ts",
     "templates/lib/site-data/site-theme.ts": "lib/site-data/site-theme.ts",
+    "templates/lib/site-data/order-email.ts": "lib/site-data/order-email.ts",
     "templates/components/custom/site-theme.tsx": "components/custom/site-theme.tsx",
     "templates/components/custom/theme-provider.client.tsx": "components/custom/theme-provider.client.tsx",
 }

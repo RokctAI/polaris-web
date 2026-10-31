@@ -34,7 +34,7 @@ import type {
 export function PolarisCostsSection({ id, signupUrl }: { id?: string; signupUrl: string }) {
   const copy = POLARIS_LANDING_CONFIG.costs;
   return (
-    <section id={id} className="px-band px-section w-full">
+    <section id={id} className="px-band px-section px-section-costs w-full">
       <div className="px-wrap">
         <PolarisSectionHead
           index="01"

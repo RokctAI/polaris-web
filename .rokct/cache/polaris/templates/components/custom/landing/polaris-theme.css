@@ -418,8 +418,13 @@ html.light .px-landing {
   background-size: 72px 72px;
   background-position: center -1px;
   color: var(--px-ink);
-  padding-top: 6.5rem !important;
-  padding-bottom: 5rem !important;
+  /* 1.9.1 (Ray: "too much gap", "hero too tall"): the hero sits right under
+     the sticky header with a short lead-in, not 9rem of empty grid; base's
+     own min-height is cleared so the content sets the height, and the whole
+     split fits the first screen at 1440x900. */
+  min-height: 0 !important;
+  padding-top: 2rem !important;
+  padding-bottom: 3rem !important;
   overflow: hidden;
 }
 /* the grid fades out toward the edges and the bottom */
@@ -447,8 +452,8 @@ html.light .px-landing {
 }
 @media (min-width: 768px) {
   .px-landing #hero {
-    padding-top: 9rem !important;
-    padding-bottom: 8rem !important;
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
   }
   .px-landing #hero > div {
     padding-inline: 32px !important;
@@ -471,7 +476,7 @@ html.light .px-landing {
 @media (min-width: 1024px) {
   .px-hero {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr);
-    gap: 4rem;
+    gap: 3.5rem;
   }
 }
 .px-hero-copy {
@@ -505,10 +510,10 @@ html.light .px-landing {
   box-shadow: 0 0 0 4px var(--px-tint);
 }
 .px-h1 {
-  margin-top: 1.75rem;
+  margin-top: 1.25rem;
   font-family: var(--px-font-display);
   font-weight: 500;
-  font-size: clamp(3rem, 1.1rem + 5.6vw, 6rem);
+  font-size: clamp(3rem, 1.1rem + 4.4vw, 5rem);
   line-height: 0.95;
   letter-spacing: -0.04em;
   color: var(--px-ink);
@@ -516,7 +521,7 @@ html.light .px-landing {
   max-width: 11ch;
 }
 .px-hero-lede {
-  margin-top: 1.75rem;
+  margin-top: 1.25rem;
   max-width: 46ch;
   font-size: 1.0625rem;
   line-height: 1.6;
@@ -531,13 +536,13 @@ html.light .px-landing {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-top: 2.25rem;
+  margin-top: 1.75rem;
 }
 .px-trust {
   display: grid;
   gap: 0.7rem;
-  margin-top: 2.5rem;
-  padding-top: 1.5rem;
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
   border-top: 1px solid var(--px-sub);
   font-size: 0.9375rem;
   font-weight: 600;
@@ -593,10 +598,27 @@ html.light .px-landing {
   /* the loan's page hangs below the window's lower-left corner, so it
      covers only the window's last lines, never the step's question */
   .px-hero-stage {
-    padding-bottom: 12rem;
+    padding-bottom: 8rem;
   }
   .px-hero-window {
     margin-left: 3rem;
+  }
+  /* the hero's window is drawn a little tighter than the sections' screens
+     so the split, the loan's page included, fits the first screen */
+  .px-hero-window .px-window-body {
+    padding: 20px 26px 20px;
+  }
+  .px-hero-window .px-ui-app {
+    gap: 10px;
+  }
+  .px-hero-window .px-ui-h {
+    font-size: 1.5rem;
+  }
+  .px-hero-window .px-ui-fld {
+    padding: 7px 0 6px;
+  }
+  .px-hero-status .px-ui-tl li {
+    padding-bottom: 9px;
   }
   .px-hero-status {
     position: absolute;
@@ -1255,10 +1277,35 @@ html.light .px-landing .px-ui-legend .seg-debt {
 }
 
 /* ---------------------------------------------------------- costs ---- */
+/* 1.9.1 (Ray: "this is also too tall"): the costs section keeps its parts
+   but closes the air between them - shorter section padding, a shorter
+   run-in under the head, the spec row and the ceiling nearer the calculator */
+.px-section-costs {
+  padding-block: 3.5rem;
+}
+.px-section-costs .px-head {
+  margin-bottom: 1.75rem;
+}
+@media (min-width: 768px) {
+  .px-section-costs {
+    padding-block: 5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .px-section-costs .px-head {
+    margin-bottom: 2.5rem;
+  }
+}
+.px-section-costs .px-caps {
+  margin-top: 2.25rem;
+}
+.px-section-costs .px-ceiling {
+  margin-top: 2.25rem;
+}
 .px-calc-wrap {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 .px-calc {
   background: var(--px-ui-card);
@@ -1456,8 +1503,25 @@ html.dark .px-landing .px-ceiling-line mark {
     background-color 0.15s ease,
     color 0.15s ease;
 }
-.px-seg > button:hover {
+.px-seg > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.px-seg > button:hover:not(:disabled) {
   color: var(--px-ink);
+}
+/* 1.9.1: Polaris repays once-off - the other terms are shown, locked */
+.px-seg > button:disabled,
+.px-seg > button[data-locked] {
+  color: var(--px-faint);
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.px-seg > button[data-locked] svg {
+  flex: none;
+  opacity: 0.9;
 }
 .px-seg > button[aria-pressed="true"] {
   background: var(--px-ink);
@@ -1903,7 +1967,7 @@ html.dark .px-landing .px-ceiling-line mark {
   letter-spacing: -0.01em;
 }
 .px-hero-stores {
-  margin-top: 1.5rem;
+  margin-top: 1.25rem;
 }
 .px-cta-stores {
   margin-top: 1.5rem;

@@ -1,5 +1,50 @@
 # Changelog
 
+## 1.9.1
+
+* **A hero that fits the first screen.** Ray, 2026-10-31, on the 1440
+  dark render: "too much gap" and "hero too tall but atleast this part need
+  to be visible. the gap above doesnt help it". The header is sticky and
+  sits directly on the hero, so the gap was the hero's own 9rem top padding
+  plus the copy column centred against a stage made 12rem taller by the
+  loan's page hanging below the window. Now, in `landing/polaris-theme.css`:
+  * `#hero` padding is 2.5rem top and bottom from 768px (was 9rem and
+    8rem), 2rem and 3rem on a phone (was 6.5rem and 5rem), and base's
+    min-height is cleared.
+  * The headline tops out at 5rem (was 6rem); the gaps between the kicker,
+    headline, lede, calls to action, app badges and trust line are a
+    quarter to a third shorter; the split's column gap is 3.5rem.
+  * The stage's overhang for the loan's page is 8rem (was 12rem), and the
+    hero's window is drawn a little tighter (body padding, row spacing, the
+    step heading at 1.5rem, the timeline rows).
+  * At 1440x900 the headline, both calls to action, the trust line and the
+    whole product window with its bottom edge and the loan's page are on
+    the first screen; on a 390x844 phone the headline and Apply now are.
+  Design, copy, colours (lime main, brass pending only) and the window are
+  unchanged.
+* **Once-off repayment; the other months are locked.** Ray, 2026-10-31: the
+  calculator "is allowing selection of multi months payments while we do
+  once off i think it should lock other months". `polaris-loan-presets.ts`
+  sets `defaultMonths` to 1 and adds `ONCE_OFF_MONTHS` and
+  `isMonthOptionOpen()`. The calculator still draws the Act's one to six
+  months, but only the one month is open: the others are disabled buttons
+  with a small lock, muted, titled "Polaris repays once-off". The receipt
+  reads "Once-off, in one repayment on <date>"; the multi-month instalment
+  line is gone. The figures are the engine's for 30 days at the caps (the
+  default R3 000: R150 interest, R365 initiation fee, R58,06 service fee,
+  R63,46 VAT, R3 636,52 in total, R636,52 cost of credit); every ceiling
+  and the s103(5) bar are unchanged.
+* The month bar's example loan (the hero's step one and "Why") is that
+  once-off repayment, R3 636,52, leaving R9 863,48 (was a hand-typed
+  R3 706,40 and R9 793,60).
+* **A shorter "What it costs".** Ray: "this is also too tall". The section
+  (`.px-section-costs`) has 5rem padding from 768px (was 7.5rem), a 2.5rem
+  run-in under the head (was 4.5rem), the ceilings row and the s103(5) line
+  nearer the calculator, and the calculator's paddings and gaps tighter;
+  its two fine-print paragraphs are one.
+* `POLARIS_LANDING_VERSION` goes to 1.9.1. Tests: `OnceOffRepayment` in
+  `tests/test_manifest.py`.
+
 ## 1.9.0
 
 * **Polaris' own Back to top button.** Ray, 2026-10-31: the button must
