@@ -14,6 +14,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+// v3: no longer the hero; the "What it costs" section draws it at the
+// page's full width, in the same browser-window frame as the hero's screen.
+// The two halves are balanced so neither leaves dead space: the cost of
+// credit and its legal line sit under the controls (a live read-out of what
+// the choices cost), the receipt keeps the total, the lines and the action,
+// and each half's fine print follows its own content.
+//
 // The hero's one picture: the receipt. The left half is what the borrower
 // chooses (amount, term, cover); the right half is the receipt the app's
 // Agreement step prints - every line of the cost on tabular numerals,
@@ -147,16 +154,25 @@ export function PolarisLoanCalculator({
     <div
       id={id}
       data-polaris-calculator
-      className="px-card px-calc w-full max-w-5xl overflow-hidden text-left"
+      className="px-window px-calc w-full overflow-hidden text-left"
     >
-      <div className="grid lg:grid-cols-[1fr_1fr]">
+      <div className="px-window-bar" aria-hidden="true">
+        <span className="px-window-dots">
+          <i />
+          <i />
+          <i />
+        </span>
+        <span className="px-window-url">Loan calculator</span>
+        <span className="px-window-label">Not yet an offer</span>
+      </div>
+      <div className="grid lg:grid-cols-[1fr_1.05fr]">
         {/* ------------------------------------------------ what you choose */}
-        <div className="flex flex-col gap-8 p-6 md:p-9">
+        <div className="flex flex-col gap-4 p-6 md:p-8">
           <div>
             <label htmlFor={amountId} className="px-eyebrow">
               How much do you need?
             </label>
-            <div className="mt-3 flex items-baseline gap-1">
+            <div className="mt-2 flex items-baseline gap-1">
               <span className="px-num text-3xl font-medium text-[var(--px-sec)] md:text-4xl">R</span>
               <input
                 id={amountId}
@@ -176,7 +192,7 @@ export function PolarisLoanCalculator({
             <input
               id={`${amountId}-range`}
               type="range"
-              className="px-range mt-5"
+              className="px-range mt-4"
               min={minAmount}
               max={maxAmount}
               step={step}
@@ -230,14 +246,28 @@ export function PolarisLoanCalculator({
             <span className="px-switch" aria-hidden="true" />
           </button>
 
-          <p className="px-fine mt-auto">
+          <div>
+            <div className="px-cost">
+              <span>Cost of credit, all in</span>
+              <b className="px-money">{formatRand(estimate.costOfCredit, { cents: true })}</b>
+            </div>
+            <div className="px-bar mt-2.5" role="presentation">
+              <span style={{ width: `${Math.round(estimate.costShare * 100)}%` }} />
+            </div>
+            <p className="px-fine mt-2">
+              By law the cost of credit can never be more than the amount you borrow (National Credit
+              Act, section 103(5)). The bar is how far this loan sits from that line.
+            </p>
+          </div>
+
+          <p className="px-fine">
             Short-term credit under the National Credit Act: up to {formatRand(maxAmount)}, repaid
             within six months. Change the amount or the term and the figures follow.
           </p>
         </div>
 
         {/* ----------------------------------------------------- the receipt */}
-        <div className="px-alt flex flex-col gap-6 border-t border-[var(--px-sub)] p-6 md:p-9 lg:border-l lg:border-t-0">
+        <div className="px-alt flex flex-col gap-5 border-t border-[var(--px-sub)] p-6 md:p-8 lg:border-l lg:border-t-0">
           <div className="flex items-baseline justify-between gap-4">
             <p className="px-eyebrow">At the legal maximum</p>
             <p className="px-k">Not yet an offer</p>
@@ -246,12 +276,12 @@ export function PolarisLoanCalculator({
           <div>
             <p className="px-k font-medium">You repay in total</p>
             <p
-              className="px-num mt-1 text-[2.75rem] font-semibold leading-none tracking-[-0.03em] text-[var(--px-ink)] md:text-[3.25rem]"
+              className="px-num mt-1 text-[2.5rem] font-semibold leading-none tracking-[-0.03em] text-[var(--px-ink)] md:text-[3rem]"
               aria-live="polite"
             >
               {formatRand(total, { cents: true })}
             </p>
-            <p className="mt-3 text-[15px] leading-snug text-[var(--px-sec)]">
+            <p className="mt-2.5 text-[15px] leading-snug text-[var(--px-sec)]">
               {months === 1 ? (
                 <>
                   In one instalment
@@ -300,27 +330,15 @@ export function PolarisLoanCalculator({
             </div>
           </dl>
 
-          <div>
-            <div className="px-cost">
-              <span>Cost of credit, all in</span>
-              <b className="px-money">{formatRand(estimate.costOfCredit, { cents: true })}</b>
-            </div>
-            <div className="px-bar mt-3" role="presentation">
-              <span style={{ width: `${Math.round(estimate.costShare * 100)}%` }} />
-            </div>
-            <p className="px-fine mt-2">
-              By law the cost of credit can never be more than the amount you borrow (National Credit
-              Act, section 103(5)). The bar is how far this loan sits from that line.
+          <div className="mt-auto flex flex-col gap-3">
+            <Link href={signupUrl} className="px-btn px-btn-lime w-full">
+              Apply for {formatRand(estimate.amount)}
+            </Link>
+            <p className="px-fine">
+              An indication at the Act&rsquo;s ceilings, not an offer. Your offer is written after we
+              check what you can afford, and it can only sit below these figures.
             </p>
           </div>
-
-          <Link href={signupUrl} className="px-btn px-btn-lime w-full">
-            Apply for {formatRand(estimate.amount)}
-          </Link>
-          <p className="px-fine">
-            An indication at the Act&rsquo;s ceilings, not an offer. Your offer is written after we
-            check what you can afford, and it can only sit below these figures.
-          </p>
         </div>
       </div>
     </div>

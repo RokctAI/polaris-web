@@ -37,10 +37,10 @@ export interface PolarisSiteMetadata {
 
 const POLARIS_SITE_METADATA: PolarisSiteMetadata = {
   siteName: POLARIS_BRAND_NAME,
-  title: `${POLARIS_BRAND_NAME} — personal loans with the full cost shown first`,
-  tagline: "Personal loans with the full cost shown first",
+  title: `${POLARIS_BRAND_NAME} — lending with the full cost shown first`,
+  tagline: "Lending with the full cost shown first",
   description:
-    "See the most a short-term loan can cost under the National Credit Act before you apply, then apply in your browser: tell us about your money, send the PDF statement from your bank, and accept your contract online. No app to download.",
+    "See the most short-term credit can cost under the National Credit Act before you apply, then apply in your browser: tell us about your money, send the PDF statement from your bank, and accept your contract online, in your browser or the Polaris app.",
   keywords: [
     "personal loan",
     "short-term loan",

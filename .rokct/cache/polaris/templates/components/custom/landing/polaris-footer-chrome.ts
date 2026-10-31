@@ -16,20 +16,22 @@
 
 
 // What base_sdk's FooterChromeRow prints under the Polaris footer: the
-// copyright holder (the shell's legal entity, app/config/constants.ts), the
+// fleetwide site credit, "© <year> Polaris · Built with ♥ by ROKCT"
+// (base_sdk >= 1.54.0 SiteCredit, named by POLARIS_BRAND_NAME), the
 // version of the landing - this SDK's, kept in step with
 // polaris/nextjs/manifest.json on every release, unless the shell tracks
 // its own through NEXT_PUBLIC_APP_VERSION - and the status dot's colours in
-// the theme's tokens. No downloads: there is no app to download, which is
-// the point of the web app.
+// the theme's tokens. No downloads in this row: the store badges are drawn
+// by the footer section itself (polaris-store-badges.tsx), from the
+// landing config's `app` block.
 
-import { LEGAL_COMPANY_NAME } from "@/app/config/platform";
+import { POLARIS_BRAND_NAME } from "./polaris-brand";
 import type { FooterChromeConfig } from "@/components/custom/landing/footer-chrome-config";
 
-export const POLARIS_LANDING_VERSION = "1.7.3";
+export const POLARIS_LANDING_VERSION = "1.8.0";
 
 export const POLARIS_FOOTER_CHROME: FooterChromeConfig = {
-  copyrightHolder: LEGAL_COMPANY_NAME,
+  siteName: POLARIS_BRAND_NAME,
   version: process.env.NEXT_PUBLIC_APP_VERSION || POLARIS_LANDING_VERSION,
   statusColors: {
     operational: "var(--px-lime)",

@@ -1,5 +1,93 @@
 # Changelog
 
+## 1.8.0
+
+* **Footer credit.** Ray, 2026-10-31: "all site will be copyright sitename
+  then built with love (as heart) by ROKCT." The footer row now reads
+  "© <year> Polaris · Built with ♥ by ROKCT": `polaris-footer-chrome.ts`
+  passes `siteName: POLARIS_BRAND_NAME` instead of the legal entity as
+  `copyrightHolder`. Needs base_sdk 1.54.0 (core#365, SiteCredit).
+* **v3 landing: a new layout, not a recolour.** Ray, 2026-10-31, after v2
+  "still reads as the old site". The colours stay the v2 tokens (lime for
+  the brand, brass for pending only); the page is rebuilt:
+  * The hero is a split. The hero copy registers no rotating words, so
+    base's frame draws no h1 and `landing/polaris-hero-form.tsx` owns the
+    hero: a static headline from the existing promise ("The full cost,
+    shown before you apply."), the uses as one line above it, Apply now and
+    How it works, the three trust facts, and on the right step one of the
+    application in a browser window with the loan's page laid over it (the
+    one brass mark is its "In review" row; the DebiCheck line is the app's
+    own wording).
+  * New `landing/polaris-product-ui.tsx` draws the borrower's screens in
+    the app's v2 language and face (Inter): the month bar, the application
+    step, the loan timeline, and one picture per step of "How it works".
+  * New `landing/polaris-section-head.tsx`: every section opens with a
+    rule, a mono index (IBM Plex Mono) and a display heading.
+  * The calculator moves out of the hero into "What it costs", at full
+    width in a window frame; the Act's ceilings become a ruled row and the
+    s103(5) cap the closing line. Page order is now costs, how it works,
+    why, questions; the header anchors and footer links follow.
+  * "Why" sets "Lending, with the lights on." as a mega line over four
+    columns; every FAQ answer is open in two columns; the close is one
+    dark panel in both modes; the footer sets the name across the width.
+  * No new claims, figures or partners: every word comes from the existing
+    copy or the app's own labels.
+* **Get the app.** Ray, 2026-10-31: "add link to download mobile app". New
+  `landing/polaris-store-badges.tsx` draws house-style app badges (inline
+  SVG, not any store's artwork) in the hero under the calls to action, in
+  the close and in the footer. The links are data in
+  `POLARIS_LANDING_CONFIG.app.stores`.
+* **The app downloads from the site, as on Supacharge.** The Polaris app has
+  no Google Play listing (the `com.loans.app` Play URL is a 404), so Ray
+  ruled "do what you did with supacharge-web":
+  * New `app/download/[platform]/route.ts` + pure `resolve.ts`, lms_sdk's
+    route ported: `GET /download/<platform>` asks the public GitHub
+    releases API for the latest `RokctAI/polaris` release (no token,
+    `revalidate` 600, in the new shared `app/download/release.ts`) and
+    302s to the platform's asset. Android is `app-v<version>.apk`, never
+    `app-debug-v*.apk`, the `.aab` or the Huawei build; with no such asset
+    or no API answer it 302s to the releases page. A prefetch gets 204.
+  * Mobile only (Ray: "polaris wont have the web app downloadable only the
+    mobile platforms"): the Windows installer the release also carries is
+    never offered, and `/download/<anything else>` (ios, windows, ...) is a
+    404.
+  * Huawei (Ray, 2026-10-31): `/download/huawei` resolves
+    `app-huawei-v<version>.apk` from the same release and answers 404 when
+    there is none - never the Android build.
+  * The badges read "Download for / Android" and "Download for / Huawei"
+    with Simple Icons' Android and Huawei marks (CC0-1.0, in currentColor)
+    and link `/download/android` and `/download/huawei`; no file format is
+    named. Each is drawn only when the latest release carries its build: the
+    close and the footer await the server's release check, and the hero
+    (base renders it on the client) reads the same check from the new
+    `GET /download` (`app/download/route.ts`, `{android, huawei}`). A failed
+    fetch hides every badge. The App Store slot stays, disabled. The Google
+    Play URL and wording are gone. v3's badge look and spacing are kept.
+  * Manifest: the four `app/download` files join the polaris install map.
+  * Tests: new `tests/test_download_route.py` runs the resolver and the
+    badge filter under node against fixture release JSON (the real v1.2.12
+    asset list, with and without a Huawei build, broken and failed
+    answers), checks the handler's 302/404/204 and cache, and keeps "apk"
+    out of every rendered string.
+* **A shorter calculator.** Ray, 2026-10-31: the calculator section was
+  too tall (in v1 and v2 too); the receipt set the height and left about
+  250px of empty space under the controls. The cost of credit, its bar and
+  its section 103(5) line move under the controls, each half's fine print
+  follows its own content, and the paddings, the gaps and the headline
+  total are tighter: the panel is 669px at 1440 wide instead of 828px.
+  Every word and figure is unchanged.
+* **Lending, not cash loans.** Ray, 2026-10-31: Polaris should read as a
+  lending institution on its way up, never as another cash loan. The brand
+  lines say lending and credit: the metadata title and tagline ("Lending
+  with the full cost shown first"), the hero kicker ("Polaris lends for
+  ..."), the hero and "Why" ledes ("Credit should be a number you can
+  see ..."), the costs heading ("What short-term credit can cost, by
+  law.") and the footer motto ("Your north star for credit."). "Loan"
+  stays on the working parts (buttons, calculator, steps, "Your loan"), and
+  the Act's wording, figures and the DebiCheck line are untouched. A test
+  keeps cash-loan vocabulary (quick cash, instant, payday) out of the copy.
+* `POLARIS_LANDING_VERSION` follows the manifest to 1.8.0.
+
 ## 1.7.3
 
 * **v2 landing.** The public landing is brought up to the app's v2

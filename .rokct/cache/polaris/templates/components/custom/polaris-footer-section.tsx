@@ -15,6 +15,11 @@
  */
 
 
+// v3: the motto large, the links in two columns (this page, and the
+// company's pages and the two doors), and the name set across the whole
+// width as the page's last word - a wordmark, hidden from assistive tech
+// since the header and the chrome row already name the site.
+//
 // The Polaris landing's footer, for base_sdk's page-sections registry: the
 // wordmark and the motto, the section links and the two doors, and base's
 // FooterChromeRow (copyright, version, status) with the Legal link group
@@ -29,11 +34,13 @@ import React from "react";
 import Link from "next/link";
 
 import { listPublicTerms } from "@/app/actions/base/legal";
+import { fetchPolarisDownloadAvailability } from "@/app/download/release";
 import { FooterChromeRow } from "@/components/custom/footer-chrome";
 import { legalFooterLinks } from "@/components/custom/landing/legal-links";
 import { POLARIS_MOTTO, polarisBrandName } from "@/components/custom/landing/polaris-brand";
 import { POLARIS_FOOTER_CHROME } from "@/components/custom/landing/polaris-footer-chrome";
 import { POLARIS_LANDING_CONFIG } from "@/components/custom/landing/polaris-landing-config";
+import { PolarisStoreBadges } from "@/components/custom/landing/polaris-store-badges";
 import type {
   PageSectionMeta,
   PageSectionProps,
@@ -48,46 +55,50 @@ export async function PolarisFooterSection({
   loginUrl: string;
   signupUrl: string;
 }) {
-  const terms = await listPublicTerms();
+  const [terms, available] = await Promise.all([listPublicTerms(), fetchPolarisDownloadAvailability()]);
   const links = POLARIS_LANDING_CONFIG.footer.links;
 
   return (
-    <footer
-      id={id}
-      className="px-sky w-full border-t border-[var(--px-sub)] py-14 text-[var(--px-sec)] md:py-20"
-    >
-      <div className="container mx-auto flex max-w-6xl flex-col gap-12 px-4 xl:px-0">
-        <div className="flex flex-col justify-between gap-10 md:flex-row md:items-end">
-          <div className="flex flex-col gap-3">
-            <p className="px-display text-3xl">{polarisBrandName()}</p>
-            <p className="px-display text-xl !font-normal italic !text-[var(--px-sec)]">
-              {POLARIS_MOTTO}
+    <footer id={id} className="px-footer w-full">
+      <div className="px-wrap">
+        <div className="px-footer-top">
+          <div className="px-footer-lead">
+            <p className="px-display px-footer-motto">
+              <em>{POLARIS_MOTTO}</em>
             </p>
+            <PolarisStoreBadges available={available} />
           </div>
-          <nav
-            aria-label="Footer"
-            className="grid grid-cols-2 gap-x-10 gap-y-3 text-sm font-medium sm:flex sm:flex-wrap"
-          >
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="transition-colors hover:text-[var(--px-ink)]"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Link href={loginUrl} className="transition-colors hover:text-[var(--px-ink)]">
-              Sign in
-            </Link>
-            <Link href={signupUrl} className="transition-colors hover:text-[var(--px-ink)]">
-              Create an account
-            </Link>
+          <nav aria-label="Footer" className="px-footer-nav">
+            <div>
+              <p className="px-head-index">On this page</p>
+              {links
+                .filter((link) => link.href.startsWith("#"))
+                .map((link) => (
+                  <Link key={link.href} href={link.href}>
+                    {link.label}
+                  </Link>
+                ))}
+            </div>
+            <div>
+              <p className="px-head-index">{polarisBrandName()}</p>
+              {links
+                .filter((link) => !link.href.startsWith("#"))
+                .map((link) => (
+                  <Link key={link.href} href={link.href}>
+                    {link.label}
+                  </Link>
+                ))}
+              <Link href={loginUrl}>Sign in</Link>
+              <Link href={signupUrl}>Create an account</Link>
+            </div>
           </nav>
         </div>
+        <p className="px-footer-mark" aria-hidden="true">
+          {polarisBrandName()}
+        </p>
         <FooterChromeRow
           config={{ ...POLARIS_FOOTER_CHROME, links: legalFooterLinks(terms) }}
-          className="border-t border-[var(--px-sub)] pt-6"
+          className="px-footer-chrome"
         />
       </div>
     </footer>
