@@ -51,6 +51,7 @@ REGISTRIES = {
     "plans-query.ts": "plans-query",
     "header-menu.ts": "header-menu",
     "site-metadata.ts": "site-metadata",
+    "header-auth.ts": "header-auth",
 }
 
 # base_sdk 1.15.0: the link-preview shell, installed as a set.
@@ -182,6 +183,8 @@ SITE_SHOTS_INSTALLS = {
     "templates/components/custom/landing/site-shots.ts": "components/custom/landing/site-shots.ts",
     "templates/app/site-shots": "app/site-shots",
 }
+# base_sdk 1.58.0: the shared flip card, lms_sdk's LmsFlipCard moved here.
+FLIP_CARD = os.path.join(SDK_ROOT, "templates", "components", "custom", "flip-card.tsx")
 SITE_CREDIT_INSTALLS = {
     "templates/components/custom/site-credit.tsx": "components/custom/site-credit.tsx",
     "templates/components/custom/landing/site-credit.ts": "components/custom/landing/site-credit.ts",
@@ -1022,7 +1025,8 @@ class TestManifest(unittest.TestCase):
         self.assertIn('import type { SiteDataMode } from "@/lib/site-data/kinds";', header)
         self.assertIn("  showsHeaderAuth,\n", header)
         self.assertIn("dataMode?: SiteDataMode;", header)
-        self.assertIn("const hasAuth = !!user || showsHeaderAuth(dataMode);", header)
+        # 1.60.0: and only when a pair is registered in the slot.
+        self.assertIn("const hasAuth = !!user || (hasHeaderAuth() && showsHeaderAuth(dataMode));", header)
         self.assertEqual(header.count("!hasAuth ? null :"), 2, "the desktop element and the stacked panel")
         content = read(LANDING_CONTENT)
         self.assertIn('import type { SiteDataMode } from "@/lib/site-data/kinds";', content)
@@ -1037,6 +1041,49 @@ class TestManifest(unittest.TestCase):
         doc = read(SITE_DATA_DOC)
         self.assertNotIn("Not yet switched", doc)
         self.assertIn("showsHeaderAuth", doc)
+
+    def test_header_auth_slot(self):
+        """1.60.0 (Ray, 2026-11-01: "we just moving login and signup buttons
+        to injection"). The header draws no Log in / Sign up of its own: it
+        renders HeaderAuthSlot on the bar and in the panel, with the classes
+        its pair had; the slot is a static null with nothing registered and
+        next/dynamic over the first entry otherwise; base names no SDK."""
+        registry = read(os.path.join(LANDING, "header-auth.ts"))
+        self.assertIn("export const HEADER_AUTH: HeaderAuthEntry[] = [", registry)
+        self.assertIn('variant: "bar" | "panel";', registry)
+        for field in ("loginUrl?: string;", "signupUrl?: string;", "openLoginPopup?: () => void;",
+                      "openSignupPopup?: () => void;", "onNavigate?: () => void;",
+                      "dataMode?: SiteDataMode;", "classes?: HeaderAuthClasses;"):
+            self.assertIn(field, registry)
+        self.assertIn("export async function loadHeaderAuth(): Promise<HeaderAuthComponent | null> {", registry)
+        slot_path = os.path.join(SDK_ROOT, "templates", "components", "custom", "header-auth-slot.tsx")
+        slot = read(slot_path)
+        self.assertTrue(slot.lstrip().startswith("/*"))
+        self.assertIn('"use client";', slot)
+        self.assertIn("HEADER_AUTH.length === 0\n    ? NoHeaderAuth\n    : dynamic<HeaderAuthProps>(", slot)
+        self.assertIn("loadHeaderAuth().then((Pair) => ({ default: Pair ?? NoHeaderAuth }))", slot)
+        installs = {e["to"]: e["from"] for e in load_manifest()["installs"]}
+        self.assertEqual(installs["components/custom/header-auth-slot.tsx"],
+                         "templates/components/custom/header-auth-slot.tsx")
+        self.assertEqual(installs["components/custom/landing/header-auth.ts"],
+                         "templates/components/custom/landing/header-auth.ts")
+        header = read(HEADER)
+        code = LINE_COMMENT_RE.sub("", BLOCK_COMMENT_RE.sub("", header))
+        self.assertNotIn('t("auth.login")', code)
+        self.assertNotIn('t("auth.signup")', code)
+        self.assertEqual(code.count("<HeaderAuthSlot"), 2)
+        self.assertIn('variant="bar"', code)
+        self.assertIn('variant="panel"', code)
+        self.assertIn("onNavigate={close}\n              dataMode={dataMode}\n              classes={PANEL_AUTH_CLASSES}", code)
+        self.assertIn("const BAR_AUTH_CLASSES = { login: AUTH_LINK, signup: AUTH_PILL };", code)
+        self.assertIn('login: cn(STACKED_BUTTON, "bg-foreground/5 text-foreground"),', code)
+        self.assertIn('signup: cn(STACKED_BUTTON, "bg-black text-white dark:bg-white dark:text-black"),', code)
+        # The Dashboard link a signed-in visitor gets stays the header's own.
+        self.assertEqual(code.count('t("common.dashboard")'), 2)
+        for path in (HEADER, slot_path, os.path.join(LANDING, "header-auth.ts")):
+            text = LINE_COMMENT_RE.sub("", BLOCK_COMMENT_RE.sub("", read(path))).lower()
+            for word in ("auth_sdk", "users_sdk", "@/app/(auth)", "next-auth"):
+                self.assertNotIn(word, text, f"{path} names {word}")
 
     def test_sections_may_name_a_company_page(self):
         """1.38.0 (Ray, 2026-09-10: corporate_sdk owns /about and /team as
@@ -3872,6 +3919,60 @@ declare module "@/components/custom/landing/brand-marks" {
                 [tsc, "-p", tmp], capture_output=True, text=True, timeout=300, cwd=tmp,
             )
         self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
+
+class TestFlipCard(unittest.TestCase):
+    """1.58.0: the Supacharge tutor-card flip, shared by every shell."""
+
+    def test_flip_card_is_installed(self):
+        manifest = json.loads(read(MANIFEST))
+        self.assertGreaterEqual(tuple(int(p) for p in manifest["version"].split(".")), (1, 57, 0))
+        installs = {e["from"]: e["to"] for e in manifest["installs"]}
+        self.assertEqual(
+            installs.get("templates/components/custom/flip-card.tsx"),
+            "components/custom/flip-card.tsx",
+        )
+
+    def test_flip_card_keeps_the_tutor_card_behaviour(self):
+        src = read(FLIP_CARD)
+        self.assertTrue(src.lstrip().startswith("/*"), "licence header first")
+        self.assertIn('"use client";', src)
+        for needle in (
+            "export function useMediaQuery(query: string): boolean {",
+            "export const stopFlip = (event: React.SyntheticEvent) => event.stopPropagation();",
+            "export function FlipCard({",
+            "export default FlipCard;",
+            'role="button"',
+            "aria-pressed={flipped}",
+            "aria-label={flipped ? flipBackLabel : flipLabel}",
+            'useMediaQuery("(hover: hover) and (pointer: fine)")',
+            'useMediaQuery("(prefers-reduced-motion: reduce)")',
+            'transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)"',
+            "opacity: (isBack ? flipped : !flipped) ? 1 : 0",
+            'backfaceVisibility: "hidden"',
+            "inert={flipped}",
+            "inert={!flipped}",
+            'event.key === "Enter" || event.key === " "',
+            'event.key === "Escape" && flipped',
+            "export const FLIP_DURATION_MS = 420;",
+        ):
+            self.assertIn(needle, src, needle)
+
+    def test_flip_card_layouts_and_hooks(self):
+        src = read(FLIP_CARD)
+        for needle in (
+            'layout?: "fill" | "stack";',
+            'layout = "fill",',
+            "hoverDelayMs = 0,",
+            'gridArea: "1 / 1"',
+            "onFlip?.(next, \"press\");",
+            "onFlip?.(true, \"hover\");",
+            "ringClassName = FLIP_RING_CLASSES,",
+        ):
+            self.assertIn(needle, src, needle)
+        code = LINE_COMMENT_RE.sub("", BLOCK_COMMENT_RE.sub("", src))
+        self.assertNotRegex(code, re.compile(r"#[0-9a-fA-F]{3,8}\b"), "no colour is named")
+        self.assertNotIn("--sc-", code, "no shell's tokens in base")
+
 
 class TestSiteCredit(unittest.TestCase):
     """1.54.0: every site's footer reads `© <year> <site name> · Built with
