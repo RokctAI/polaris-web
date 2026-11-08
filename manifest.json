@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "repo": "RokctAI/polaris-web",
-  "commit": "ccd32668b3889f9089e5eabebf1b4d77f97bf258",
-  "taken_at": "2026-11-03T09:59:04Z",
-  "dir": "shots/ccd32668b3889f9089e5eabebf1b4d77f97bf258",
+  "commit": "b3c31212b0d0f7771182a284d2343d986a7b1dbf",
+  "taken_at": "2026-11-08T01:23:27Z",
+  "dir": "shots/b3c31212b0d0f7771182a284d2343d986a7b1dbf",
   "files": {
     "desktop-light.webp": {
       "width": 1200,
