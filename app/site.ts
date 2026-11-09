@@ -11,9 +11,7 @@
  *                          so /robots.txt and /sitemap.xml agree with the
  *                          link-preview cards.
  *   NEXT_PUBLIC_SITE_NAME  the name the wordmark and the web app manifest
- *                          print. Unset, it is the app_type this repo was
- *                          spawned with (.rokct/config/app_type), which is
- *                          also the registry template's name.
+ *                          print. Unset, it is the brand name "Polaris".
  *
  * No product copy lives here: the <title>, description and preview cards are
  * the home SDK's, registered into base_sdk's site-metadata registry at
@@ -35,7 +33,8 @@ function resolveSiteUrl(): string {
 
 export const SITE_URL = resolveSiteUrl();
 
-/** The app_type this shell was spawned with (the template's name, as .rokct/config/app_type reads); the fallback name. */
+/** The app_type this shell was spawned with (the template's name, as .rokct/config/app_type reads). */
 export const APP_TYPE = "polaris";
 
+/** Brand name shown on pages; NEXT_PUBLIC_SITE_NAME overrides it. */
 export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME?.trim() || "Polaris";
