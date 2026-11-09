@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.10.0
+
+* **Polaris login and register.** Ray: every app shell gets its own design
+  for register and login (the pattern hosting_sdk 1.21.0 set for Cortex).
+  The polaris block, the home SDK, installs its own
+  `components/custom/site-shell.tsx` over auth_sdk's default (auth_sdk >=
+  1.12.0's SiteShell seam): login, register and forgot-password mount
+  `PolarisTheme` (the landing's tokens and four faces on `<html>`, dark by
+  default, light when picked), draw base's header as the landing does, set
+  a brand panel beside the card and end with the landing footer's motto
+  and the credit line (no oversized wordmark at the bottom: Ray's rule).
+  `components/custom/polaris-auth/` holds the panel copy
+  (only the landing's own claims: the full cost before you apply, the
+  steps online, the saved application) and its scoped CSS (Fraunces
+  headings, the lime pill submit). Presentation only: auth_sdk's views,
+  actions and fields are untouched.
+* The polaris block's `requires` names `components/custom/header.tsx`,
+  `components/custom/site-credit.tsx` and
+  `components/custom/landing/landing-config.ts`, which the shell imports.
+  `POLARIS_LANDING_VERSION` goes to 1.10.0. Tests: `tests/test_polaris_auth.py`.
+* The card's heading reads `PLATFORM_NAME`; polaris-web leaves it unset
+  ("polaris"), so polaris-web sets it to "Polaris" in its own PR.
+
 ## 1.9.1
 
 * **A hero that fits the first screen.** Ray, 2026-10-31, on the 1440

@@ -1,0 +1,62 @@
+/*
+ * Copyright (c) 2026 ROKCT INTELLIGENCE (PTY) LTD
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/* polaris_sdk 1.10.0: the Polaris auth pages (../site-shell.tsx). Tokens,
+   faces and base's header are polaris-theme.css's: PolarisTheme puts
+   .px-landing on <html>, which maps the shadcn tokens the card reads
+   (--card, --primary, --input, ...) to the dark green and lime, and to the
+   light palette when the visitor picks light. This file lays the brand
+   panel beside auth_sdk's card and dresses the card in the landing's own
+   type and controls: Fraunces headings, Manrope text, the lime pill.
+   Scoped to .pa-root so no other route changes. */
+
+.pa-root .pa{padding:clamp(2.25rem,6vw,5.5rem) 0 clamp(3rem,7vw,6.5rem);background:var(--px-bg)}
+.pa-root .pa-g{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(2rem,6vw,6rem);align-items:center}
+.pa-root .pa-kick{font-family:var(--px-font-mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--px-faint)}
+.pa-root .pa-h{margin-top:1.25rem;font-family:var(--px-font-display);font-weight:400;font-size:clamp(3rem,6.4vw,5.5rem);line-height:.98;letter-spacing:-.03em;color:var(--px-ink)}
+.pa-root .pa-h span,.pa-root .pa-h em{display:block}
+.pa-root .pa-h em{font-style:italic;color:var(--px-em);background:var(--px-em-mark);width:fit-content}
+.pa-root .pa-lede{margin-top:1.5rem;max-width:34ch;font-size:clamp(1.0625rem,1.2vw,1.25rem);line-height:1.5;color:var(--px-sec)}
+.pa-root .pa-pts{list-style:none;margin:1.875rem 0 0;padding:0;border-top:1px solid var(--px-stroke);max-width:32em}
+.pa-root .pa-pts li{display:flex;gap:.75rem;align-items:center;padding:.875rem 0;border-bottom:1px solid var(--px-stroke);font-size:.9375rem;font-weight:500;color:var(--px-sec)}
+.pa-root .pa-pts li::before{content:"";flex:none;width:.5rem;height:.5rem;border-radius:50%;background:var(--px-lime)}
+.pa-root .pa-mark{font-family:var(--px-font-display);font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--px-ink)}
+.pa-root .pa-foot-nav{display:flex;flex-wrap:wrap;gap:1.5rem;align-content:start;font-size:.9375rem;font-weight:500}
+.pa-root .pa-foot-nav a{color:var(--px-sec)}
+.pa-root .pa-foot-nav a:hover{color:var(--px-ink)}
+.pa-root .pa-credit{font-size:.8125rem;color:var(--px-faint)}
+@media (max-width:900px){
+.pa-root .pa-g{grid-template-columns:minmax(0,1fr);gap:2.25rem}
+.pa-root .pa-card{order:-1}
+.pa-root .pa-pts{display:none}
+.pa-root .pa-h{font-size:clamp(2.5rem,11vw,3.75rem)}
+}
+
+/* auth_sdk's page body: drop its own full-height centring and background */
+.pa-root .pa-card>div{min-height:0;background:transparent;padding:0}
+.pa-root .pa-card>div>div{max-width:none}
+.pa-root .pa-card{color:var(--px-ink);font-family:var(--px-font-sans)}
+.pa-root .pa-card h1{font-family:var(--px-font-display);font-weight:400;letter-spacing:-.03em;line-height:1.02;font-size:clamp(2rem,3vw,2.75rem);color:var(--px-ink);text-wrap:balance}
+.pa-root .pa-card h1+p{font-size:.9375rem;line-height:1.5;color:var(--px-sec)}
+.pa-root .pa-card .bg-card{background:var(--px-card);border:1px solid var(--px-stroke);border-radius:var(--px-radius);box-shadow:var(--px-ui-shadow);backdrop-filter:none}
+.pa-root .pa-card label{font-family:var(--px-font-mono);font-weight:500;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--px-sec)}
+.pa-root .pa-card input:not([type="checkbox"]):not([type="hidden"]),.pa-root .pa-card [role="combobox"]{height:3rem;border-radius:.75rem;border:1px solid var(--px-stroke);background:var(--px-bg);color:var(--px-ink);font-family:var(--px-font-ui);font-size:1rem}
+.pa-root .pa-card input:focus-visible{outline:2px solid var(--px-lime);outline-offset:1px;box-shadow:none}
+/* the submit: the landing's lime pill */
+.pa-root .pa-card button[type="submit"]{display:inline-flex;justify-content:center;align-items:center;width:100%;height:3.25rem;border-radius:999px;border:0;background:var(--px-lime);color:var(--px-lime-ink);font-family:var(--px-font-sans);font-weight:700;font-size:1rem;box-shadow:none;transform:none;transition:background .15s,transform .15s}
+.pa-root .pa-card button[type="submit"]:hover{background:var(--px-lime-hover);transform:translateY(-1px)}
+.pa-root .pa-card .text-primary{color:var(--px-lime-text)}
+.pa-root .pa-card .text-primary:hover{color:var(--px-ink)}

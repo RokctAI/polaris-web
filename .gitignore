@@ -292,6 +292,8 @@ next-env.d.ts
 /components/custom/nav/team-switcher.tsx
 /components/custom/network-strip.tsx
 /components/custom/paas-login.tsx
+/components/custom/polaris-auth/polaris-auth-copy.ts
+/components/custom/polaris-auth/polaris-auth.css
 /components/custom/polaris-costs-section.tsx
 /components/custom/polaris-cta-section.tsx
 /components/custom/polaris-faq-section.client.tsx
