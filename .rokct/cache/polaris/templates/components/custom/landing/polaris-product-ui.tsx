@@ -32,6 +32,7 @@ import React from "react";
 import { POLARIS_LANDING_CONFIG } from "./polaris-landing-config";
 import { formatRand } from "./polaris-loan-presets";
 
+import t from "@/app/lib/i18n";
 /* ---------------------------------------------------------------- icons */
 
 export function IconCheck({ size = 14, stroke = 2.6 }: { size?: number; stroke?: number }) {
@@ -141,19 +142,19 @@ export function UiMonth({ compact = false }: { compact?: boolean }) {
         <div className="px-ui-legend">
           <div>
             <i className="seg-exp" />
-            Living<b>{money(m.living)}</b>
+            {t("polaris.living")}<b>{money(m.living)}</b>
           </div>
           <div>
             <i className="seg-debt" />
-            Debts<b>{money(m.debts)}</b>
+            {t("polaris.debts")}<b>{money(m.debts)}</b>
           </div>
           <div>
             <i className="seg-loan" />
-            This loan<b>{money(m.loan)}</b>
+            {t("polaris.this_loan")}<b>{money(m.loan)}</b>
           </div>
           <div>
             <i className="seg-left" />
-            Left over<b>{money(left)}</b>
+            {t("polaris.left_over")}<b>{money(left)}</b>
           </div>
         </div>
       )}
@@ -178,11 +179,11 @@ export function UiApplicationStep() {
   return (
     <div className="px-ui-app">
       <div className="px-ui-apphead">
-        <span className="px-ui-title">Loan application</span>
+        <span className="px-ui-title">{t("polaris.loan_application")}</span>
         <span className="px-ui-stepn">Step 1 of 4</span>
       </div>
       <UiSteps total={4} on={1} />
-      <h3 className="px-ui-h">Does this loan fit your month?</h3>
+      <h3 className="px-ui-h">{t("polaris.does_this_loan_fit_your_month")}</h3>
       <p className="px-ui-sub">{POLARIS_LANDING_CONFIG.how.steps[0].text}</p>
       <UiMonth />
       <div className="px-ui-fields">
@@ -196,10 +197,10 @@ export function UiApplicationStep() {
           </div>
         ))}
       </div>
-      <div className="px-ui-btn">Check affordability</div>
+      <div className="px-ui-btn">{t("polaris.check_affordability")}</div>
       <p className="px-ui-nca">
         <IconShield size={13} />
-        <span>Priced under the National Credit Act</span>
+        <span>{t("polaris.priced_under_the_national_credit_act")}</span>
       </p>
     </div>
   );
@@ -221,10 +222,10 @@ export function UiLoanStatus({ className = "" }: { className?: string }) {
   return (
     <div className={`px-ui px-ui-card px-ui-status ${className}`}>
       <div className="px-ui-statushead">
-        <span className="px-ui-title">Your loan</span>
+        <span className="px-ui-title">{t("polaris.your_loan")}</span>
         <span className="px-ui-pill is-pending">
           <i aria-hidden="true" />
-          In review
+          {t("polaris.in_review")}
         </span>
       </div>
       <ol className="px-ui-tl">
@@ -251,13 +252,13 @@ export function UiDetails() {
     <div className="px-ui-card px-ui-vignette">
       <div className="px-ui-fields is-stacked">
         <div className="px-ui-fld is-big">
-          <span>South African ID number</span>
+          <span>{t("polaris.south_african_id_number")}</span>
           <b className="is-mask">
             ●●●●●● ●●●● ●●●
           </b>
         </div>
         <div className="px-ui-fld is-big is-focus">
-          <span>Mobile number</span>
+          <span>{t("polaris.mobile_number")}</span>
           <b>
             0<i className="caret" aria-hidden="true" />
           </b>
@@ -277,15 +278,15 @@ export function UiDocuments() {
           <span className="badge" aria-hidden="true">
             <IconCheck size={11} stroke={3.2} />
           </span>
-          <b>Photo of your ID</b>
-          <small>Added</small>
+          <b>{t("polaris.photo_of_your_id")}</b>
+          <small>{t("polaris.added")}</small>
         </div>
         <div className="px-ui-tile is-todo">
           <span className="add" aria-hidden="true">
             <IconPlus />
           </span>
-          <b>Bank statement</b>
-          <small>The PDF from your bank</small>
+          <b>{t("polaris.bank_statement")}</b>
+          <small>{t("polaris.the_pdf_from_your_bank")}</small>
         </div>
       </div>
     </div>
@@ -301,8 +302,8 @@ export function UiContract() {
           <IconDoc />
         </span>
         <div>
-          <b>Your contract</b>
-          <small>Read it on the page</small>
+          <b>{t("polaris.your_contract")}</b>
+          <small>{t("polaris.read_it_on_the_page")}</small>
         </div>
       </div>
       <div className="px-ui-lines" aria-hidden="true">
@@ -311,8 +312,8 @@ export function UiContract() {
         <i />
       </div>
       <div className="px-ui-answers">
-        <span className="px-ui-btn is-sm">Accept</span>
-        <span className="px-ui-btn is-ghost is-sm">Decline</span>
+        <span className="px-ui-btn is-sm">{t("polaris.accept")}</span>
+        <span className="px-ui-btn is-ghost is-sm">{t("polaris.decline")}</span>
       </div>
     </div>
   );

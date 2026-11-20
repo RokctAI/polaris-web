@@ -187,7 +187,7 @@ class ManifestContract(unittest.TestCase):
             for host_path in ALIAS_IMPORT.findall(read(path)):
                 if self.installs_host_path(host_path):
                     continue
-                candidates = {host_path, host_path + ".ts", host_path + ".tsx"}
+                candidates = {host_path, host_path + ".ts", host_path + ".tsx", host_path + "/index.ts"}
                 self.assertTrue(
                     candidates & self.requires,
                     "%s imports @/%s, which neither this SDK installs nor requires names" % (entry["from"], host_path),

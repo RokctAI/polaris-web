@@ -16,6 +16,7 @@
 
 import React from "react";
 
+import t from "@/app/lib/i18n";
 interface Form20TemplateProps {
   app: any;
   product: any;
@@ -56,7 +57,7 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
       <div className="flex justify-between items-start mb-8 border-b border-black pb-4">
         <div>
           <h1 className="text-2xl font-bold uppercase tracking-wide">
-            Pre-Agreement Statement & Quotation
+            {t("polaris.pre_agreement_statement_quotation")}
           </h1>
           <p className="text-sm text-gray-600 italic mt-1">
             Form 20 • National Credit Act 34 of 2005
@@ -68,7 +69,7 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
       <div className="grid grid-cols-2 gap-8 mb-6">
         <div>
           <h3 className="font-bold border-b border-gray-400 mb-2 uppercase text-xs text-gray-500">
-            Credit Provider
+            {t("polaris.credit_provider")}
           </h3>
           <p className="font-bold text-lg">
             {company?.companyName || "Credit Provider Name"}
@@ -79,19 +80,19 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
         </div>
         <div>
           <h3 className="font-bold border-b border-gray-400 mb-2 uppercase text-xs text-gray-500">
-            Consumer
+            {t("polaris.consumer")}
           </h3>
           <p className="font-bold text-lg">{app?.applicant}</p>
           <p>ID/Reg No: [Insert ID]</p>
           <p>Address: [Insert Address]</p>
           <p>Quote Date: {new Date().toLocaleDateString()}</p>
-          <p className="text-red-600 font-bold">Valid for 5 Days</p>
+          <p className="text-red-600 font-bold">{t("polaris.valid_for_5_days")}</p>
         </div>
       </div>
 
       <div className="mb-4 p-4 bg-gray-50 border-l-4 border-black text-xs italic">
         <p>
-          <strong>Note:</strong> This document details the terms and costs of
+          <strong>{t("polaris.note")}</strong> This document details the terms and costs of
           the proposed credit agreement. It is a binding offer for 5 business
           days. You have the right to accept or decline this offer.
         </p>
@@ -103,15 +104,15 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
           <thead>
             <tr className="bg-gray-100">
               <th className="border border-black p-2 text-left w-1/2">
-                Description
+                {t("polaris.description")}
               </th>
-              <th className="border border-black p-2 text-right">Value</th>
+              <th className="border border-black p-2 text-right">{t("polaris.value")}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td className="border border-black p-2">
-                Principal Debt (Loan Amount)
+                {t("polaris.principal_debt_loan_amount")}
               </td>
               <td className="border border-black p-2 text-right font-bold">
                 R {quoteResult.capital.toFixed(2)}
@@ -119,7 +120,7 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
             </tr>
             <tr>
               <td className="border border-black p-2">
-                Initiation Fee (Once-off)
+                {t("polaris.initiation_fee_once_off")}
               </td>
               <td className="border border-black p-2 text-right">
                 R {quoteResult.initiationFee.toFixed(2)}
@@ -127,7 +128,7 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
             </tr>
             <tr>
               <td className="border border-black p-2 bg-gray-50 font-bold">
-                Total Advanced
+                {t("polaris.total_advanced")}
               </td>
               <td className="border border-black p-2 text-right font-bold bg-gray-50">
                 R{" "}
@@ -143,15 +144,15 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
           <thead>
             <tr className="bg-gray-100">
               <th className="border border-black p-2 text-left w-1/2">
-                Description
+                {t("polaris.description")}
               </th>
-              <th className="border border-black p-2 text-right">Value</th>
+              <th className="border border-black p-2 text-right">{t("polaris.value")}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td className="border border-black p-2">
-                Principal Debt (Loan Amount)
+                {t("polaris.principal_debt_loan_amount")}
               </td>
               <td className="border border-black p-2 text-right font-bold">
                 R{" "}
@@ -162,7 +163,7 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
             </tr>
             <tr>
               <td className="border border-black p-2">
-                Initiation Fee (Once-off)
+                {t("polaris.initiation_fee_once_off")}
               </td>
               <td className="border border-black p-2 text-right">
                 R{" "}
@@ -173,7 +174,7 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
             </tr>
             <tr>
               <td className="border border-black p-2 bg-gray-50 font-bold">
-                Total Advanced
+                {t("polaris.total_advanced")}
               </td>
               <td className="border border-black p-2 text-right font-bold bg-gray-50">
                 R{" "}
@@ -187,59 +188,59 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
       )}
 
       {/* Cost of Credit */}
-      <h3 className="font-bold text-lg mb-2 uppercase">Cost of Credit</h3>
+      <h3 className="font-bold text-lg mb-2 uppercase">{t("polaris.cost_of_credit")}</h3>
       <table className="w-full border-collapse border border-black mb-8 text-sm">
         <thead>
           <tr className="bg-gray-100">
             <th className="border border-black p-2 text-left w-1/2">
-              Description
+              {t("polaris.description")}
             </th>
-            <th className="border border-black p-2 text-right">Value</th>
+            <th className="border border-black p-2 text-right">{t("polaris.value")}</th>
           </tr>
         </thead>
         {quoteResult ? (
           <tbody>
             <tr>
               <td className="border border-black p-2 text-gray-500">
-                Capital (Principal)
+                {t("polaris.capital_principal")}
               </td>
               <td className="border border-black p-2 text-right text-gray-500">
                 R {quoteResult.capital.toFixed(2)}
               </td>
             </tr>
             <tr>
-              <td className="border border-black p-2">Interest</td>
+              <td className="border border-black p-2">{t("polaris.interest")}</td>
               <td className="border border-black p-2 text-right">
                 R {quoteResult.interest.toFixed(2)}
               </td>
             </tr>
             <tr>
-              <td className="border border-black p-2">Service Fee</td>
+              <td className="border border-black p-2">{t("polaris.service_fee")}</td>
               <td className="border border-black p-2 text-right">
                 R {quoteResult.serviceFee.toFixed(2)}
               </td>
             </tr>
             <tr>
-              <td className="border border-black p-2">Initiation Fee</td>
+              <td className="border border-black p-2">{t("polaris.initiation_fee")}</td>
               <td className="border border-black p-2 text-right">
                 R {quoteResult.initiationFee.toFixed(2)}
               </td>
             </tr>
             <tr>
-              <td className="border border-black p-2">VAT (15%)</td>
+              <td className="border border-black p-2">{t("polaris.vat_15")}</td>
               <td className="border border-black p-2 text-right">
                 R {quoteResult.vat.toFixed(2)}
               </td>
             </tr>
             <tr>
-              <td className="border border-black p-2">Insurance</td>
+              <td className="border border-black p-2">{t("polaris.insurance")}</td>
               <td className="border border-black p-2 text-right">
                 R {quoteResult.insurance.toFixed(2)}
               </td>
             </tr>
             <tr>
               <td className="border border-black p-2 font-bold bg-yellow-50">
-                Total Repayment Amount
+                {t("polaris.total_repayment_amount")}
               </td>
               <td className="border border-black p-2 text-right font-bold bg-yellow-50">
                 R {quoteResult.totalRepayment.toFixed(2)}
@@ -250,19 +251,19 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
           <tbody>
             <tr>
               <td className="border border-black p-2">
-                Interest Rate (Annual)
+                {t("polaris.interest_rate_annual")}
               </td>
               <td className="border border-black p-2 text-right">{rate}%</td>
             </tr>
             <tr>
-              <td className="border border-black p-2">Monthly Service Fee</td>
+              <td className="border border-black p-2">{t("polaris.monthly_service_fee")}</td>
               <td className="border border-black p-2 text-right">
                 R {serviceFee.toFixed(2)}
               </td>
             </tr>
             <tr>
               <td className="border border-black p-2">
-                Number of Installments
+                {t("polaris.number_of_installments")}
               </td>
               <td className="border border-black p-2 text-right">
                 {term} Months
@@ -270,7 +271,7 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
             </tr>
             <tr>
               <td className="border border-black p-2 font-bold bg-yellow-50">
-                Monthly Installment (Estimated)
+                {t("polaris.monthly_installment_estimated")}
               </td>
               <td className="border border-black p-2 text-right font-bold bg-yellow-50">
                 R{" "}
@@ -281,7 +282,7 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
             </tr>
             <tr>
               <td className="border border-black p-2 font-bold">
-                Total Amount Repayable
+                {t("polaris.total_amount_repayable")}
               </td>
               <td className="border border-black p-2 text-right font-bold">
                 R{" "}
@@ -299,18 +300,18 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
       {/* Legal Declarations */}
       <div className="space-y-4 text-xs leading-relaxed text-justify mb-12">
         <p>
-          <strong>Early Settlement:</strong> You have the right to settle this
+          <strong>{t("polaris.early_settlement")}</strong> You have the right to settle this
           agreement at any time without penalty (for small agreements). The
           settlement amount will be the unpaid balance plus unpaid interest and
           fees up to the settlement date.
         </p>
         <p>
-          <strong>Default Administration Costs:</strong> If you default on
+          <strong>{t("polaris.default_administration_costs")}</strong> If you default on
           urgency, you will be liable for default administration charges and
           collection costs as permitted by the Act.
         </p>
         <p>
-          <strong>Marketing Options:</strong> You have the right to decline
+          <strong>{t("polaris.marketing_options")}</strong> You have the right to decline
           marketing options.
         </p>
       </div>
@@ -319,7 +320,7 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
       {app.is_secured_loan ? (
         <div className="border-2 border-dashed border-gray-400 p-4 mb-8 bg-gray-50">
           <h3 className="font-bold border-b border-gray-400 mb-2 uppercase text-sm">
-            Security Pledge (Asset-Backed)
+            {t("polaris.security_pledge_asset_backed")}
           </h3>
           <p className="mb-2">
             I, the undersigned, hereby pledge the following asset as security
@@ -333,7 +334,7 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
       ) : (
         <div className="border border-gray-200 p-4 mb-8">
           <h3 className="font-bold border-b border-gray-200 mb-2 uppercase text-sm">
-            Affordability Declaration
+            {t("polaris.affordability_declaration")}
           </h3>
           <p className="italic">
             I confirm that the income and expense information provided is true
@@ -346,7 +347,7 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
       {/* Acceptance */}
       <div className="border border-black p-6 page-break-inside-avoid">
         <h3 className="font-bold border-b border-black mb-4 pb-2">
-          Acceptance of Quote
+          {t("polaris.acceptance_of_quote")}
         </h3>
         <p className="mb-8">
           I, the undersigned consumer, hereby acknowledge receipt of this
@@ -358,12 +359,12 @@ export const Form20Template: React.FC<Form20TemplateProps> = ({
           <div>
             <div className="border-b border-gray-400 h-8"></div>
             <p className="text-xs uppercase mt-1 text-gray-500">
-              Signature of Consumer
+              {t("polaris.signature_of_consumer")}
             </p>
           </div>
           <div>
             <div className="border-b border-gray-400 h-8"></div>
-            <p className="text-xs uppercase mt-1 text-gray-500">Date</p>
+            <p className="text-xs uppercase mt-1 text-gray-500">{t("polaris.date")}</p>
           </div>
         </div>
       </div>

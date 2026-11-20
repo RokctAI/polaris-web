@@ -103,7 +103,7 @@ export default function Form20Page({
       <div className="bg-gray-100 p-6 rounded-lg border border-gray-300 print:hidden relative">
          <h3 className="font-bold text-gray-700 mb-4 flex items-center">
            <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded mr-2">
-             ADMIN
+             {t("polaris.admin")}
            </span>
            {t('app.lending.quote_simulator_title')}
          </h3>

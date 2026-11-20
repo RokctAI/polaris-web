@@ -79,9 +79,9 @@ function AdjustmentsForm() {
   };
 
   if (isLoading)
-    return <div className="p-12 text-center text-gray-500">Loading...</div>;
+    return <div className="p-12 text-center text-gray-500">{t("polaris.loading")}</div>;
   if (!loan)
-    return <div className="p-12 text-center text-red-500">Loan not found</div>;
+    return <div className="p-12 text-center text-red-500">{t("polaris.loan_not_found")}</div>;
 
   const outstanding =
     (loan.loan_amount || 0) - (loan.total_principal_paid || 0);

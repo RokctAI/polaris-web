@@ -16,6 +16,7 @@
 
 import React from "react";
 
+import t from "@/app/lib/i18n";
 interface AssuranceReportTemplateProps {
   company: any;
   date: string;
@@ -30,7 +31,7 @@ export const AssuranceReportTemplate: React.FC<
     <div className="max-w-4xl mx-auto bg-white p-12 shadow-lg print:shadow-none print:p-0 font-serif text-justify border border-gray-200">
       {/* Disclaimer placeholder for Letterhead printing */}
       <div className="print:hidden bg-yellow-50 border border-yellow-200 p-4 mb-8 text-sm text-yellow-800 rounded">
-        <strong>For Output:</strong> This document is designed to be printed on
+        <strong>{t("polaris.for_output")}</strong> This document is designed to be printed on
         your Auditor&apos;s or Accounting Officer&apos;s official letterhead.
       </div>
 
@@ -43,17 +44,17 @@ export const AssuranceReportTemplate: React.FC<
       <div className="flex justify-between items-start mb-8">
         <div>
           <p>
-            <strong>To:</strong> The National Credit Regulator
+            <strong>{t("polaris.to")}</strong> {t("polaris.the_national_credit_regulator")}
           </p>
           <p>
-            <strong>From:</strong> {company?.companyName || "Registrant Name"}
+            <strong>{t("polaris.from")}</strong> {company?.companyName || "Registrant Name"}
           </p>
           <p>
-            <strong>NCR Registration No:</strong>{" "}
+            <strong>{t("polaris.ncr_registration_no")}</strong>{" "}
             {company?.licenseNumber || "NCRCPXXXX"}
           </p>
           <p>
-            <strong>Date:</strong> {date}
+            <strong>{t("polaris.date")}</strong> {date}
           </p>
         </div>
       </div>
@@ -70,14 +71,14 @@ export const AssuranceReportTemplate: React.FC<
         Credit Act, 34 of 2005.
       </p>
 
-      <h3 className="font-bold mb-2">Responsibility</h3>
+      <h3 className="font-bold mb-2">{t("polaris.responsibility")}</h3>
       <p className="mb-4">
         The management of the registrant is responsible for compliance with the
         Act and Regulations. Our responsibility is to report on the
         registrant&apos;s compliance based on our engagement.
       </p>
 
-      <h3 className="font-bold mb-2">Scope</h3>
+      <h3 className="font-bold mb-2">{t("polaris.scope")}</h3>
       <p className="mb-4">
         We conducted our examination in accordance with the International
         Standards on Assurance Engagements (ISAE 3000). This standard requires
@@ -89,27 +90,27 @@ export const AssuranceReportTemplate: React.FC<
       {reportType === "accounting_officer" && (
         <div className="mb-4 bg-blue-50 p-4 border-l-4 border-blue-500 text-sm italic print:bg-transparent print:border-none print:p-0 print:text-black">
           <p>
-            <strong>Note for Accounting Officer:</strong> This report is based
+            <strong>{t("polaris.note_for_accounting_officer")}</strong> This report is based
             on the results of our duties as Accounting Officer, which are less
             extensive than a full audit.
           </p>
         </div>
       )}
 
-      <h3 className="font-bold mb-2">Conclusion</h3>
+      <h3 className="font-bold mb-2">{t("polaris.conclusion")}</h3>
       <p className="mb-8">
         Based on our work described in this report, in our opinion, the
         registrant{" "}
-        <strong>HAS / HAS NOT (Delete whichever is not applicable)</strong>{" "}
+        <strong>{t("polaris.has_has_not_delete_whichever_is_not_applicable")}</strong>{" "}
         complied with the following sections of the Act:
       </p>
 
       <ul className="list-disc pl-8 mb-8 space-y-1">
-        <li>Section 52 (Failed to register)</li>
-        <li>Section 81 (Prevention of Reckless Credit)</li>
-        <li>Section 92 (Pre-agreement disclosure)</li>
-        <li>Section 93 (Form of credit agreement)</li>
-        <li>Chapter 5, Part E (Interest and Fees)</li>
+        <li>{t("polaris.section_52_failed_to_register")}</li>
+        <li>{t("polaris.section_81_prevention_of_reckless_credit")}</li>
+        <li>{t("polaris.section_92_pre_agreement_disclosure")}</li>
+        <li>{t("polaris.section_93_form_of_credit_agreement")}</li>
+        <li>{t("polaris.chapter_5_part_e_interest_and_fees")}</li>
       </ul>
 
       <div className="mt-16 grid grid-cols-2 gap-12">
@@ -123,19 +124,19 @@ export const AssuranceReportTemplate: React.FC<
         </div>
         <div>
           <div className="border-b border-black h-8"></div>
-          <p className="mt-2 font-bold">Date</p>
+          <p className="mt-2 font-bold">{t("polaris.date")}</p>
         </div>
       </div>
 
       <div className="mt-8 space-y-1 text-sm">
         <p>
-          <strong>Name:</strong> _________________________________
+          <strong>{t("polaris.name")}</strong> _________________________________
         </p>
         <p>
-          <strong>Practice Number:</strong> _____________________
+          <strong>{t("polaris.practice_number")}</strong> _____________________
         </p>
         <p>
-          <strong>Professional Body:</strong> ______________________
+          <strong>{t("polaris.professional_body")}</strong> ______________________
         </p>
       </div>
     </div>

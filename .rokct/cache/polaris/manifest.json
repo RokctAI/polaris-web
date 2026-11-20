@@ -1,6 +1,7 @@
 {
   "name": "polaris_sdk",
-  "version": "1.10.0",
+  "version": "1.13.0",
+  "_comment_version_1_12_1": "1.12.1: the oversized Polaris wordmark at the foot of the landing is removed (Ray 2026-11-01: no big brand name at the bottom of a site, it reads as AI-made). The footer keeps its normal credit row. Nothing to install.",
   "installs": [
     {
       "from": "templates/app/handson/all/lending",
@@ -49,6 +50,10 @@
     {
       "from": "templates/components/custom/lending",
       "to": "components/custom/lending"
+    },
+    {
+      "from": "templates/app/lib/i18n/sdk/polaris.json",
+      "to": "app/lib/i18n/sdk/polaris.json"
     }
   ],
   "dependencies": {
@@ -302,7 +307,8 @@
         "components/custom/landing/page-sections.ts",
         "components/custom/landing/plans-query.ts",
         "components/custom/landing/site-metadata.ts",
-        "components/custom/site-credit.tsx"
+        "components/custom/site-credit.tsx",
+        "app/lib/i18n/index.ts"
       ]
     }
   },

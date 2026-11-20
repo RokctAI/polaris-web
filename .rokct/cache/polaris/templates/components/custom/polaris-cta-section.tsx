@@ -31,6 +31,7 @@ import type {
   PageSectionProps,
 } from "@/components/custom/landing/page-sections";
 
+import t from "@/app/lib/i18n";
 export async function PolarisCtaSection({
   id,
   signupUrl,
@@ -50,7 +51,7 @@ export async function PolarisCtaSection({
             <div>
               <p className="px-head-index">
                 <span>→</span>
-                What happens next
+                {t("polaris.what_happens_next")}
               </p>
               <h2 className="px-display px-cta-h">{copy.heading}</h2>
             </div>

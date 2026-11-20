@@ -1884,21 +1884,6 @@ html.dark .px-landing .px-ceiling-line mark {
 .px-footer-nav a:hover {
   color: var(--px-ink);
 }
-.px-footer-mark {
-  margin: 3rem 0 1.5rem;
-  font-family: var(--px-font-display);
-  font-weight: 500;
-  font-size: clamp(5rem, 24vw, 21rem);
-  line-height: 0.8;
-  letter-spacing: -0.06em;
-  white-space: nowrap;
-  overflow: hidden;
-  color: transparent;
-  background: linear-gradient(180deg, var(--px-ink) 0%, color-mix(in srgb, var(--px-ink) 8%, transparent) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  padding-bottom: 0.08em;
-}
 .px-footer-chrome {
   border-top: 1px solid var(--px-sub);
   padding-top: 1.5rem;

@@ -48,6 +48,7 @@ import {
   SHORT_TERM_LOAN,
 } from "./polaris-loan-presets";
 
+import tr from "@/app/lib/i18n";
 function IconLock({ size = 11 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -177,15 +178,15 @@ export function PolarisLoanCalculator({
           <i />
           <i />
         </span>
-        <span className="px-window-url">Loan calculator</span>
-        <span className="px-window-label">Not yet an offer</span>
+        <span className="px-window-url">{tr("polaris.loan_calculator")}</span>
+        <span className="px-window-label">{tr("polaris.not_yet_an_offer")}</span>
       </div>
       <div className="grid lg:grid-cols-[1fr_1.05fr]">
         {/* ------------------------------------------------ what you choose */}
         <div className="flex flex-col gap-3.5 p-5 md:px-7 md:py-6">
           <div>
             <label htmlFor={amountId} className="px-eyebrow">
-              How much do you need?
+              {tr("polaris.how_much_do_you_need")}
             </label>
             <div className="mt-2 flex items-baseline gap-1">
               <span className="px-num text-3xl font-medium text-[var(--px-sec)] md:text-4xl">R</span>
@@ -213,7 +214,7 @@ export function PolarisLoanCalculator({
               step={step}
               value={amount}
               onChange={(event) => setAmount(Number(event.target.value))}
-              aria-label="Loan amount"
+              aria-label={tr("polaris.loan_amount")}
               aria-valuetext={formatRand(amount)}
               style={{ "--px-fill": `${fill}%` } as React.CSSProperties}
             />
@@ -224,8 +225,8 @@ export function PolarisLoanCalculator({
           </div>
 
           <div>
-            <p className="px-eyebrow">Over how long?</p>
-            <div role="group" aria-label="Term in months" className="px-seg mt-3">
+            <p className="px-eyebrow">{tr("polaris.over_how_long")}</p>
+            <div role="group" aria-label={tr("polaris.term_in_months")} className="px-seg mt-3">
               {MONTH_OPTIONS.map((option) => {
                 const open = isMonthOptionOpen(option);
                 return (
@@ -249,7 +250,7 @@ export function PolarisLoanCalculator({
                 );
               })}
             </div>
-            <p className="px-k mt-2">Once-off: one repayment, a month after the payout.</p>
+            <p className="px-k mt-2">{tr("polaris.once_off_one_repayment_a_month_after_the_payout")}</p>
           </div>
 
           <button
@@ -261,10 +262,10 @@ export function PolarisLoanCalculator({
           >
             <span>
               <span className="block text-[15px] font-semibold text-[var(--px-ink)]">
-                Add credit life cover
+                {tr("polaris.add_credit_life_cover")}
               </span>
               <span className="px-k mt-0.5 block leading-snug">
-                Settles the loan if you die or lose your income. At most R4,50 per R1 000 a month.
+                {tr("polaris.settles_the_loan_if_you_die_or_lose_your_income_")}
               </span>
             </span>
             <span className="px-switch" aria-hidden="true" />
@@ -272,7 +273,7 @@ export function PolarisLoanCalculator({
 
           <div>
             <div className="px-cost">
-              <span>Cost of credit, all in</span>
+              <span>{tr("polaris.cost_of_credit_all_in")}</span>
               <b className="px-money">{formatRand(estimate.costOfCredit, { cents: true })}</b>
             </div>
             <div className="px-bar mt-2.5" role="presentation">
@@ -290,12 +291,12 @@ export function PolarisLoanCalculator({
         {/* ----------------------------------------------------- the receipt */}
         <div className="px-alt flex flex-col gap-4 border-t border-[var(--px-sub)] p-5 md:px-7 md:py-6 lg:border-l lg:border-t-0">
           <div className="flex items-baseline justify-between gap-4">
-            <p className="px-eyebrow">At the legal maximum</p>
-            <p className="px-k">Not yet an offer</p>
+            <p className="px-eyebrow">{tr("polaris.at_the_legal_maximum")}</p>
+            <p className="px-k">{tr("polaris.not_yet_an_offer")}</p>
           </div>
 
           <div>
-            <p className="px-k font-medium">You repay in total</p>
+            <p className="px-k font-medium">{tr("polaris.you_repay_in_total")}</p>
             <p
               className="px-num mt-1 text-[2.5rem] font-semibold leading-none tracking-[-0.03em] text-[var(--px-ink)] md:text-[3rem]"
               aria-live="polite"
@@ -317,16 +318,16 @@ export function PolarisLoanCalculator({
           </div>
 
           <dl className="rc">
-            <Line label="You borrow" value={estimate.amount} />
-            <Line label="Interest" note="5% a month" value={estimate.quote.interest} />
-            <Line label="Initiation fee" note="once" value={estimate.quote.initiationFee} />
-            <Line label="Service fee" note="R60 a month, at most" value={estimate.quote.serviceFee} />
-            <Line label="VAT on the fees" note="15%" value={estimate.quote.vat} />
+            <Line label={tr("polaris.you_borrow")} value={estimate.amount} />
+            <Line label={tr("polaris.interest")} note="5% a month" value={estimate.quote.interest} />
+            <Line label={tr("polaris.initiation_fee")} note="once" value={estimate.quote.initiationFee} />
+            <Line label={tr("polaris.service_fee")} note="R60 a month, at most" value={estimate.quote.serviceFee} />
+            <Line label={tr("polaris.vat_on_the_fees")} note="15%" value={estimate.quote.vat} />
             {cover && (
-              <Line label="Credit life cover" note="R4,50 per R1 000" value={estimate.quote.insurance} />
+              <Line label={tr("polaris.credit_life_cover")} note="R4,50 per R1 000" value={estimate.quote.insurance} />
             )}
             <div className="px-lr tot">
-              <dt>Total to repay</dt>
+              <dt>{tr("polaris.total_to_repay")}</dt>
               <dd className="px-money">
                 <b>{formatRand(estimate.quote.totalRepayment, { cents: true })}</b>
               </dd>

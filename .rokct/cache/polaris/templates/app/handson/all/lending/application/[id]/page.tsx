@@ -29,6 +29,7 @@ import {
   getLoanQuote,
   reparseStatements,
   runDecisionEngine,
+  finalApproveApplication,
   setIncomeOverride,
 } from "@/app/actions/handson/all/lending/decision_engine";
 import { shareLoanQuote } from "@/app/templates/lending/loanQuoteImage";
@@ -84,9 +85,24 @@ export default function LoanApplicationDetails({
         { id: toastId },
       );
       setNotice(res.data.notice ?? null);
+      // The engine sets or clears Pre-approved on every run.
+      setData((d: any) => (d ? { ...d, pre_approved: res.data.pre_approved ? 1 : 0 } : d));
       setIncomeCheck(res.data.income_check ?? null);
       // The engine reads any statement file that was not stored yet.
       fetchStatements();
+    } else {
+      toast.error(res.message, { id: toastId });
+    }
+  };
+
+  // Ray 2026-11-20: only an application the full backend process
+  // pre-approved can be approved, and the backend checks again first.
+  const finalApprove = async () => {
+    const toastId = toast.loading("Checking again and approving...");
+    const res = await finalApproveApplication(params.id);
+    if (res.success) {
+      setData((d: any) => (d ? { ...d, status: "Approved", pre_approved: 0 } : d));
+      toast.success("Approved", { id: toastId });
     } else {
       toast.error(res.message, { id: toastId });
     }
@@ -158,7 +174,7 @@ export default function LoanApplicationDetails({
     );
   if (!data)
     return (
-      <div className="p-12 text-center text-red-500">Application not found</div>
+      <div className="p-12 text-center text-red-500">{t("polaris.application_not_found")}</div>
     );
 
   const sections = [
@@ -349,7 +365,7 @@ export default function LoanApplicationDetails({
                    className="flex items-center px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 font-medium transition-colors"
                  >
                    <RiShareLine className="w-4 h-4 mr-2" />
-                   Share quote
+                   {t("polaris.share_quote")}
                  </button>
 
                  <button
@@ -378,7 +394,7 @@ export default function LoanApplicationDetails({
                      className="flex items-center px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 font-medium transition-colors"
                    >
                      <RiShareLine className="w-4 h-4 mr-2" />
-                     Share decision notice
+                     {t("polaris.share_decision_notice")}
                    </button>
                  )}
 
@@ -386,7 +402,21 @@ export default function LoanApplicationDetails({
                  <button className="px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors">
                    {t('common.reject')}
                  </button>
-                 <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors shadow-sm">
+                 {data?.pre_approved && data?.status === "Submitted" ? (
+                   <span className="text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded border text-teal-700 bg-teal-50 border-teal-100">
+                     {t("polaris.pre_approved_waiting_for_you")}
+                   </span>
+                 ) : null}
+                 <button
+                   onClick={finalApprove}
+                   disabled={!(data?.pre_approved && data?.status === "Submitted")}
+                   title={
+                     data?.pre_approved
+                       ? "Give the final approval"
+                       : "Run the decision engine; only a pre-approved application can be approved"
+                   }
+                   className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
+                 >
                    {t('common.approve')}
                  </button>
                </div>
@@ -495,7 +525,7 @@ function IncomeCheckPanel({
   };
   return (
     <div className="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
-      <p className="font-medium text-gray-900">Income check (staff only)</p>
+      <p className="font-medium text-gray-900">{t("polaris.income_check_staff_only")}</p>
       <p className="mt-1">
         Typed: {check.declared != null ? formatCurrency(check.declared) : "not filled in"} ·
         Statements: {formatCurrency(check.from_statements)} a month · Used:{" "}
@@ -559,7 +589,7 @@ function IncomeCheckPanel({
                           className="text-blue-600 hover:underline"
                           onClick={() => setAsking({ key: c.key, action: "clear" })}
                         >
-                          Undo
+                          {t("polaris.undo")}
                         </button>
                       ) : (
                         <button
@@ -591,7 +621,7 @@ function IncomeCheckPanel({
                             autoFocus
                             value={reason}
                             onChange={(e) => setReason(e.target.value)}
-                            placeholder="Reason (kept with your name)"
+                            placeholder={t("polaris.reason_kept_with_your_name")}
                             className="flex-1 min-w-[12rem] rounded-md border border-gray-300 px-2 py-1 text-xs"
                           />
                           <button
@@ -599,7 +629,7 @@ function IncomeCheckPanel({
                             disabled={saving || !reason.trim()}
                             className="rounded-md bg-blue-600 px-3 py-1 text-white disabled:opacity-50"
                           >
-                            Save
+                            {t("polaris.save")}
                           </button>
                           <button
                             type="button"
@@ -609,7 +639,7 @@ function IncomeCheckPanel({
                             }}
                             className="text-gray-600 hover:underline"
                           >
-                            Cancel
+                            {t("polaris.cancel")}
                           </button>
                         </form>
                       </td>
@@ -623,7 +653,7 @@ function IncomeCheckPanel({
       )}
       {log.length > 0 && (
         <div className="mt-3">
-          <p className="font-medium text-gray-900">Changes by staff</p>
+          <p className="font-medium text-gray-900">{t("polaris.changes_by_staff")}</p>
           <ul className="mt-1 space-y-1 text-xs text-gray-600">
             {log.map((o, i) => (
               <li key={i}>
@@ -754,7 +784,7 @@ function StatementsPanel({
             className="text-blue-600 hover:underline"
             onClick={() => setPasting((v) => !v)}
           >
-            Paste statement text
+            {t("polaris.paste_statement_text")}
           </button>
           <button
             className="text-blue-600 hover:underline"
@@ -765,7 +795,7 @@ function StatementsPanel({
               setBusy(false);
             }}
           >
-            Re-read statements
+            {t("polaris.re_read_statements")}
           </button>
         </div>
       </div>
@@ -779,11 +809,11 @@ function StatementsPanel({
         <table className="mt-2 w-full text-left text-xs">
           <thead className="text-gray-500">
             <tr>
-              <th className="py-1 pr-2 font-normal">File</th>
-              <th className="py-1 pr-2 font-normal">Bank / holder</th>
-              <th className="py-1 pr-2 font-normal">Period</th>
-              <th className="py-1 pr-2 font-normal">Read</th>
-              <th className="py-1 font-normal">File check</th>
+              <th className="py-1 pr-2 font-normal">{t("polaris.file")}</th>
+              <th className="py-1 pr-2 font-normal">{t("polaris.bank_holder")}</th>
+              <th className="py-1 pr-2 font-normal">{t("polaris.period")}</th>
+              <th className="py-1 pr-2 font-normal">{t("polaris.read")}</th>
+              <th className="py-1 font-normal">{t("polaris.file_check")}</th>
             </tr>
           </thead>
           <tbody>
@@ -851,7 +881,7 @@ function StatementsPanel({
           <input
             value={fileName}
             onChange={(e) => setFileName(e.target.value)}
-            placeholder="Which statement (e.g. Capitec, August)"
+            placeholder={t("polaris.which_statement_e_g_capitec_august")}
             className="w-full rounded-md border border-gray-300 px-2 py-1 text-xs"
           />
           <textarea
@@ -866,14 +896,14 @@ function StatementsPanel({
               disabled={busy || !text.trim()}
               className="rounded-md bg-blue-600 px-3 py-1 text-white disabled:opacity-50"
             >
-              Save statement text
+              {t("polaris.save_statement_text")}
             </button>
             <button
               type="button"
               className="text-gray-600 hover:underline"
               onClick={() => setPasting(false)}
             >
-              Cancel
+              {t("polaris.cancel")}
             </button>
           </div>
         </form>

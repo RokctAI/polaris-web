@@ -46,6 +46,7 @@ import { POLARIS_MOTTO, polarisBrandName } from "@/components/custom/landing/pol
 import { PolarisTheme } from "@/components/custom/landing/polaris-theme";
 import { POLARIS_AUTH_COPY, polarisAuthPanel } from "@/components/custom/polaris-auth/polaris-auth-copy";
 
+import t from "@/app/lib/i18n";
 export interface SiteShellProps {
   children: ReactNode;
   /** Header "Log in" handler from the auth page, passed to base's Header. */
@@ -84,10 +85,10 @@ export function SiteShell({ children, openLoginPopup, openSignupPopup }: SiteShe
             <p className="px-display px-footer-motto">
               <em>{POLARIS_MOTTO}</em>
             </p>
-            <nav aria-label="Footer" className="pa-foot-nav">
-              <a href="/landing">Home</a>
-              <a href={LANDING_CONFIG.loginUrl}>Sign in</a>
-              <a href={LANDING_CONFIG.signupUrl}>Create an account</a>
+            <nav aria-label={t("polaris.footer")} className="pa-foot-nav">
+              <a href="/landing">{t("polaris.home")}</a>
+              <a href={LANDING_CONFIG.loginUrl}>{t("polaris.sign_in")}</a>
+              <a href={LANDING_CONFIG.signupUrl}>{t("polaris.create_an_account")}</a>
             </nav>
           </div>
           <SiteCredit as="p" siteName={name} className="pa-credit" />

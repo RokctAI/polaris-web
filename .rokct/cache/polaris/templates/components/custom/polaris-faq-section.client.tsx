@@ -27,6 +27,7 @@ import React from "react";
 import { POLARIS_LANDING_CONFIG } from "@/components/custom/landing/polaris-landing-config";
 import { PolarisSectionHead } from "@/components/custom/landing/polaris-section-head";
 
+import t from "@/app/lib/i18n";
 export function PolarisFaqSection({ id }: { id?: string }) {
   const copy = POLARIS_LANDING_CONFIG.faq;
   return (
@@ -37,7 +38,7 @@ export function PolarisFaqSection({ id }: { id?: string }) {
           eyebrow={copy.eyebrow}
           title={
             <>
-              Asked <em>before</em> you apply.
+              {t("polaris.asked")} <em>before</em> you apply.
             </>
           }
           blurb="Anything else, ask us on the page once you have an account."

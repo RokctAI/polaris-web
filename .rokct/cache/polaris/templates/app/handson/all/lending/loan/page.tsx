@@ -88,7 +88,7 @@ export default function LoanList() {
               key={i}
               className="flex items-center justify-between p-4 border-b border-gray-50 text-gray-400"
             >
-              Loading...
+              {t("polaris.loading")}
             </div>
           ))}
         </div>

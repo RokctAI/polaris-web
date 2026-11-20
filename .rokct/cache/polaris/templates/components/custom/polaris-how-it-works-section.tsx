@@ -30,6 +30,7 @@ import type {
   PageSectionProps,
 } from "@/components/custom/landing/page-sections";
 
+import t from "@/app/lib/i18n";
 export function PolarisHowItWorksSection({ id }: { id?: string }) {
   const copy = POLARIS_LANDING_CONFIG.how;
   return (
@@ -66,7 +67,7 @@ export function PolarisHowItWorksSection({ id }: { id?: string }) {
           })}
         </ol>
         <div className="px-next px-next-wide">
-          <b>Next</b>
+          <b>{t("polaris.next")}</b>
           <span>{copy.next}</span>
         </div>
       </div>

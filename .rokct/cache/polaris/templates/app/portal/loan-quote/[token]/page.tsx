@@ -23,6 +23,7 @@ import {
   getPublicQuote,
 } from "@/app/actions/public/lending/quote";
 
+import t from "@/app/lib/i18n";
 // Public page: the link a lender shares with a client who has no app. No
 // login; the token is the key. Accepting records the client's yes to the
 // quote; the loan still goes through the credit decision and the contract.
@@ -96,7 +97,7 @@ export default function PublicLoanQuotePage({
 
       {quote.accepted_on ? (
         <p className="rounded-lg bg-green-50 p-4 font-medium text-green-800">
-          Thank you. You accepted this quote. Your lender will be in touch.
+          {t("polaris.thank_you_you_accepted_this_quote_your_lender_wi")}
         </p>
       ) : quote.can_accept ? (
         <div className="space-y-2">
@@ -111,7 +112,7 @@ export default function PublicLoanQuotePage({
         </div>
       ) : (
         <p className="text-gray-700">
-          This quote can no longer be accepted. Please contact your lender.
+          {t("polaris.this_quote_can_no_longer_be_accepted_please_cont")}
         </p>
       )}
 
