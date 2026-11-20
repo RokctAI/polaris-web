@@ -1,6 +1,7 @@
 {
   "name": "polaris_sdk",
-  "version": "1.13.0",
+  "version": "1.13.1",
+  "_comment_version_1_13_1": "1.13.1: landing sections rise and fade in as they scroll into view (CSS scroll-driven, no JS, off under reduced motion; motion pass). Afrikaans polaris.lending_with_the corrected from Lewenskoste (cost of living) to Lenings, met die. Nothing to install.",
   "_comment_version_1_12_1": "1.12.1: the oversized Polaris wordmark at the foot of the landing is removed (Ray 2026-11-01: no big brand name at the bottom of a site, it reads as AI-made). The footer keeps its normal credit row. Nothing to install.",
   "installs": [
     {

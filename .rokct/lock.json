@@ -4,11 +4,11 @@
   "app_type": "polaris",
   "protocol": {
     "git": "https://github.com/RokctAI/The-Rokct-Protocol",
-    "ref": "530ee9ce413bf38eb21e26e60370006903f4dec9",
+    "ref": "8f60ba1f367a9b54df8c29592cc11f02862647f7",
     "vendored": ".rokct/cache/_composer",
     "files": {
       "sdk_composer.py": "b437f486a72eed54418ee56bc464e3c016d83a0175d35f28adfd2a9fc37ca943",
-      "sdk_installer_base.py": "bc8825efdbb57877153823f4b72ae71f856f213dee6460c39be353c1389db806"
+      "sdk_installer_base.py": "d98a6a1ec8ee75d9bea57191b207df749f5dc04a1edabdb543a295087c454dcb"
     }
   },
   "sdks": [
@@ -19,7 +19,7 @@
       "git": "https://github.com/RokctAI/core",
       "path": "../core/telemetry/nextjs",
       "ref": "main",
-      "commit": "4a1a17244a1a9978a8cec4b64891ff975b7921d9",
+      "commit": "da4a8df52485ba7f48c6ea4179a74a06ebefa95c",
       "version": "1.3.0",
       "install_py_sha256": "318d20eb7123ffaa549618d06b4530dfce5df9ba0b07df2328c0c6e1738e36c4",
       "content_sha256": "a991e6740bd03c5a0a7845631520308bceba62e4bf064806a37812c131cd94cc"
@@ -31,10 +31,10 @@
       "git": "https://github.com/RokctAI/core",
       "path": "../core/base/nextjs",
       "ref": "main",
-      "commit": "4a1a17244a1a9978a8cec4b64891ff975b7921d9",
-      "version": "1.62.0",
+      "commit": "da4a8df52485ba7f48c6ea4179a74a06ebefa95c",
+      "version": "1.63.0",
       "install_py_sha256": "b6c434a1c05611d29f1018f68b9423383f7ecfbf9cc1efe74825ba6c4df98fff",
-      "content_sha256": "ec9400471f73e5c57ebeaf306065bbe0ba0db61df5525ef8826c1e8092886c58"
+      "content_sha256": "4ea35a5b56f3230cab6b8a364d6fda96c34fadf7ddf4035750c0e141e269fa14"
     },
     {
       "name": "auth_sdk",
@@ -55,7 +55,7 @@
       "git": "https://github.com/RokctAI/corporate",
       "path": "../corporate/corporate/nextjs",
       "ref": "main",
-      "commit": "994efbb214f45b0805e5e0bd96f467a6281cba68",
+      "commit": "f47385b04454edb0217add14ff343268757ff8f9",
       "version": "1.7.2",
       "install_py_sha256": "6e03485fd03617ea1e175adc50354a91af25e213908371fa3581083d8aa7d4ba",
       "content_sha256": "5113a17a23590a9f14ab9a1b7d3fc865ee55b254b91be05590d26c674f26cecd"
@@ -67,10 +67,10 @@
       "git": "https://github.com/RokctAI/corporate",
       "path": "../corporate/polaris/nextjs",
       "ref": "main",
-      "commit": "994efbb214f45b0805e5e0bd96f467a6281cba68",
-      "version": "1.13.0",
+      "commit": "f47385b04454edb0217add14ff343268757ff8f9",
+      "version": "1.13.1",
       "install_py_sha256": "90c6e577255101f2804dd74bf2b311cd45bbf1d84adbd52759f9728bec30b60a",
-      "content_sha256": "5850c4a7e6423e1cbee4adb089fa961572b8c9b3a6f49c5f6ec76dbb526d827d"
+      "content_sha256": "2b56f5de99217178d9dd26a3e09d45852e04c9bc49296982389b4a3b5655e9dc"
     }
   ]
 }

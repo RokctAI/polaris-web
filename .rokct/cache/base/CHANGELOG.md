@@ -1,3 +1,11 @@
+## 1.63.0
+
+* feat(deps): shared npm versions, like Dart's base SDK. New `versions`
+  map in the manifest; the installer sets each listed version on any
+  package a shell already uses (never adds one). Values come from
+  RokctAI_frontend main. Bump versions here instead of per-shell
+  Dependabot PRs.
+
 ## 1.62.0
 
 * feat(i18n): 170 hardcoded screen labels, headings, buttons,

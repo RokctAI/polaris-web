@@ -1,3 +1,12 @@
+# Changelog
+
+## 1.13.1
+
+* style: landing sections rise and fade in as they scroll into view (CSS
+  scroll-driven, no JS, off under reduced motion).
+* fix: Afrikaans polaris.lending_with_the was "Lewenskoste" (cost of living),
+  now "Lenings, met die".
+
 ## 1.13.0
 
 * feat(i18n): 183 hardcoded screen labels, headings, buttons,
@@ -5,8 +14,6 @@
   `t("polaris.<key>")` from `@/app/lib/i18n`. The copy ships in
   `app/lib/i18n/sdk/polaris.json` (English and Afrikaans), which the host's
   compose step registers (RokctAI_frontend#229).
-
-# Changelog
 
 ## 1.12.1
 

@@ -1981,3 +1981,28 @@ html.dark .px-landing .px-ceiling-line mark {
     animation: none;
   }
 }
+
+/* Section entrance (1.13.1, motion pass). CSS scroll-driven, so there is
+ * no JS and nothing is hidden where it is unsupported or motion is reduced:
+ * each block in a section rises 12px and fades in as it enters the view,
+ * finished by the time it is a quarter of the way up the screen. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .px-landing section .px-wrap > *,
+    .px-landing .px-why-grid > * {
+      animation: px-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 25%;
+    }
+  }
+}
+@keyframes px-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
