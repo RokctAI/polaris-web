@@ -89,6 +89,7 @@ next-env.d.ts
 /app/actions/handson/all/lending/lookups.ts
 /app/actions/handson/all/lending/ncr_reports.ts
 /app/actions/handson/all/lending/operations.ts
+/app/actions/handson/all/lending/phone_declines.ts
 /app/actions/handson/all/lending/product.ts
 /app/actions/handson/all/lending/refund.ts
 /app/actions/handson/all/lending/repayment.ts
@@ -138,6 +139,7 @@ next-env.d.ts
 /app/handson/all/lending/loan/page.tsx
 /app/handson/all/lending/operations/page.tsx
 /app/handson/all/lending/page.tsx
+/app/handson/all/lending/phone-declines/page.tsx
 /app/handson/all/lending/product/page.tsx
 /app/handson/all/lending/repayment/page.tsx
 /app/handson/all/lending/reports/assurance-report/page.tsx
@@ -153,6 +155,10 @@ next-env.d.ts
 /app/landing/page.tsx
 /app/legal/\[id\]/page.tsx
 /app/legal/page.tsx
+/app/lib/i18n/sdk/auth.json
+/app/lib/i18n/sdk/base.json
+/app/lib/i18n/sdk/polaris.json
+/app/lib/i18n/sdk/telemetry.json
 /app/lib/lending/ncr_calculator.ts
 /app/lib/lending/reports_config.ts
 /app/lib/session.ts
@@ -177,6 +183,7 @@ next-env.d.ts
 /app/services/all/lending/loan.ts
 /app/services/all/lending/ncr.ts
 /app/services/all/lending/operations.ts
+/app/services/all/lending/phone_declines.ts
 /app/services/all/lending/product.ts
 /app/services/all/lending/refund.ts
 /app/services/all/lending/repayment.ts

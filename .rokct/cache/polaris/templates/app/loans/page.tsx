@@ -26,6 +26,7 @@ import { BorrowerService } from "@/app/services/all/lending/borrower";
 import { ApplicationStatus } from "@/components/custom/lending/application-status";
 import { day, money } from "@/components/custom/lending/borrower-format";
 
+import t from "@/app/lib/i18n";
 export const dynamic = "force-dynamic";
 
 async function settle<T>(work: Promise<T>, fallback: T): Promise<T> {
@@ -50,17 +51,17 @@ export default async function LoansPage() {
     <div className="space-y-8">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold">My loans</h1>
-          <p className="text-muted-foreground">Apply, follow your application and manage your loan.</p>
+          <h1 className="text-2xl font-semibold">{t("polaris.my_loans")}</h1>
+          <p className="text-muted-foreground">{t("polaris.apply_follow_your_application_and_manage_your_lo")}</p>
         </div>
         <Button asChild>
-          <Link href="/loans/apply">Apply for a loan</Link>
+          <Link href="/loans/apply">{t("polaris.apply_for_a_loan")}</Link>
         </Button>
       </div>
 
       {active && (
         <section className="rounded-lg border border-border p-5">
-          <h2 className="text-sm font-medium text-muted-foreground">Your loan</h2>
+          <h2 className="text-sm font-medium text-muted-foreground">{t("polaris.your_loan")}</h2>
           <p className="mt-1 text-3xl font-semibold">{money(active.amount_owed, currency)}</p>
           <p className="text-sm text-muted-foreground">
             still owed of {money(active.total_repayable, currency)}, due {day(active.due_date)}
@@ -70,7 +71,7 @@ export default async function LoansPage() {
 
       {drafts.length > 0 && (
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold">Not sent yet</h2>
+          <h2 className="text-lg font-semibold">{t("polaris.not_sent_yet")}</h2>
           <ul className="divide-y divide-border rounded-lg border border-border">
             {drafts.map((a) => (
               <li key={a.name} className="flex items-center justify-between gap-4 p-4">
@@ -79,7 +80,7 @@ export default async function LoansPage() {
                   <p className="text-sm text-muted-foreground">Started {day(a.modified || a.posting_date)}</p>
                 </div>
                 <Button asChild variant="outline" size="sm">
-                  <Link href={`/loans/apply?draft=${encodeURIComponent(a.name)}`}>Continue</Link>
+                  <Link href={`/loans/apply?draft=${encodeURIComponent(a.name)}`}>{t("polaris.continue")}</Link>
                 </Button>
               </li>
             ))}
@@ -88,9 +89,9 @@ export default async function LoansPage() {
       )}
 
       <section className="space-y-3">
-        <h2 className="text-lg font-semibold">Applications</h2>
+        <h2 className="text-lg font-semibold">{t("polaris.applications")}</h2>
         {others.length === 0 ? (
-          <p className="text-muted-foreground">You have not sent an application yet.</p>
+          <p className="text-muted-foreground">{t("polaris.you_have_not_sent_an_application_yet")}</p>
         ) : (
           <ul className="divide-y divide-border rounded-lg border border-border">
             {others.map((a) => (

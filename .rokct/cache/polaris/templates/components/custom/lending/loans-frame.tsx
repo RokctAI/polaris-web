@@ -24,6 +24,7 @@ import Link from "next/link";
 
 import { Branding } from "@/components/custom/branding";
 
+import t from "@/app/lib/i18n";
 export function LoansFrame({
   isStaff,
   children,
@@ -41,17 +42,17 @@ export function LoansFrame({
           <nav className="flex items-center gap-4 text-sm">
             {isStaff && (
               <Link href="/handson/all/lending" className="text-muted-foreground hover:text-foreground">
-                Back office
+                {t("polaris.back_office")}
               </Link>
             )}
             <Link href="/loans" className="text-muted-foreground hover:text-foreground">
-              My loans
+              {t("polaris.my_loans")}
             </Link>
             <Link href="/loans/apply" className="text-muted-foreground hover:text-foreground">
-              Apply
+              {t("polaris.apply")}
             </Link>
             <a href="/api/auth/signout" className="text-muted-foreground hover:text-foreground">
-              Sign out
+              {t("polaris.sign_out")}
             </a>
           </nav>
         </div>

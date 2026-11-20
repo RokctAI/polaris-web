@@ -28,6 +28,17 @@ export class DecisionService {
     return response?.message;
   }
 
+  // Staff give the final approval to a Pre-approved application. The
+  // backend re-runs the engine first and refuses if it no longer passes.
+  static async finalApprove(applicationId: string, options?: ServiceOptions) {
+    const response = await BaseService.call(
+      "api.lending.final_approve_application",
+      { loan_application: applicationId },
+      options,
+    );
+    return response?.message;
+  }
+
   static async getLoanQuote(applicationId: string, options?: ServiceOptions) {
     const response = await BaseService.call(
       "api.lending.get_loan_quote",

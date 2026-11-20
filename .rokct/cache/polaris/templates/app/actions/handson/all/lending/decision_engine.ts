@@ -41,6 +41,25 @@ export async function runDecisionEngine(applicationId: string) {
   }
 }
 
+export async function finalApproveApplication(applicationId: string) {
+  if (!applicationId)
+    return { success: false, message: "Application ID is required" };
+  if (!(await verifyLendingRole()))
+    return { success: false, message: "Unauthorized" };
+  try {
+    const data = await DecisionService.finalApprove(applicationId);
+    revalidatePath(`/handson/all/lending/application/${applicationId}`);
+    revalidatePath("/handson/all/lending/application");
+    return { success: true, data };
+  } catch (e: any) {
+    console.error("Final approval failed:", e);
+    return {
+      success: false,
+      message: e?.message || "Could not give the final approval",
+    };
+  }
+}
+
 export async function getLoanQuote(applicationId: string) {
   if (!(await verifyLendingRole()))
     return { success: false, error: "Unauthorized" };

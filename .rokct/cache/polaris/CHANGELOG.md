@@ -1,4 +1,42 @@
+## 1.13.0
+
+* feat(i18n): 183 hardcoded screen labels, headings, buttons,
+  placeholders and empty-state lines in 28 files now go through
+  `t("polaris.<key>")` from `@/app/lib/i18n`. The copy ships in
+  `app/lib/i18n/sdk/polaris.json` (English and Afrikaans), which the host's
+  compose step registers (RokctAI_frontend#229).
+
 # Changelog
+
+## 1.12.1
+
+* style: the oversized Polaris wordmark at the foot of the landing is removed
+  (Ray, 2026-11-01: no big brand name at the bottom of a site). Nothing to install.
+
+## 1.12.0
+
+* **Pre-approved, waiting for staff** (needs polaris backend 1.7.0). The
+  staff application list shows a "pre-approved" tag and the application
+  page a "Pre-approved, waiting for you" tag when the backend's full
+  process (statements read, engine Approve, no hold) set it. The page's
+  Approve button, which did nothing before, now calls
+  `api.lending.final_approve_application` through the gateway
+  (`services/all/lending/decision.ts` `finalApprove`, action
+  `finalApproveApplication`) and is enabled only on a pre-approved,
+  Submitted application. The phone's estimate never sets the tag.
+
+## 1.11.0
+
+* **Declined on phone.** Ray, 2026-11-20: staff could not see who the
+  borrower app turned away. New staff page
+  `app/handson/all/lending/phone-declines/page.tsx` (sidebar link
+  "Declined on phone" in `lending/layout.tsx`) lists the Loan Eligibility
+  Checks with check type `client_declined` that the app already records
+  through `mark_application_as_rejected`: date, customer, outcome (not
+  eligible / declined offer), amount asked, typed income and expenses, and
+  reason. Figures are as typed and marked unverified. Read-only; reads go
+  through the gateway (`services/all/lending/phone_declines.ts`, action
+  `actions/handson/all/lending/phone_declines.ts`, Loan Manager role).
 
 ## 1.10.0
 

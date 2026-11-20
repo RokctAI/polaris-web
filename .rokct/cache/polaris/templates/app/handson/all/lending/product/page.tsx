@@ -108,11 +108,11 @@ export default function ProductList() {
               </h3>
               <div className="space-y-2 text-sm text-gray-600">
                 <div className="flex justify-between">
-                  <span className="text-gray-400">Currency</span>
+                  <span className="text-gray-400">{t("polaris.currency")}</span>
                   <span className="font-medium">{prod.currency || "ZAR"}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-400">Type</span>
+                  <span className="text-gray-400">{t("polaris.type")}</span>
                        <span className="font-medium">
                          {prod.is_term_loan ? t('app.lending.type_term_loan') : t('app.lending.type_demand_loan')}
                        </span>

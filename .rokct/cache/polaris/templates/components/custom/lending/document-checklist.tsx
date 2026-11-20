@@ -34,6 +34,7 @@ import {
   type BorrowerDocument,
 } from "./borrower-documents";
 
+import t from "@/app/lib/i18n";
 export function DocumentChecklist({
   loanApplication,
   uploadedFileNames,
@@ -124,7 +125,7 @@ function DocumentRow({
         {error && <p className="mt-1 text-sm text-destructive">{error}</p>}
       </div>
       <div className="flex shrink-0 items-center gap-3">
-        {done && <span className="text-sm font-medium text-emerald-700 dark:text-emerald-300">Attached</span>}
+        {done && <span className="text-sm font-medium text-emerald-700 dark:text-emerald-300">{t("polaris.attached")}</span>}
         <input
           ref={input}
           type="file"

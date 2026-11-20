@@ -805,7 +805,7 @@ export default function ComplianceReportPage() {
             className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             <RiPrinterLine className="w-4 h-4" />
-            <span>Print Report</span>
+            <span>{t("polaris.print_report")}</span>
           </button>
         </div>
       </div>
@@ -847,7 +847,7 @@ export default function ComplianceReportPage() {
            <div className="flex border-b border-dotted border-gray-400 pb-1">
              <span className="font-bold w-48">{t('app.lending.compliance_provider_type')}</span>
              <span className="flex-1">
-               Retailer / Developmental / Other (Circle One)
+               {t("polaris.retailer_developmental_other_circle_one")}
              </span>
            </div>
          </div>
@@ -862,27 +862,27 @@ export default function ComplianceReportPage() {
               <table className="w-full text-sm border-collapse border border-gray-300">
                 <thead>
                   <tr className="bg-gray-50">
-                    <th className="border border-gray-300 p-1 w-16">Ref</th>
+                    <th className="border border-gray-300 p-1 w-16">{t("polaris.ref")}</th>
                     <th className="border border-gray-300 p-1 w-12 text-center">
-                      No.
+                      {t("polaris.no")}
                     </th>
                     <th className="border border-gray-300 p-1 text-left">
-                      Question
+                      {t("polaris.question")}
                     </th>
                     <th className="border border-gray-300 p-1 w-12 text-center text-xs">
-                      Yes
+                      {t("polaris.yes")}
                     </th>
                     <th className="border border-gray-300 p-1 w-12 text-center text-xs">
-                      No
+                      {t("polaris.no")}
                     </th>
                     <th className="border border-gray-300 p-1 w-16 text-center text-xs">
-                      Area for Improv.
+                      {t("polaris.area_for_improv")}
                     </th>
                     <th className="border border-gray-300 p-1 w-12 text-center text-xs">
-                      N/A
+                      {t("polaris.n_a")}
                     </th>
                     <th className="border border-gray-300 p-1 w-20 text-center text-xs">
-                      Annexure No.
+                      {t("polaris.annexure_no")}
                     </th>
                   </tr>
                 </thead>

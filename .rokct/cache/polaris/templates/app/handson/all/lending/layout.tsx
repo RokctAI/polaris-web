@@ -33,6 +33,7 @@ import {
   RiFileDownloadLine,
   RiExternalLinkLine,
   RiErrorWarningLine,
+  RiSmartphoneLine,
 } from "@remixicon/react";
 
 import { getLendingLicenseDetails } from "@/app/actions/handson/all/lending/access";
@@ -65,6 +66,11 @@ export default function LendingLayout({
       label: t('app.lending.applications'),
       href: "/handson/all/lending/application",
       icon: RiFileTextLine,
+    },
+    {
+      label: "Declined on phone",
+      href: "/handson/all/lending/phone-declines",
+      icon: RiSmartphoneLine,
     },
     { label: t('app.lending.loans'), href: "/handson/all/lending/loan", icon: RiBankCardLine },
     {

@@ -50,6 +50,7 @@ import { IconCheck, UiApplicationStep, UiLoanStatus, UiWindow } from "./polaris-
 import type { PolarisAppAvailability } from "./polaris-landing-config";
 import { PolarisStoreBadges } from "./polaris-store-badges";
 
+import t from "@/app/lib/i18n";
 /** Which builds the latest release carries, from the server; null until (or unless) it answers. */
 function usePolarisAppAvailability(): PolarisAppAvailability | null {
   const [available, setAvailable] = useState<PolarisAppAvailability | null>(null);
@@ -113,7 +114,7 @@ export default function PolarisHeroForm({ hero, signupUrl, nav }: HeroFormProps)
         )}
       </div>
 
-      <div className="px-hero-stage" aria-label="The application, as it looks in your browser" role="img">
+      <div className="px-hero-stage" aria-label={t("polaris.the_application_as_it_looks_in_your_browser")} role="img">
         <div className="px-hero-glow" aria-hidden="true" />
         <UiWindow path="/loans/apply" className="px-hero-window">
           <UiApplicationStep />

@@ -43,6 +43,7 @@ import {
 import { DocumentChecklist } from "./document-checklist";
 import { money } from "./borrower-format";
 
+import t from "@/app/lib/i18n";
 interface Details {
   loan_amount?: number;
   monthly_income?: number;
@@ -170,10 +171,10 @@ export function ApplyFlow({
   if (declined) {
     return (
       <div className="space-y-4">
-        <h1 className="text-2xl font-semibold">We can't offer a loan right now</h1>
+        <h1 className="text-2xl font-semibold">{t("polaris.we_can_t_offer_a_loan_right_now")}</h1>
         <p className="text-muted-foreground">{declined}</p>
         <Button asChild variant="outline">
-          <Link href="/loans">Back to my loans</Link>
+          <Link href="/loans">{t("polaris.back_to_my_loans")}</Link>
         </Button>
       </div>
     );
@@ -182,7 +183,7 @@ export function ApplyFlow({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold">Apply for a loan</h1>
+        <h1 className="text-2xl font-semibold">{t("polaris.apply_for_a_loan")}</h1>
         <ol className="mt-4 grid grid-cols-2 gap-2 text-sm sm:grid-cols-4">
           {STEPS.map((label, i) => (
             <li
@@ -209,19 +210,19 @@ export function ApplyFlow({
 
       {step === 0 && (
         <section className="space-y-4">
-          <Field label="How much do you need?" hint={currency ? `In ${currency}` : undefined}>
+          <Field label={t("polaris.how_much_do_you_need")} hint={currency ? `In ${currency}` : undefined}>
             <Input type="number" inputMode="decimal" min={0} value={details.loan_amount ?? ""} onChange={set("loan_amount")} />
           </Field>
-          <Field label="Monthly income after tax">
+          <Field label={t("polaris.monthly_income_after_tax")}>
             <Input type="number" inputMode="decimal" min={0} value={details.monthly_income ?? ""} onChange={set("monthly_income")} />
           </Field>
-          <Field label="Groceries each month">
+          <Field label={t("polaris.groceries_each_month")}>
             <Input type="number" inputMode="decimal" min={0} value={details.grocery_expenses ?? ""} onChange={set("grocery_expenses")} />
           </Field>
-          <Field label="Other expenses each month" hint="Rent, transport, school fees and the like.">
+          <Field label={t("polaris.other_expenses_each_month")} hint="Rent, transport, school fees and the like.">
             <Input type="number" inputMode="decimal" min={0} value={details.other_expenses ?? ""} onChange={set("other_expenses")} />
           </Field>
-          <Field label="Repayments on other credit each month" hint="Store cards, other loans, credit cards.">
+          <Field label={t("polaris.repayments_on_other_credit_each_month")} hint="Store cards, other loans, credit cards.">
             <Input type="number" inputMode="decimal" min={0} value={details.existing_credits ?? ""} onChange={set("existing_credits")} />
           </Field>
           {details.monthly_income ? (
@@ -233,14 +234,14 @@ export function ApplyFlow({
 
       {step === 1 && (
         <section className="space-y-4">
-          <Field label="ID number">
+          <Field label={t("polaris.id_number")}>
             <Input inputMode="numeric" autoComplete="off" value={details.id_number ?? ""} onChange={set("id_number")} />
           </Field>
-          <Field label="Phone number">
+          <Field label={t("polaris.phone_number")}>
             <Input type="tel" autoComplete="tel" value={details.phone ?? ""} onChange={set("phone")} />
           </Field>
           <div className="flex gap-3">
-            <Button variant="outline" onClick={() => setStep(0)} disabled={busy}>Back</Button>
+            <Button variant="outline" onClick={() => setStep(0)} disabled={busy}>{t("polaris.back")}</Button>
             <Button onClick={stepTwo} disabled={busy}>{busy ? "Checking…" : "Next"}</Button>
           </div>
         </section>
@@ -262,7 +263,7 @@ export function ApplyFlow({
           </dl>
           <label className="flex items-start gap-3 text-sm">
             <input type="checkbox" className="mt-1" checked={truthful} onChange={(e) => setTruthful(e.target.checked)} />
-            <span>The figures I gave are true and complete.</span>
+            <span>{t("polaris.the_figures_i_gave_are_true_and_complete")}</span>
           </label>
           <label className="flex items-start gap-3 text-sm">
             <input type="checkbox" className="mt-1" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
@@ -272,10 +273,10 @@ export function ApplyFlow({
             </span>
           </label>
           <p className="text-sm text-muted-foreground">
-            After you send it, upload your ID and your latest bank statement as the PDF from your bank.
+            {t("polaris.after_you_send_it_upload_your_id_and_your_latest")}
           </p>
           <div className="flex gap-3">
-            <Button variant="outline" onClick={() => setStep(1)} disabled={busy}>Back</Button>
+            <Button variant="outline" onClick={() => setStep(1)} disabled={busy}>{t("polaris.back")}</Button>
             <Button onClick={stepThree} disabled={busy}>{busy ? "Sending…" : "Send application"}</Button>
           </div>
         </section>
@@ -284,11 +285,11 @@ export function ApplyFlow({
       {step === 3 && application && (
         <section className="space-y-4">
           <p>
-            Your application <span className="font-medium">{application}</span> is with us. Upload your documents now so we
+            {t("polaris.your_application")} <span className="font-medium">{application}</span> is with us. Upload your documents now so we
             can decide.
           </p>
           <DocumentChecklist loanApplication={application} uploadedFileNames={[]} onChange={() => undefined} />
-          <Button onClick={() => router.push(`/loans/${encodeURIComponent(application)}`)}>Done</Button>
+          <Button onClick={() => router.push(`/loans/${encodeURIComponent(application)}`)}>{t("polaris.done")}</Button>
         </section>
       )}
     </div>

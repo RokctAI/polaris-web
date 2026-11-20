@@ -27,6 +27,7 @@ import type {
   PageSectionProps,
 } from "@/components/custom/landing/page-sections";
 
+import t from "@/app/lib/i18n";
 export function PolarisWhySection({ id }: { id?: string }) {
   const copy = POLARIS_LANDING_CONFIG.why;
   return (
@@ -38,7 +39,7 @@ export function PolarisWhySection({ id }: { id?: string }) {
             {copy.eyebrow}
           </p>
           <h2 className="px-display px-mega">
-            Lending, with the <em>lights on.</em>
+            {t("polaris.lending_with_the")} <em>lights on.</em>
           </h2>
           <p className="px-lede px-why-blurb">{copy.blurb}</p>
         </div>

@@ -34,6 +34,7 @@ import { day, money, statusWords } from "@/components/custom/lending/borrower-fo
 import { DocumentChecklist } from "@/components/custom/lending/document-checklist";
 import { LoanActions } from "@/components/custom/lending/loan-actions";
 
+import t from "@/app/lib/i18n";
 export const dynamic = "force-dynamic";
 
 export default async function LoanPage({ params }: { params: Promise<{ id: string }> }) {
@@ -100,7 +101,7 @@ export default async function LoanPage({ params }: { params: Promise<{ id: strin
 
       {status !== "Cancelled" && status !== "Rejected" && (
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold">Documents</h2>
+          <h2 className="text-lg font-semibold">{t("polaris.documents")}</h2>
           <DocumentChecklist
             loanApplication={application.name}
             uploadedFileNames={(documents ?? []).map((d) => d.file_name)}

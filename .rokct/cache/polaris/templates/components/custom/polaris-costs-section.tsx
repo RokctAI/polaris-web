@@ -31,6 +31,7 @@ import type {
   PageSectionProps,
 } from "@/components/custom/landing/page-sections";
 
+import t from "@/app/lib/i18n";
 export function PolarisCostsSection({ id, signupUrl }: { id?: string; signupUrl: string }) {
   const copy = POLARIS_LANDING_CONFIG.costs;
   return (
@@ -50,7 +51,7 @@ export function PolarisCostsSection({ id, signupUrl }: { id?: string; signupUrl:
         <div className="px-calc-wrap">
           <PolarisLoanCalculator signupUrl={signupUrl} id="calculator" />
           <div className="px-next">
-            <b>Next</b>
+            <b>{t("polaris.next")}</b>
             <span>{POLARIS_LANDING_CONFIG.hero.next}</span>
           </div>
         </div>
@@ -72,7 +73,7 @@ export function PolarisCostsSection({ id, signupUrl }: { id?: string; signupUrl:
           </p>
           <div>
             <p className="px-display px-ceiling-line">
-              The cost of credit can never be more than <mark>the amount you borrow.</mark>
+              {t("polaris.the_cost_of_credit_can_never_be_more_than")} <mark>the amount you borrow.</mark>
             </p>
             <p className="px-k mt-4">
               {copy.cap.note} {copy.next}

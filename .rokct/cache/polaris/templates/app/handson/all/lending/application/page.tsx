@@ -202,6 +202,11 @@ export default function ApplicationList() {
                           >
                             {app.workflow_state || app.status}
                           </Badge>
+                          {app.pre_approved && app.status === "Submitted" ? (
+                            <span className="text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded border text-teal-700 bg-teal-50 border-teal-100">
+                              pre-approved
+                            </span>
+                          ) : null}
                           {app.status === "Approved" && (
                             <span
                               className={`text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded border ${

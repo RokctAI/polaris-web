@@ -46,6 +46,7 @@ import type {
   PageSectionProps,
 } from "@/components/custom/landing/page-sections";
 
+import t from "@/app/lib/i18n";
 export async function PolarisFooterSection({
   id,
   loginUrl,
@@ -68,9 +69,9 @@ export async function PolarisFooterSection({
             </p>
             <PolarisStoreBadges available={available} />
           </div>
-          <nav aria-label="Footer" className="px-footer-nav">
+          <nav aria-label={t("polaris.footer")} className="px-footer-nav">
             <div>
-              <p className="px-head-index">On this page</p>
+              <p className="px-head-index">{t("polaris.on_this_page")}</p>
               {links
                 .filter((link) => link.href.startsWith("#"))
                 .map((link) => (
@@ -88,14 +89,11 @@ export async function PolarisFooterSection({
                     {link.label}
                   </Link>
                 ))}
-              <Link href={loginUrl}>Sign in</Link>
-              <Link href={signupUrl}>Create an account</Link>
+              <Link href={loginUrl}>{t("polaris.sign_in")}</Link>
+              <Link href={signupUrl}>{t("polaris.create_an_account")}</Link>
             </div>
           </nav>
         </div>
-        <p className="px-footer-mark" aria-hidden="true">
-          {polarisBrandName()}
-        </p>
         <FooterChromeRow
           config={{ ...POLARIS_FOOTER_CHROME, links: legalFooterLinks(terms) }}
           className="px-footer-chrome"

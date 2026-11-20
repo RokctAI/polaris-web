@@ -217,7 +217,7 @@ export default function OperationsDashboard() {
       <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
         <h3 className="text-lg font-bold text-gray-900 flex items-center">
           <RiShieldFlashLine className="w-5 h-5 mr-2 text-gray-500" />
-          Affordability limits
+          {t("polaris.affordability_limits")}
         </h3>
         <p className="text-sm text-gray-500 mt-1">
           The credit decision declines any applicant left with less than the
@@ -226,7 +226,7 @@ export default function OperationsDashboard() {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5 items-end">
           <label className="block text-sm font-medium text-gray-700">
-            Minimum left over per month (R)
+            {t("polaris.minimum_left_over_per_month_r")}
             <input
               id="min-disposable-income"
               type="number"
@@ -237,7 +237,7 @@ export default function OperationsDashboard() {
             />
           </label>
           <label className="block text-sm font-medium text-gray-700">
-            First loan maximum (R)
+            {t("polaris.first_loan_maximum_r")}
             <input
               id="first-loan-max-amount"
               type="number"
@@ -252,7 +252,7 @@ export default function OperationsDashboard() {
             disabled={isLoading}
             className="w-full py-2.5 bg-gray-900 hover:bg-gray-800 text-white rounded-xl font-medium transition-colors"
           >
-            Save limits
+            {t("polaris.save_limits")}
           </button>
         </div>
       </div>

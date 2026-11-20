@@ -246,7 +246,7 @@ export default function LoanDetails({
       {showRepaymentModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 space-y-4">
-             <h3 className="text-xl font-bold text-gray-900">Make Repayment</h3>
+             <h3 className="text-xl font-bold text-gray-900">{t("polaris.make_repayment")}</h3>
              <p className="text-gray-500 text-sm">
                {t('app.lending.repayment_prompt', { loan: loan.name })}
              </p>
@@ -278,7 +278,7 @@ export default function LoanDetails({
                   onClick={() => setShowRepaymentModal(false)}
                   className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium transition-colors"
                 >
-                  Cancel
+                  {t("polaris.cancel")}
                 </button>
                    <button
                      type="submit"
@@ -338,7 +338,7 @@ export default function LoanDetails({
                   onClick={() => setShowAssetModal(false)}
                   className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium transition-colors"
                 >
-                  Cancel
+                  {t("polaris.cancel")}
                 </button>
                  <button
                    type="submit"
@@ -407,26 +407,26 @@ export default function LoanDetails({
                   href={`/handson/all/lending/restructure?loan=${loan.name}`}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                 >
-                  Refinance / Restructure
+                  {t("polaris.refinance_restructure")}
                 </Link>
                 <Link
                   href={`/handson/all/lending/adjustments?loan=${loan.name}`}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                 >
-                  Balance Adjustments
+                  {t("polaris.balance_adjustments")}
                 </Link>
                 <Link
                   href={`/handson/all/lending/demand?loan=${loan.name}`}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                 >
-                  Raise Demand / Penalty
+                  {t("polaris.raise_demand_penalty")}
                 </Link>
                 <div className="border-t border-gray-100 my-1"></div>
                 <Link
                   href={`/handson/all/lending/write-off?loan=${loan.name}`}
                   className="block px-4 py-2 text-sm text-red-600 hover:bg-red-50"
                 >
-                  Write Off Bad Debt
+                  {t("polaris.write_off_bad_debt")}
                 </Link>
               </div>
             )}
@@ -484,7 +484,7 @@ export default function LoanDetails({
                 onClick={() => setShowAssetModal(true)}
                 className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-medium transition-colors shadow-sm"
               >
-                Realise Asset
+                {t("polaris.realise_asset")}
               </button>
             )}
 
@@ -515,13 +515,13 @@ export default function LoanDetails({
            </p>
          </div>
         <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
-          <span className="text-sm font-medium text-gray-500">Total Paid</span>
+          <span className="text-sm font-medium text-gray-500">{t("polaris.total_paid")}</span>
           <p className="text-2xl font-bold text-emerald-600 mt-2">
             {formatCurrency(loan.total_amount_paid)}
           </p>
         </div>
         <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
-          <span className="text-sm font-medium text-gray-500">Outstanding</span>
+          <span className="text-sm font-medium text-gray-500">{t("polaris.outstanding")}</span>
           <p className="text-2xl font-bold text-amber-600 mt-2">
             {formatCurrency(
               (loan.loan_amount || 0) - (loan.total_principal_paid || 0),
@@ -611,7 +611,7 @@ export default function LoanDetails({
                     {event.subject || "System Info"}
                     {event.comment_type === "Info" && (
                       <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded ml-3">
-                        Info
+                        {t("polaris.info")}
                       </span>
                     )}
                   </h3>

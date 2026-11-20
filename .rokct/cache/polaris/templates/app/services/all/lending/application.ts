@@ -35,6 +35,7 @@ export class ApplicationService {
           "owner",
           "contract_status",
           "payout_requested_on",
+          "pre_approved",
           // Loan Application has no workflow_state or risk_level column;
           // the list page falls back to status and hides the risk badge.
         ],

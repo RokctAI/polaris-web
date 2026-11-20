@@ -16,6 +16,7 @@
 
 import React from "react";
 
+import t from "@/app/lib/i18n";
 interface Section129TemplateProps {
   app: any;
   company: any;
@@ -35,13 +36,13 @@ export const Section129Template: React.FC<Section129TemplateProps> = ({
 
       <div className="mb-8">
         <p>
-          <strong>Date:</strong> {date}
+          <strong>{t("polaris.date")}</strong> {date}
         </p>
         <p>
-          <strong>To:</strong> {app?.applicant}
+          <strong>{t("polaris.to")}</strong> {app?.applicant}
         </p>
         <p>
-          <strong>Account Ref:</strong> {app?.name}
+          <strong>{t("polaris.account_ref")}</strong> {app?.name}
         </p>
       </div>
 
@@ -54,15 +55,15 @@ export const Section129Template: React.FC<Section129TemplateProps> = ({
       </p>
 
       <p className="mb-4 text-red-600 font-bold bg-red-50 p-2 border border-red-200 print:border-none print:bg-transparent print:text-black">
-        You are currently in default under the credit agreement.
+        {t("polaris.you_are_currently_in_default_under_the_credit_ag")}
       </p>
 
-      <p className="mb-4">We hereby advise you that you have the right to:</p>
+      <p className="mb-4">{t("polaris.we_hereby_advise_you_that_you_have_the_right_to")}</p>
 
       <ul className="list-disc pl-8 mb-6 space-y-2">
         <li>Refer the credit agreement to a debt counsellor;</li>
         <li>Refer the matter to an alternative dispute resolution agent;</li>
-        <li>Refer the matter to the Consumer Court; or</li>
+        <li>{t("polaris.refer_the_matter_to_the_consumer_court_or")}</li>
         <li>Refer the matter to the Ombud with jurisdiction;</li>
       </ul>
 
@@ -73,7 +74,7 @@ export const Section129Template: React.FC<Section129TemplateProps> = ({
       </p>
 
       <p className="mb-8">
-        <strong>Failure to respond:</strong> Please take note that if you do not
+        <strong>{t("polaris.failure_to_respond")}</strong> Please take note that if you do not
         respond to this notice or reject our proposals within 10 business days
         from delivery of this notice, we may approach the court for an order to
         enforce the credit agreement.
@@ -82,7 +83,7 @@ export const Section129Template: React.FC<Section129TemplateProps> = ({
       <div className="mt-16">
         <p>Yours faithfully,</p>
         <p className="font-bold mt-4">{company?.companyName}</p>
-        <p>Collections Department</p>
+        <p>{t("polaris.collections_department")}</p>
       </div>
     </div>
   );
