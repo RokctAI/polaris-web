@@ -18,5 +18,13 @@
       "branch": "main",
       "phone": "marketing/tour/store/05-polaris_home.png"
     }
+  ],
+  "features": [
+    "Full loan cost shown before you apply",
+    "Affordability check: does this loan fit your month",
+    "Legal cost caps for short-term credit explained",
+    "Four-step application entirely in the browser",
+    "Document upload and contract acceptance online",
+    "Decision from your bank statement"
   ]
 }
