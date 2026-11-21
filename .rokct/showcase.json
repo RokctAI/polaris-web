@@ -20,11 +20,8 @@
     }
   ],
   "features": [
-    "Full loan cost shown before you apply",
-    "Affordability check: does this loan fit your month",
-    "Legal cost caps for short-term credit explained",
-    "Four-step application entirely in the browser",
-    "Document upload and contract acceptance online",
-    "Decision from your bank statement"
+    "Live loan calculator with full cost shown",
+    "Four-step online application with uploads",
+    "Contract signed in the browser"
   ]
 }
