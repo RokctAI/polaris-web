@@ -152,9 +152,12 @@ next-env.d.ts
 /app/handson/all/lending/templates/debicheck/page.tsx
 /app/handson/all/lending/transfer/page.tsx
 /app/handson/all/lending/write-off/page.tsx
+/app/indexnow-key.txt/route.ts
 /app/landing/page.tsx
 /app/legal/\[id\]/page.tsx
 /app/legal/page.tsx
+/app/lib/ai-discovery.ts
+/app/lib/i18n/phrases.ts
 /app/lib/i18n/sdk/auth.json
 /app/lib/i18n/sdk/base.json
 /app/lib/i18n/sdk/polaris.json
@@ -163,6 +166,7 @@ next-env.d.ts
 /app/lib/lending/reports_config.ts
 /app/lib/session.ts
 /app/lib/site-metadata.ts
+/app/llms.txt/route.ts
 /app/loans/\[id\]/page.tsx
 /app/loans/apply/page.tsx
 /app/loans/layout.tsx
@@ -200,6 +204,7 @@ next-env.d.ts
 /app/services/public/lending/quote.ts
 /app/site-shots/\[file\]/route.ts
 /app/styles/rokct-marquee.css
+/app/styles/rokct-rise.css
 /app/styles/rokct-scroll.css
 /app/team/page.tsx
 /app/templates/lending/AssuranceReportTemplate.tsx

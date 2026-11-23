@@ -49,6 +49,7 @@ import {
 } from "./polaris-loan-presets";
 
 import tr from "@/app/lib/i18n";
+import { tx } from "@/app/lib/i18n/phrases";
 function IconLock({ size = 11 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -122,8 +123,8 @@ function Line({
   return (
     <div className="px-lr">
       <dt>
-        {label}
-        {note && <span className="ml-1.5 text-xs text-[var(--px-faint)]">{note}</span>}
+        {tx(label)}
+        {note && <span className="ml-1.5 text-xs text-[var(--px-faint)]">{tx(note)}</span>}
       </dt>
       <dd className="px-money">
         <b>{formatRand(value, { cents: true })}</b>
@@ -240,7 +241,7 @@ export function PolarisLoanCalculator({
                     onClick={() => open && setMonths(option)}
                   >
                     {!open && <IconLock />}
-                    {option}
+                    {tx(option)}
                     <span className="sr-only">
                       {" "}
                       {option === 1 ? "month" : "months"}
@@ -280,10 +281,7 @@ export function PolarisLoanCalculator({
               <span style={{ width: `${Math.round(estimate.costShare * 100)}%` }} />
             </div>
             <p className="px-fine mt-2">
-              By law the cost of credit can never be more than the amount you borrow (National Credit
-              Act, section 103(5)). The bar is how far this loan sits from that line. Short-term
-              credit under the Act: up to {formatRand(maxAmount)}, repaid within six months; Polaris
-              is repaid once-off. Change the amount and the figures follow.
+              {tx("By law the cost of credit can never be more than the amount you borrow (National Credit Act, section 103(5)). The bar is how far this loan sits from that line. Short-term credit under the Act: up to")}{" "}{formatRand(maxAmount)}{tx(", repaid within six months; Polaris is repaid once-off. Change the amount and the figures follow.")}
             </p>
           </div>
         </div>
@@ -304,7 +302,7 @@ export function PolarisLoanCalculator({
               {formatRand(total, { cents: true })}
             </p>
             <p className="mt-2.5 text-[15px] leading-snug text-[var(--px-sec)]">
-              Once-off, in one repayment
+              {tx("Once-off, in one repayment")}
               {due ? (
                 <>
                   {" "}
@@ -336,11 +334,10 @@ export function PolarisLoanCalculator({
 
           <div className="mt-auto flex flex-col gap-3">
             <Link href={signupUrl} className="px-btn px-btn-lime w-full">
-              Apply for {formatRand(estimate.amount)}
+              {tx("Apply for")}{" "}{formatRand(estimate.amount)}
             </Link>
             <p className="px-fine">
-              An indication at the Act&rsquo;s ceilings, not an offer. Your offer is written after we
-              check what you can afford, and it can only sit below these figures.
+              {tx("An indication at the Act&rsquo;s ceilings, not an offer. Your offer is written after we check what you can afford, and it can only sit below these figures.")}
             </p>
           </div>
         </div>

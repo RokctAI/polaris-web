@@ -33,6 +33,7 @@ import { POLARIS_LANDING_CONFIG } from "./polaris-landing-config";
 import { formatRand } from "./polaris-loan-presets";
 
 import t from "@/app/lib/i18n";
+import { tx } from "@/app/lib/i18n/phrases";
 /* ---------------------------------------------------------------- icons */
 
 export function IconCheck({ size = 14, stroke = 2.6 }: { size?: number; stroke?: number }) {
@@ -102,8 +103,8 @@ export function UiWindow({
           <i />
           <i />
         </span>
-        <span className="px-window-url">{path}</span>
-        <span className="px-window-label">{label}</span>
+        <span className="px-window-url">{tx(path)}</span>
+        <span className="px-window-label">{tx(label)}</span>
       </div>
       <div className="px-window-body">{children}</div>
     </div>
@@ -131,7 +132,7 @@ export function UiMonth({ compact = false }: { compact?: boolean }) {
   const money = (v: number) => formatRand(v, { cents: true });
   return (
     <div className={`px-ui-card px-ui-month ${compact ? "is-compact" : ""}`}>
-      <div className="px-ui-k">Your month · income {money(m.income)}</div>
+      <div className="px-ui-k">{tx("Your month · income")}{" "}{money(m.income)}</div>
       <div className="bar" role="img" aria-label={m.verdict}>
         <i className="seg-exp" style={{ width: pct(m.living) }} />
         <i className="seg-debt" style={{ width: pct(m.debts) }} />
@@ -160,7 +161,7 @@ export function UiMonth({ compact = false }: { compact?: boolean }) {
       )}
       <p className="px-ui-verdict">
         <IconCheck size={15} />
-        {m.verdict}
+        {tx(m.verdict)}
       </p>
     </div>
   );
@@ -180,16 +181,16 @@ export function UiApplicationStep() {
     <div className="px-ui-app">
       <div className="px-ui-apphead">
         <span className="px-ui-title">{t("polaris.loan_application")}</span>
-        <span className="px-ui-stepn">Step 1 of 4</span>
+        <span className="px-ui-stepn">{tx("Step 1 of 4")}</span>
       </div>
       <UiSteps total={4} on={1} />
       <h3 className="px-ui-h">{t("polaris.does_this_loan_fit_your_month")}</h3>
-      <p className="px-ui-sub">{POLARIS_LANDING_CONFIG.how.steps[0].text}</p>
+      <p className="px-ui-sub">{tx(POLARIS_LANDING_CONFIG.how.steps[0].text)}</p>
       <UiMonth />
       <div className="px-ui-fields">
         {rows.map(([label, value]) => (
           <div key={label} className="px-ui-fld">
-            <span>{label}</span>
+            <span>{tx(label)}</span>
             <b>
               <small>R</small>
               {formatRand(value, { cents: true }).slice(1)}
@@ -233,9 +234,9 @@ export function UiLoanStatus({ className = "" }: { className?: string }) {
           <li key={row.title} data-state={row.state}>
             <i aria-hidden="true">{row.state === "done" ? <IconCheck size={11} stroke={3.2} /> : null}</i>
             <div>
-              <span className="when">{row.when}</span>
-              <b>{row.title}</b>
-              {row.note && <small>{row.note}</small>}
+              <span className="when">{tx(row.when)}</span>
+              <b>{tx(row.title)}</b>
+              {row.note && <small>{tx(row.note)}</small>}
             </div>
           </li>
         ))}

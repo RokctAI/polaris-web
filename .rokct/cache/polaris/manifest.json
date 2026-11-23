@@ -1,6 +1,7 @@
 {
   "name": "polaris_sdk",
-  "version": "1.13.1",
+  "version": "1.14.0",
+  "_comment_version_1_14_0": "1.14.0: the Polaris landing, apply and loan pages read in Afrikaans when the visitor picks AF (tx() phrase book in polaris.json af.__phrases; needs base_sdk >= 1.66.0 for app/lib/i18n/phrases.ts). Staff pages stay English. Afrikaans is machine-drafted and needs a fluent skim.",
   "_comment_version_1_13_1": "1.13.1: landing sections rise and fade in as they scroll into view (CSS scroll-driven, no JS, off under reduced motion; motion pass). Afrikaans polaris.lending_with_the corrected from Lewenskoste (cost of living) to Lenings, met die. Nothing to install.",
   "_comment_version_1_12_1": "1.12.1: the oversized Polaris wordmark at the foot of the landing is removed (Ray 2026-11-01: no big brand name at the bottom of a site, it reads as AI-made). The footer keeps its normal credit row. Nothing to install.",
   "installs": [
@@ -74,6 +75,7 @@
   "requires": [
     "app/config/platform.ts",
     "app/lib/i18n/index.ts",
+    "app/lib/i18n/phrases.ts",
     "app/services/base/platform-gateway.ts",
     "app/services/base/session.ts",
     "components/custom/branding.tsx",

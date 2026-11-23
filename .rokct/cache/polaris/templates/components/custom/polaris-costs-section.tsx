@@ -32,6 +32,7 @@ import type {
 } from "@/components/custom/landing/page-sections";
 
 import t from "@/app/lib/i18n";
+import { tx } from "@/app/lib/i18n/phrases";
 export function PolarisCostsSection({ id, signupUrl }: { id?: string; signupUrl: string }) {
   const copy = POLARIS_LANDING_CONFIG.costs;
   return (
@@ -42,7 +43,7 @@ export function PolarisCostsSection({ id, signupUrl }: { id?: string; signupUrl:
           eyebrow={copy.eyebrow}
           title={
             <>
-              What short-term credit can cost, <em>by law.</em>
+              {tx("What short-term credit can cost,")}{" "}<em>{tx("by law.")}</em>
             </>
           }
           blurb={copy.blurb}
@@ -52,16 +53,16 @@ export function PolarisCostsSection({ id, signupUrl }: { id?: string; signupUrl:
           <PolarisLoanCalculator signupUrl={signupUrl} id="calculator" />
           <div className="px-next">
             <b>{t("polaris.next")}</b>
-            <span>{POLARIS_LANDING_CONFIG.hero.next}</span>
+            <span>{tx(POLARIS_LANDING_CONFIG.hero.next)}</span>
           </div>
         </div>
 
         <dl className="px-caps">
           {copy.rows.map((row) => (
             <div key={row.label}>
-              <dt>{row.label}</dt>
-              <dd className="px-caps-value">{row.value}</dd>
-              <dd className="px-caps-note">{row.note}</dd>
+              <dt>{tx(row.label)}</dt>
+              <dd className="px-caps-value">{tx(row.value)}</dd>
+              <dd className="px-caps-note">{tx(row.note)}</dd>
             </div>
           ))}
         </dl>
@@ -69,16 +70,16 @@ export function PolarisCostsSection({ id, signupUrl }: { id?: string; signupUrl:
         <div className="px-ceiling">
           <p className="px-head-index">
             <span>§</span>
-            {copy.cap.label}
+            {tx(copy.cap.label)}
           </p>
           <div>
             <p className="px-display px-ceiling-line">
-              {t("polaris.the_cost_of_credit_can_never_be_more_than")} <mark>the amount you borrow.</mark>
+              {t("polaris.the_cost_of_credit_can_never_be_more_than")} <mark>{tx("the amount you borrow.")}</mark>
             </p>
             <p className="px-k mt-4">
-              {copy.cap.note} {copy.next}
+              {tx(copy.cap.note)} {tx(copy.next)}
             </p>
-            <p className="px-fine mt-3 max-w-2xl">{copy.footnote}</p>
+            <p className="px-fine mt-3 max-w-2xl">{tx(copy.footnote)}</p>
           </div>
         </div>
       </div>

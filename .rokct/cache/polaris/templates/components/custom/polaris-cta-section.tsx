@@ -32,6 +32,7 @@ import type {
 } from "@/components/custom/landing/page-sections";
 
 import t from "@/app/lib/i18n";
+import { tx } from "@/app/lib/i18n/phrases";
 export async function PolarisCtaSection({
   id,
   signupUrl,
@@ -53,16 +54,16 @@ export async function PolarisCtaSection({
                 <span>→</span>
                 {t("polaris.what_happens_next")}
               </p>
-              <h2 className="px-display px-cta-h">{copy.heading}</h2>
+              <h2 className="px-display px-cta-h">{tx(copy.heading)}</h2>
             </div>
             <div className="px-cta-side">
-              <p className="px-lede">{copy.blurb}</p>
+              <p className="px-lede">{tx(copy.blurb)}</p>
               <div className="px-cta-buttons">
                 <Link href={signupUrl} className="px-btn px-btn-lime px-btn-lg">
-                  {copy.primary}
+                  {tx(copy.primary)}
                 </Link>
                 <Link href={loginUrl} className="px-btn px-btn-ghost px-btn-lg">
-                  {copy.secondary}
+                  {tx(copy.secondary)}
                 </Link>
               </div>
               <PolarisStoreBadges available={available} className="px-cta-stores" />
@@ -72,8 +73,8 @@ export async function PolarisCtaSection({
             {copy.steps.map((step, index) => (
               <li key={step.text}>
                 <i aria-hidden="true">{index + 1}</i>
-                <span className="when">{step.when}</span>
-                <p>{step.text}</p>
+                <span className="when">{tx(step.when)}</span>
+                <p>{tx(step.text)}</p>
               </li>
             ))}
           </ol>

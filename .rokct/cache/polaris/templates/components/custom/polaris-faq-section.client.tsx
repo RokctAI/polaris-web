@@ -28,6 +28,7 @@ import { POLARIS_LANDING_CONFIG } from "@/components/custom/landing/polaris-land
 import { PolarisSectionHead } from "@/components/custom/landing/polaris-section-head";
 
 import t from "@/app/lib/i18n";
+import { tx } from "@/app/lib/i18n/phrases";
 export function PolarisFaqSection({ id }: { id?: string }) {
   const copy = POLARIS_LANDING_CONFIG.faq;
   return (
@@ -38,7 +39,7 @@ export function PolarisFaqSection({ id }: { id?: string }) {
           eyebrow={copy.eyebrow}
           title={
             <>
-              {t("polaris.asked")} <em>before</em> you apply.
+              {t("polaris.asked")} <em>before</em> {tx("you apply.")}
             </>
           }
           blurb="Anything else, ask us on the page once you have an account."
@@ -48,9 +49,9 @@ export function PolarisFaqSection({ id }: { id?: string }) {
             <div key={item.question}>
               <dt>
                 <span className="px-faq-n">Q{index + 1}</span>
-                {item.question}
+                {tx(item.question)}
               </dt>
-              <dd>{item.answer}</dd>
+              <dd>{tx(item.answer)}</dd>
             </div>
           ))}
         </dl>

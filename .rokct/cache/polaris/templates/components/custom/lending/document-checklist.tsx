@@ -35,6 +35,7 @@ import {
 } from "./borrower-documents";
 
 import t from "@/app/lib/i18n";
+import { tx } from "@/app/lib/i18n/phrases";
 export function DocumentChecklist({
   loanApplication,
   uploadedFileNames,
@@ -118,11 +119,11 @@ function DocumentRow({
     <li className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
       <div className="min-w-0">
         <p className="font-medium">
-          {doc.label}
-          {doc.required ? "" : <span className="font-normal text-muted-foreground"> (optional)</span>}
+          {tx(doc.label)}
+          {doc.required ? "" : <span className="font-normal text-muted-foreground"> {tx("(optional)")}</span>}
         </p>
-        <p className="text-sm text-muted-foreground">{doc.hint}</p>
-        {error && <p className="mt-1 text-sm text-destructive">{error}</p>}
+        <p className="text-sm text-muted-foreground">{tx(doc.hint)}</p>
+        {error && <p className="mt-1 text-sm text-destructive">{tx(error)}</p>}
       </div>
       <div className="flex shrink-0 items-center gap-3">
         {done && <span className="text-sm font-medium text-emerald-700 dark:text-emerald-300">{t("polaris.attached")}</span>}
