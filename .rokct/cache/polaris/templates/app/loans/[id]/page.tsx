@@ -35,6 +35,7 @@ import { DocumentChecklist } from "@/components/custom/lending/document-checklis
 import { LoanActions } from "@/components/custom/lending/loan-actions";
 
 import t from "@/app/lib/i18n";
+import { tx } from "@/app/lib/i18n/phrases";
 export const dynamic = "force-dynamic";
 
 export default async function LoanPage({ params }: { params: Promise<{ id: string }> }) {
@@ -70,13 +71,13 @@ export default async function LoanPage({ params }: { params: Promise<{ id: strin
     <div className="space-y-8">
       <div className="space-y-2">
         <Link href="/loans" className="text-sm text-muted-foreground hover:text-foreground">
-          {"←"} My loans
+          {"←"} {tx("My loans")}
         </Link>
         <div className="flex flex-wrap items-center gap-3">
           <h1 className="text-2xl font-semibold">{money(application.loan_amount, currency)}</h1>
           <ApplicationStatus status={status} />
         </div>
-        <p className="text-muted-foreground">{statusWords(status).line}</p>
+        <p className="text-muted-foreground">{tx(statusWords(status).line)}</p>
       </div>
 
       <dl className="grid grid-cols-1 gap-3 rounded-lg border border-border p-4 sm:grid-cols-3">
@@ -92,7 +93,7 @@ export default async function LoanPage({ params }: { params: Promise<{ id: strin
         <section className="space-y-3">
           <h2 className="text-lg font-semibold">{contract.title || "Loan contract"}</h2>
           <pre className="whitespace-pre-wrap rounded-lg border border-border bg-muted/30 p-4 font-sans text-sm">
-            {contract.content}
+            {tx(contract.content)}
           </pre>
         </section>
       )}
@@ -115,8 +116,8 @@ export default async function LoanPage({ params }: { params: Promise<{ id: strin
 function Fact({ term, value }: { term: string; value: string }) {
   return (
     <div>
-      <dt className="text-sm text-muted-foreground">{term}</dt>
-      <dd className="font-medium break-words">{value}</dd>
+      <dt className="text-sm text-muted-foreground">{tx(term)}</dt>
+      <dd className="font-medium break-words">{tx(value)}</dd>
     </div>
   );
 }

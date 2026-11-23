@@ -27,6 +27,7 @@ import { ApplicationStatus } from "@/components/custom/lending/application-statu
 import { day, money } from "@/components/custom/lending/borrower-format";
 
 import t from "@/app/lib/i18n";
+import { tx } from "@/app/lib/i18n/phrases";
 export const dynamic = "force-dynamic";
 
 async function settle<T>(work: Promise<T>, fallback: T): Promise<T> {
@@ -64,7 +65,7 @@ export default async function LoansPage() {
           <h2 className="text-sm font-medium text-muted-foreground">{t("polaris.your_loan")}</h2>
           <p className="mt-1 text-3xl font-semibold">{money(active.amount_owed, currency)}</p>
           <p className="text-sm text-muted-foreground">
-            still owed of {money(active.total_repayable, currency)}, due {day(active.due_date)}
+            {tx("still owed of")}{" "}{money(active.total_repayable, currency)}{tx(", due")}{" "}{day(active.due_date)}
           </p>
         </section>
       )}
@@ -77,7 +78,7 @@ export default async function LoansPage() {
               <li key={a.name} className="flex items-center justify-between gap-4 p-4">
                 <div>
                   <p className="font-medium">{money(a.loan_amount, currency)}</p>
-                  <p className="text-sm text-muted-foreground">Started {day(a.modified || a.posting_date)}</p>
+                  <p className="text-sm text-muted-foreground">{tx("Started")}{" "}{day(a.modified || a.posting_date)}</p>
                 </div>
                 <Button asChild variant="outline" size="sm">
                   <Link href={`/loans/apply?draft=${encodeURIComponent(a.name)}`}>{t("polaris.continue")}</Link>
@@ -103,7 +104,7 @@ export default async function LoansPage() {
                   <div>
                     <p className="font-medium">{money(a.loan_amount, currency)}</p>
                     <p className="text-sm text-muted-foreground">
-                      {a.name} · {day(a.posting_date || a.modified)}
+                      {tx(a.name)} · {day(a.posting_date || a.modified)}
                     </p>
                   </div>
                   <ApplicationStatus status={a.status} />

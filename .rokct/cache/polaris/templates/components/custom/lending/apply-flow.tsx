@@ -44,6 +44,7 @@ import { DocumentChecklist } from "./document-checklist";
 import { money } from "./borrower-format";
 
 import t from "@/app/lib/i18n";
+import { tx } from "@/app/lib/i18n/phrases";
 interface Details {
   loan_amount?: number;
   monthly_income?: number;
@@ -172,7 +173,7 @@ export function ApplyFlow({
     return (
       <div className="space-y-4">
         <h1 className="text-2xl font-semibold">{t("polaris.we_can_t_offer_a_loan_right_now")}</h1>
-        <p className="text-muted-foreground">{declined}</p>
+        <p className="text-muted-foreground">{tx(declined)}</p>
         <Button asChild variant="outline">
           <Link href="/loans">{t("polaris.back_to_my_loans")}</Link>
         </Button>
@@ -197,16 +198,16 @@ export function ApplyFlow({
                     : "border-dashed border-border text-muted-foreground")
               }
             >
-              {i + 1}. {label}
+              {i + 1}. {tx(label)}
             </li>
           ))}
         </ol>
       </div>
 
       {note && step < 3 && (
-        <p className="rounded-md border border-border bg-muted/40 p-3 text-sm">{note}</p>
+        <p className="rounded-md border border-border bg-muted/40 p-3 text-sm">{tx(note)}</p>
       )}
-      {error && <p className="text-sm text-destructive">{error}</p>}
+      {error && <p className="text-sm text-destructive">{tx(error)}</p>}
 
       {step === 0 && (
         <section className="space-y-4">
@@ -226,7 +227,7 @@ export function ApplyFlow({
             <Input type="number" inputMode="decimal" min={0} value={details.existing_credits ?? ""} onChange={set("existing_credits")} />
           </Field>
           {details.monthly_income ? (
-            <p className="text-sm text-muted-foreground">Left over each month: {money(leftOver, currency)}</p>
+            <p className="text-sm text-muted-foreground">{tx("Left over each month:")}{" "}{money(leftOver, currency)}</p>
           ) : null}
           <Button onClick={stepOne} disabled={busy}>{busy ? "Checking…" : "Next"}</Button>
         </section>
@@ -268,8 +269,7 @@ export function ApplyFlow({
           <label className="flex items-start gap-3 text-sm">
             <input type="checkbox" className="mt-1" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
             <span>
-              I agree that {lender || "the lender"} may check my credit record and read the bank statements I upload to
-              decide on this application.
+              {tx("I agree that")}{" "}{lender || "the lender"} {tx("may check my credit record and read the bank statements I upload to decide on this application.")}
             </span>
           </label>
           <p className="text-sm text-muted-foreground">
@@ -285,8 +285,7 @@ export function ApplyFlow({
       {step === 3 && application && (
         <section className="space-y-4">
           <p>
-            {t("polaris.your_application")} <span className="font-medium">{application}</span> is with us. Upload your documents now so we
-            can decide.
+            {t("polaris.your_application")} <span className="font-medium">{tx(application)}</span> {tx("is with us. Upload your documents now so we can decide.")}
           </p>
           <DocumentChecklist loanApplication={application} uploadedFileNames={[]} onChange={() => undefined} />
           <Button onClick={() => router.push(`/loans/${encodeURIComponent(application)}`)}>{t("polaris.done")}</Button>
@@ -299,9 +298,9 @@ export function ApplyFlow({
 function Field({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
   return (
     <div className="space-y-1.5">
-      <Label>{label}</Label>
+      <Label>{tx(label)}</Label>
       {children}
-      {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
+      {hint && <p className="text-xs text-muted-foreground">{tx(hint)}</p>}
     </div>
   );
 }
@@ -309,8 +308,8 @@ function Field({ label, hint, children }: { label: string; hint?: string; childr
 function Fact({ term, value }: { term: string; value: string }) {
   return (
     <div>
-      <dt className="text-sm text-muted-foreground">{term}</dt>
-      <dd className="font-medium">{value}</dd>
+      <dt className="text-sm text-muted-foreground">{tx(term)}</dt>
+      <dd className="font-medium">{tx(value)}</dd>
     </div>
   );
 }

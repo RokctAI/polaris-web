@@ -47,6 +47,7 @@ import { PolarisTheme } from "@/components/custom/landing/polaris-theme";
 import { POLARIS_AUTH_COPY, polarisAuthPanel } from "@/components/custom/polaris-auth/polaris-auth-copy";
 
 import t from "@/app/lib/i18n";
+import { tx } from "@/app/lib/i18n/phrases";
 export interface SiteShellProps {
   children: ReactNode;
   /** Header "Log in" handler from the auth page, passed to base's Header. */
@@ -65,14 +66,14 @@ export function SiteShell({ children, openLoginPopup, openSignupPopup }: SiteShe
       <main className="pa">
         <div className="px-wrap pa-g">
           <aside className="pa-side" aria-label={`About ${name}`}>
-            <p className="pa-kick">{panel.kicker}</p>
+            <p className="pa-kick">{tx(panel.kicker)}</p>
             <p className="pa-h">
-              {panel.title.map((line, i) => (i === panel.title.length - 1 ? <em key={line}>{line}</em> : <span key={line}>{line}</span>))}
+              {panel.title.map((line, i) => (i === panel.title.length - 1 ? <em key={line}>{tx(line)}</em> : <span key={line}>{tx(line)}</span>))}
             </p>
-            <p className="pa-lede">{panel.lede}</p>
+            <p className="pa-lede">{tx(panel.lede)}</p>
             <ul className="pa-pts">
               {POLARIS_AUTH_COPY.points.map((p) => (
-                <li key={p}>{p}</li>
+                <li key={p}>{tx(p)}</li>
               ))}
             </ul>
           </aside>
@@ -83,7 +84,7 @@ export function SiteShell({ children, openLoginPopup, openSignupPopup }: SiteShe
         <div className="px-wrap">
           <div className="px-footer-top">
             <p className="px-display px-footer-motto">
-              <em>{POLARIS_MOTTO}</em>
+              <em>{tx(POLARIS_MOTTO)}</em>
             </p>
             <nav aria-label={t("polaris.footer")} className="pa-foot-nav">
               <a href="/landing">{t("polaris.home")}</a>

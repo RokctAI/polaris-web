@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.14.0
+
+* feat(i18n): the landing, apply, loan and download pages read in Afrikaans
+  when the visitor picks AF: display text goes through base_sdk 1.66.0's
+  `tx()` and the phrase book in `polaris.json` `af.__phrases`. Staff pages
+  stay English. The Afrikaans is machine-drafted and needs a fluent skim.
+
 ## 1.13.1
 
 * style: landing sections rise and fade in as they scroll into view (CSS

@@ -51,6 +51,7 @@ import type { PolarisAppAvailability } from "./polaris-landing-config";
 import { PolarisStoreBadges } from "./polaris-store-badges";
 
 import t from "@/app/lib/i18n";
+import { tx } from "@/app/lib/i18n/phrases";
 /** Which builds the latest release carries, from the server; null until (or unless) it answers. */
 function usePolarisAppAvailability(): PolarisAppAvailability | null {
   const [available, setAvailable] = useState<PolarisAppAvailability | null>(null);
@@ -80,22 +81,22 @@ export default function PolarisHeroForm({ hero, signupUrl, nav }: HeroFormProps)
       <div className="px-hero-copy">
         <p className="px-kicker">
           <span aria-hidden="true" className="px-kicker-dot" />
-          {copy.kicker}
+          {tx(copy.kicker)}
         </p>
         <h1 className="px-h1">
-          {copy.headline.lead} <em>{copy.headline.accent}</em> {copy.headline.tail}
+          {tx(copy.headline.lead)} <em>{tx(copy.headline.accent)}</em> {tx(copy.headline.tail)}
         </h1>
-        <p className="px-hero-lede">{copy.lede}</p>
+        <p className="px-hero-lede">{tx(copy.lede)}</p>
         <div className="px-hero-ctas">
           <Link href={signupUrl} className="px-btn px-btn-lime px-btn-lg">
-            {copy.primary}
+            {tx(copy.primary)}
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link>
           {howOnPage && (
             <a href="#how-it-works" className="px-btn px-btn-ghost px-btn-lg">
-              {copy.secondary}
+              {tx(copy.secondary)}
             </a>
           )}
         </div>
@@ -107,7 +108,7 @@ export default function PolarisHeroForm({ hero, signupUrl, nav }: HeroFormProps)
                 <span aria-hidden="true" className="px-trust-mark">
                   <IconCheck size={12} stroke={3} />
                 </span>
-                {claim}
+                {tx(claim)}
               </li>
             ))}
           </ul>

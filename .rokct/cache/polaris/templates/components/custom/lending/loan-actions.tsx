@@ -32,6 +32,7 @@ import {
   requestPayout,
 } from "@/app/actions/lending/borrower";
 
+import { tx } from "@/app/lib/i18n/phrases";
 type Action = "accept" | "decline" | "payout" | "cancel";
 
 const ACTIONS: Record<Action, { label: string; confirm: string; run: (id: string) => ReturnType<typeof acceptContract> }> = {
@@ -88,7 +89,7 @@ export function LoanActions({ loanApplication, actions }: { loanApplication: str
           </Button>
         ))}
       </div>
-      {error && <p className="text-sm text-destructive">{error}</p>}
+      {error && <p className="text-sm text-destructive">{tx(error)}</p>}
     </div>
   );
 }

@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 
 import { statusWords } from "./borrower-format";
 
+import { tx } from "@/app/lib/i18n/phrases";
 const TONES = {
   neutral: "bg-muted text-muted-foreground",
   good: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200",
@@ -43,7 +44,7 @@ export function ApplicationStatus({
         className,
       )}
     >
-      {words.label}
+      {tx(words.label)}
     </span>
   );
 }

@@ -31,6 +31,7 @@ import type {
 } from "@/components/custom/landing/page-sections";
 
 import t from "@/app/lib/i18n";
+import { tx } from "@/app/lib/i18n/phrases";
 export function PolarisHowItWorksSection({ id }: { id?: string }) {
   const copy = POLARIS_LANDING_CONFIG.how;
   return (
@@ -41,7 +42,7 @@ export function PolarisHowItWorksSection({ id }: { id?: string }) {
           eyebrow={copy.eyebrow}
           title={
             <>
-              Four steps, <em>all of them</em> in your browser.
+              {tx("Four steps,")}{" "}<em>{tx("all of them")}</em> {tx("in your browser.")}
             </>
           }
           blurb={copy.note}
@@ -58,17 +59,17 @@ export function PolarisHowItWorksSection({ id }: { id?: string }) {
                   <i className={index === 0 ? "on" : undefined} aria-hidden="true">
                     {index + 1}
                   </i>
-                  <span className="when">{copy.when[index]}</span>
+                  <span className="when">{tx(copy.when[index])}</span>
                 </div>
-                <h3 className="px-step-title">{step.title}</h3>
-                <p className="px-step-text">{step.text}</p>
+                <h3 className="px-step-title">{tx(step.title)}</h3>
+                <p className="px-step-text">{tx(step.text)}</p>
               </li>
             );
           })}
         </ol>
         <div className="px-next px-next-wide">
           <b>{t("polaris.next")}</b>
-          <span>{copy.next}</span>
+          <span>{tx(copy.next)}</span>
         </div>
       </div>
     </section>

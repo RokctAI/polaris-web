@@ -24,6 +24,7 @@ import {
 } from "@/app/actions/public/lending/quote";
 
 import t from "@/app/lib/i18n";
+import { tx } from "@/app/lib/i18n/phrases";
 // Public page: the link a lender shares with a client who has no app. No
 // login; the token is the key. Accepting records the client's yes to the
 // quote; the loan still goes through the credit decision and the contract.
@@ -57,12 +58,11 @@ export default function PublicLoanQuotePage({
   }
 
   if (quote === undefined)
-    return <p className="p-6 text-gray-600">Loading your quote…</p>;
+    return <p className="p-6 text-gray-600">{tx("Loading your quote…")}</p>;
   if (quote === null)
     return (
       <p className="p-6 text-gray-700">
-        This quote link is invalid, expired or has been replaced. Please ask
-        your lender for a new one.
+        {tx("This quote link is invalid, expired or has been replaced. Please ask your lender for a new one.")}
       </p>
     );
 
@@ -71,16 +71,16 @@ export default function PublicLoanQuotePage({
     <main className="mx-auto max-w-md space-y-6 p-6">
       <div>
         <p className="text-sm font-semibold text-gray-500">
-          Loan quote · {quote.date}
+          {tx("Loan quote ·")}{" "}{tx(quote.date)}
         </p>
         <h1 className="mt-2 text-2xl font-bold text-gray-900">
-          {quote.headline}
+          {tx(quote.headline)}
         </h1>
       </div>
 
       <div>
-        <p className="text-4xl font-bold text-gray-900">{quote.total}</p>
-        <p className="text-gray-600">{quote.total_label}</p>
+        <p className="text-4xl font-bold text-gray-900">{tx(quote.total)}</p>
+        <p className="text-gray-600">{tx(quote.total_label)}</p>
       </div>
 
       <dl className="divide-y divide-gray-200 border-y border-gray-200">
@@ -89,8 +89,8 @@ export default function PublicLoanQuotePage({
             key={line.label}
             className={`flex justify-between py-3 ${i === lines.length - 1 ? "font-bold text-gray-900" : "text-gray-700"}`}
           >
-            <dt>{line.label}</dt>
-            <dd>{line.amount}</dd>
+            <dt>{tx(line.label)}</dt>
+            <dd>{tx(line.amount)}</dd>
           </div>
         ))}
       </dl>
@@ -108,7 +108,7 @@ export default function PublicLoanQuotePage({
           >
             {accepting ? "Accepting…" : "Accept this quote"}
           </button>
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          {error && <p className="text-sm text-red-600">{tx(error)}</p>}
         </div>
       ) : (
         <p className="text-gray-700">
@@ -116,7 +116,7 @@ export default function PublicLoanQuotePage({
         </p>
       )}
 
-      <p className="text-xs text-gray-500">{quote.footer}</p>
+      <p className="text-xs text-gray-500">{tx(quote.footer)}</p>
     </main>
   );
 }

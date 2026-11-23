@@ -23,6 +23,7 @@
 
 import React from "react";
 
+import { tx } from "@/app/lib/i18n/phrases";
 export function PolarisSectionHead({
   index,
   eyebrow,
@@ -39,13 +40,13 @@ export function PolarisSectionHead({
   return (
     <header className="px-head">
       <p className="px-head-index">
-        <span>{index}</span>
-        {eyebrow}
+        <span>{tx(index)}</span>
+        {tx(eyebrow)}
       </p>
       <div className="px-head-main">
-        <h2 className="px-display px-h2">{title}</h2>
-        {blurb && <p className="px-lede">{blurb}</p>}
-        {aside}
+        <h2 className="px-display px-h2">{tx(title)}</h2>
+        {blurb && <p className="px-lede">{tx(blurb)}</p>}
+        {tx(aside)}
       </div>
     </header>
   );

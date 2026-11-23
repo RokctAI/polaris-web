@@ -47,6 +47,7 @@ import type {
 } from "@/components/custom/landing/page-sections";
 
 import t from "@/app/lib/i18n";
+import { tx } from "@/app/lib/i18n/phrases";
 export async function PolarisFooterSection({
   id,
   loginUrl,
@@ -65,7 +66,7 @@ export async function PolarisFooterSection({
         <div className="px-footer-top">
           <div className="px-footer-lead">
             <p className="px-display px-footer-motto">
-              <em>{POLARIS_MOTTO}</em>
+              <em>{tx(POLARIS_MOTTO)}</em>
             </p>
             <PolarisStoreBadges available={available} />
           </div>
@@ -76,7 +77,7 @@ export async function PolarisFooterSection({
                 .filter((link) => link.href.startsWith("#"))
                 .map((link) => (
                   <Link key={link.href} href={link.href}>
-                    {link.label}
+                    {tx(link.label)}
                   </Link>
                 ))}
             </div>
@@ -86,7 +87,7 @@ export async function PolarisFooterSection({
                 .filter((link) => !link.href.startsWith("#"))
                 .map((link) => (
                   <Link key={link.href} href={link.href}>
-                    {link.label}
+                    {tx(link.label)}
                   </Link>
                 ))}
               <Link href={loginUrl}>{t("polaris.sign_in")}</Link>

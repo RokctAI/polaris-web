@@ -28,6 +28,7 @@ import type {
 } from "@/components/custom/landing/page-sections";
 
 import t from "@/app/lib/i18n";
+import { tx } from "@/app/lib/i18n/phrases";
 export function PolarisWhySection({ id }: { id?: string }) {
   const copy = POLARIS_LANDING_CONFIG.why;
   return (
@@ -36,19 +37,19 @@ export function PolarisWhySection({ id }: { id?: string }) {
         <div className="px-why-head">
           <p className="px-head-index">
             <span>03</span>
-            {copy.eyebrow}
+            {tx(copy.eyebrow)}
           </p>
           <h2 className="px-display px-mega">
-            {t("polaris.lending_with_the")} <em>lights on.</em>
+            {t("polaris.lending_with_the")} <em>{tx("lights on.")}</em>
           </h2>
-          <p className="px-lede px-why-blurb">{copy.blurb}</p>
+          <p className="px-lede px-why-blurb">{tx(copy.blurb)}</p>
         </div>
         <ol className="px-why-grid">
           {copy.items.map((item, index) => (
             <li key={item.title}>
               <span className="px-why-num">{String(index + 1).padStart(2, "0")}</span>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
+              <h3>{tx(item.title)}</h3>
+              <p>{tx(item.text)}</p>
             </li>
           ))}
         </ol>
